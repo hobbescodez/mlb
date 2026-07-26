@@ -1,4 +1,4 @@
-<title>MLB Daily Analysis — Saturday, July 25, 2026</title>
+<title>MLB Daily Analysis — Sunday, July 26, 2026</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -219,6 +219,17 @@
   .board-dots .dot-on { color: var(--accent-3); }
   .board-dots .dot-off { color: var(--line); }
 
+  /* Model Predictions table: marks today's highest-conviction row(s) in
+     context, reusing --accent-3 (the same gold already used for the
+     Conviction Board's agreement dots and "Highest conviction tonight"
+     callout) so the visual language for "this is a top pick" stays
+     consistent everywhere it shows up. */
+  tr.top-pick-row { background: var(--accent-3-tint); }
+  tr.top-pick-row:nth-child(even) { background: var(--accent-3-tint); }
+  .top-pick-badge { display: inline-block; margin-left: 6px; font-size: var(--fs-fine); font-weight: 700;
+    padding: 1px 7px; border-radius: 20px; background: var(--accent-3-tint); color: var(--accent-3);
+    border: 1px solid var(--accent-3); white-space: nowrap; }
+
   /* Sparkline: totals-runs ticks (DRatings/BPP/Model/Market) on one line,
      each positioned by its precomputed 0-100 x (see _totals_sparkline in
      build.py) - plain positioned divs rather than an SVG viewBox, so it
@@ -387,9 +398,11 @@
 <div class="hero-band">
 <div class="masthead">
   <h1>MLB Daily Analysis</h1>
-  <div class="meta">Saturday, July 25, 2026<strong>Published 2026-07-25 10:37 PDT</strong></div>
+  <div class="meta">Sunday, July 26, 2026<strong>Published 2026-07-25 23:30 PDT</strong></div>
 </div>
 <div class="disclaimer-strip">Personal-learning report comparing model projections to market/public data. No betting units, stake sizing, or recommended plays anywhere in this report. · Saturday, July 25, 2026 · 14-game slate · season stats + last-30-day trends · ▲▼ trend vs season</div>
+
+<div class="stale-banner">⚠ MoundEdge's page is still dated "Saturday, July 25, 2026 · 14-game slate · season stats + last-30-day trends · ▲▼ trend vs season" as of this run, not today (Sunday, July 26, 2026) — its daily update may not have posted yet. The games below could still be repeating last night's slate. If so, check back later today for a refresh.</div>
 
 </div>
 
@@ -409,10 +422,14 @@
     
 
 
+
+<div class="cg-pct">61.0% DRatings win probability (Detroit Tigers)</div>
+
+
     
 
-<div class="spark" title="Projected total runs: BPP 8.5, Mdl 9.0, Mkt 8.5">
-<div class="spark-tick" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">BPP</span></div><div class="spark-tick" style="left:92.0%"><span class="spark-dot"></span><span class="spark-label">Mdl</span></div><div class="spark-tick is-market" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">Mkt</span></div>
+<div class="spark" title="Projected total runs: DR 8.8, BPP 8.5, Mdl 9.0, Mkt 8.5">
+<div class="spark-tick" style="left:53.4%"><span class="spark-dot"></span><span class="spark-label">DR</span></div><div class="spark-tick" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">BPP</span></div><div class="spark-tick" style="left:92.0%"><span class="spark-dot"></span><span class="spark-label">Mdl</span></div><div class="spark-tick is-market" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">Mkt</span></div>
 </div>
 
 
@@ -423,15 +440,15 @@
   
 <div class="prob-row">
   <span class="prob-label">Kansas City Royals</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:29.5%"></span></span>
-  <span class="prob-pct">30%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:37.5%"></span></span>
+  <span class="prob-pct">38%</span>
 </div>
 
   
 <div class="prob-row is-top">
   <span class="prob-label">Detroit Tigers</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:70.5%"></span></span>
-  <span class="prob-pct">70%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:63.5%"></span></span>
+  <span class="prob-pct">64%</span>
 </div>
 
 </div>
@@ -443,15 +460,15 @@
   
 <div class="prob-row">
   <span class="prob-label">Over 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:43.0%"></span></span>
-  <span class="prob-pct">43%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:46.0%"></span></span>
+  <span class="prob-pct">46%</span>
 </div>
 
   
 <div class="prob-row is-top">
   <span class="prob-label">Under 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:57.0%"></span></span>
-  <span class="prob-pct">57%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:54.0%"></span></span>
+  <span class="prob-pct">54%</span>
 </div>
 
 </div>
@@ -475,13 +492,13 @@
 
 
 
-<div class="cg-pct">50.3% DRatings win probability (Seattle Mariners)</div>
+<div class="cg-pct">52.0% DRatings win probability (Seattle Mariners)</div>
 
 
     
 
-<div class="spark" title="Projected total runs: DR 7.4, BPP 8.2, Mdl 7.9, Mkt 7.5">
-<div class="spark-tick" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">DR</span></div><div class="spark-tick" style="left:92.0%"><span class="spark-dot"></span><span class="spark-label">BPP</span></div><div class="spark-tick" style="left:60.5%"><span class="spark-dot"></span><span class="spark-label">Mdl</span></div><div class="spark-tick is-market" style="left:18.5%"><span class="spark-dot"></span><span class="spark-label">Mkt</span></div>
+<div class="spark" title="Projected total runs: DR 7.1, BPP 8.2, Mdl 7.9, Mkt 7.5">
+<div class="spark-tick" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">DR</span></div><div class="spark-tick" style="left:92.0%"><span class="spark-dot"></span><span class="spark-label">BPP</span></div><div class="spark-tick" style="left:69.5%"><span class="spark-dot"></span><span class="spark-label">Mdl</span></div><div class="spark-tick is-market" style="left:39.5%"><span class="spark-dot"></span><span class="spark-label">Mkt</span></div>
 </div>
 
 
@@ -492,14 +509,14 @@
   
 <div class="prob-row is-top">
   <span class="prob-label">Seattle Mariners</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:51.5%"></span></span>
-  <span class="prob-pct">52%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:50.5%"></span></span>
+  <span class="prob-pct">50%</span>
 </div>
 
   
 <div class="prob-row">
   <span class="prob-label">Texas Rangers</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:49.5%"></span></span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:50.5%"></span></span>
   <span class="prob-pct">50%</span>
 </div>
 
@@ -512,15 +529,15 @@
   
 <div class="prob-row">
   <span class="prob-label">Over 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:30.5%"></span></span>
-  <span class="prob-pct">30%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:27.5%"></span></span>
+  <span class="prob-pct">28%</span>
 </div>
 
   
 <div class="prob-row is-top">
   <span class="prob-label">Under 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:69.5%"></span></span>
-  <span class="prob-pct">70%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:72.5%"></span></span>
+  <span class="prob-pct">72%</span>
 </div>
 
 </div>
@@ -544,6 +561,9 @@
   <div class="kicker">Highest conviction tonight</div>
   
   
+  <div class="also-note">Today's highest-conviction moneyline pick is also a Tigers/Mariners game — see above.</div>
+  
+  
   
   <div class="callout-game">
     <div class="g-row"><span class="g-head"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</span> <span class="g-time">4:05 pm</span></div>
@@ -554,13 +574,13 @@
 
 
 
-<div class="cg-pct">57.2% DRatings win probability (Washington Nationals)</div>
+<div class="cg-pct">51.7% DRatings win probability (Arizona Diamondbacks)</div>
 
 
     
 
-<div class="spark" title="Projected total runs: DR 8.7, BPP 9.7, Mdl 11.1, Mkt 9.0">
-<div class="spark-tick" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">DR</span></div><div class="spark-tick" style="left:42.4%"><span class="spark-dot"></span><span class="spark-label">BPP</span></div><div class="spark-tick" style="left:92.0%"><span class="spark-dot"></span><span class="spark-label">Mdl</span></div><div class="spark-tick is-market" style="left:17.6%"><span class="spark-dot"></span><span class="spark-label">Mkt</span></div>
+<div class="spark" title="Projected total runs: DR 9.4, BPP 9.7, Mdl 11.1, Mkt 9.0">
+<div class="spark-tick" style="left:25.6%"><span class="spark-dot"></span><span class="spark-label">DR</span></div><div class="spark-tick" style="left:36.0%"><span class="spark-dot"></span><span class="spark-label">BPP</span></div><div class="spark-tick" style="left:92.0%"><span class="spark-dot"></span><span class="spark-label">Mdl</span></div><div class="spark-tick is-market" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">Mkt</span></div>
 </div>
 
 
@@ -569,90 +589,19 @@
 <div class="prob-bar-list">
   <div class="prob-bar-kicker">Kalshi win market</div>
   
-<div class="prob-row">
+<div class="prob-row is-top">
   <span class="prob-label">Arizona Diamondbacks</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:44.5%"></span></span>
-  <span class="prob-pct">44%</span>
-</div>
-
-  
-<div class="prob-row is-top">
-  <span class="prob-label">Washington Nationals</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:55.5%"></span></span>
-  <span class="prob-pct">56%</span>
-</div>
-
-</div>
-
-
-
-<div class="prob-bar-list">
-  <div class="prob-bar-kicker">Kalshi total: 9.5 runs</div>
-  
-<div class="prob-row">
-  <span class="prob-label">Over 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:45.5%"></span></span>
-  <span class="prob-pct">46%</span>
-</div>
-
-  
-<div class="prob-row is-top">
-  <span class="prob-label">Under 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:54.5%"></span></span>
-  <span class="prob-pct">54%</span>
-</div>
-
-</div>
-
-
-    <div class="cg-note"><strong>Moneyline —</strong> 
-3/3 agree: <span class="team-chip" style="background:#AB0003" title="WSN"></span><strong>WSN</strong> <span class="muted">(Washington Nationals)</span>
-
-
-
-<br><span class="muted">Kalshi: WSN (ref)</span>
-</div>
-  </div>
-  
-  
-  
-  <div class="callout-game">
-    <div class="g-row"><span class="g-head"><span class="team-chip" style="background:#0C2340" title="CLE"></span>Cleveland Guardians @ <span class="team-chip" style="background:#092C5C" title="TBR"></span>Tampa Bay Rays</span> <span class="g-time">6:10 pm</span></div>
-    <div class="cg-score">
-<strong>Cleveland Guardians</strong> 4.5–4.2
-</div>
-    
-
-
-
-<div class="cg-pct">56.4% DRatings win probability (Tampa Bay Rays)</div>
-
-
-    
-
-<div class="spark" title="Projected total runs: DR 7.8, BPP 8.8, Mdl 8.9, Mkt 7.5">
-<div class="spark-tick" style="left:25.4%"><span class="spark-dot"></span><span class="spark-label">DR</span></div><div class="spark-tick" style="left:86.0%"><span class="spark-dot"></span><span class="spark-label">BPP</span></div><div class="spark-tick" style="left:92.0%"><span class="spark-dot"></span><span class="spark-label">Mdl</span></div><div class="spark-tick is-market" style="left:8.0%"><span class="spark-dot"></span><span class="spark-label">Mkt</span></div>
-</div>
-
-
-    
-
-<div class="prob-bar-list">
-  <div class="prob-bar-kicker">Kalshi win market</div>
-  
-<div class="prob-row">
-  <span class="prob-label">Cleveland Guardians</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:47.5%"></span></span>
-  <span class="prob-pct">48%</span>
-</div>
-
-  
-<div class="prob-row is-top">
-  <span class="prob-label">Tampa Bay Rays</span>
   <span class="prob-bar-track"><span class="prob-bar-fill" style="width:52.5%"></span></span>
   <span class="prob-pct">52%</span>
 </div>
 
+  
+<div class="prob-row">
+  <span class="prob-label">Washington Nationals</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:48.5%"></span></span>
+  <span class="prob-pct">48%</span>
+</div>
+
 </div>
 
 
@@ -660,17 +609,17 @@
 <div class="prob-bar-list">
   <div class="prob-bar-kicker">Kalshi total: 9.5 runs</div>
   
-<div class="prob-row">
+<div class="prob-row is-top">
   <span class="prob-label">Over 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:33.5%"></span></span>
-  <span class="prob-pct">34%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:55.5%"></span></span>
+  <span class="prob-pct">56%</span>
 </div>
 
   
-<div class="prob-row is-top">
+<div class="prob-row">
   <span class="prob-label">Under 9.5</span>
-  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:66.5%"></span></span>
-  <span class="prob-pct">66%</span>
+  <span class="prob-bar-track"><span class="prob-bar-fill" style="width:44.5%"></span></span>
+  <span class="prob-pct">44%</span>
 </div>
 
 </div>
@@ -678,12 +627,12 @@
 
     <div class="cg-note"><strong>Totals —</strong> 
 
-Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
+Market 9.0 → sources avg 10.2 (<strong>OVER</strong> by 1.2) — 3/3 agree
 
 
 
 
-<br><span class="muted">Kalshi: under (ref); Betting split: over (ref)</span>
+<br><span class="muted">Kalshi: over (ref); Betting split: under (ref)</span>
 </div>
   </div>
   
@@ -703,32 +652,17 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
       <tbody>
       
 <tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</td>
-  <td style="white-space:nowrap">4:05 pm</td>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#004687" title="KCR"></span>Kansas City Royals @ <span class="team-chip" style="background:#0C2340" title="DET"></span>Detroit Tigers</td>
+  <td style="white-space:nowrap">1:10 pm</td>
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
 <span style="margin-left:4px">3/3</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#AB0003" title="WSN"></span><strong>WSN</strong> <span class="muted">(Washington Nationals)</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#0C2340" title="DET"></span><strong>DET</strong> <span class="muted">(Detroit Tigers)</span></td>
   <td>
     
     
     
-    Kalshi: WSN (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#2F241D" title="SDP"></span>San Diego Padres @ <span class="team-chip" style="background:#00A3E0" title="MIA"></span>Miami Marlins</td>
-  <td style="white-space:nowrap">4:10 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
-<span style="margin-left:4px">3/3</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#00A3E0" title="MIA"></span><strong>MIA</strong> <span class="muted">(Miami Marlins)</span></td>
-  <td>
-    
-    
-    
-    Kalshi: MIA (ref)
+    Kalshi: DET (ref)
   </td>
 </tr>
 
@@ -744,21 +678,6 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
     
     
     Kalshi: BOS (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#13274F" title="ATL"></span>Atlanta Braves @ <span class="team-chip" style="background:#DF4601" title="BAL"></span>Baltimore Orioles</td>
-  <td style="white-space:nowrap">7:05 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
-<span style="margin-left:4px">3/3</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#DF4601" title="BAL"></span><strong>BAL</strong> <span class="muted">(Baltimore Orioles)</span></td>
-  <td>
-    
-    
-    
-    Kalshi: BAL (ref)
   </td>
 </tr>
 
@@ -808,6 +727,66 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tr>
 
 <tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0C2C56" title="SEA"></span>Seattle Mariners @ <span class="team-chip" style="background:#003278" title="TEX"></span>Texas Rangers</td>
+  <td style="white-space:nowrap">7:15 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
+<span style="margin-left:4px">3/3</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#0C2C56" title="SEA"></span><strong>SEA</strong> <span class="muted">(Seattle Mariners)</span></td>
+  <td>
+    
+    
+    
+    —
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</td>
+  <td style="white-space:nowrap">4:05 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">2/3</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#A71930" title="ARI"></span><strong>ARI</strong> <span class="muted">(Arizona Diamondbacks)</span></td>
+  <td>
+    
+    
+    
+    BPP leans WSN; Kalshi: ARI (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#2F241D" title="SDP"></span>San Diego Padres @ <span class="team-chip" style="background:#00A3E0" title="MIA"></span>Miami Marlins</td>
+  <td style="white-space:nowrap">4:10 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">2/3</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#00A3E0" title="MIA"></span><strong>MIA</strong> <span class="muted">(Miami Marlins)</span></td>
+  <td>
+    
+    
+    
+    My model leans SDP; Kalshi: MIA (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003087" title="NYY"></span>New York Yankees @ <span class="team-chip" style="background:#E81828" title="PHI"></span>Philadelphia Phillies</td>
+  <td style="white-space:nowrap">6:05 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">2/3</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#E81828" title="PHI"></span><strong>PHI</strong> <span class="muted">(Philadelphia Phillies)</span></td>
+  <td>
+    
+    
+    
+    BPP leans NYY; Kalshi: PHI (ref)
+  </td>
+</tr>
+
+<tr>
   <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0C2340" title="CLE"></span>Cleveland Guardians @ <span class="team-chip" style="background:#092C5C" title="TBR"></span>Tampa Bay Rays</td>
   <td style="white-space:nowrap">6:10 pm</td>
   <td style="white-space:nowrap">
@@ -828,12 +807,27 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
 <span style="margin-left:4px">2/3</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#27251F" title="PIT"></span><strong>PIT</strong> <span class="muted">(Pittsburgh Pirates)</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#0E3386" title="CHC"></span><strong>CHC</strong> <span class="muted">(Chicago Cubs)</span></td>
   <td>
     
     
     
-    BPP leans CHC; Kalshi: PIT (ref)
+    DRatings leans PIT; Kalshi: PIT (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#13274F" title="ATL"></span>Atlanta Braves @ <span class="team-chip" style="background:#DF4601" title="BAL"></span>Baltimore Orioles</td>
+  <td style="white-space:nowrap">7:05 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">2/3</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#DF4601" title="BAL"></span><strong>BAL</strong> <span class="muted">(Baltimore Orioles)</span></td>
+  <td>
+    
+    
+    
+    DRatings leans ATL; Kalshi: ATL (ref)
   </td>
 </tr>
 
@@ -843,42 +837,27 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
 <span style="margin-left:4px">2/3</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#C6011F" title="CIN"></span><strong>CIN</strong> <span class="muted">(Cincinnati Reds)</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#C41E3A" title="STL"></span><strong>STL</strong> <span class="muted">(St. Louis Cardinals)</span></td>
   <td>
     
     
     
-    DRatings leans STL; Kalshi: STL (ref)
+    BPP leans CIN; Kalshi: STL (ref)
   </td>
 </tr>
 
 <tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0C2C56" title="SEA"></span>Seattle Mariners @ <span class="team-chip" style="background:#003278" title="TEX"></span>Texas Rangers</td>
-  <td style="white-space:nowrap">7:15 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
-<span style="margin-left:4px">2/3</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#0C2C56" title="SEA"></span><strong>SEA</strong> <span class="muted">(Seattle Mariners)</span></td>
-  <td>
-    
-    
-    
-    My model leans TEX; Kalshi: SEA (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#004687" title="KCR"></span>Kansas City Royals @ <span class="team-chip" style="background:#0C2340" title="DET"></span>Detroit Tigers</td>
-  <td style="white-space:nowrap">1:10 pm</td>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003831" title="ATH"></span>Athletics @ <span class="team-chip" style="background:#002B5C" title="MIN"></span>Minnesota Twins</td>
+  <td style="white-space:nowrap">—</td>
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span></span>
 <span style="margin-left:4px">2/2</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#0C2340" title="DET"></span><strong>DET</strong> <span class="muted">(Detroit Tigers)</span></td>
+  <td style="white-space:nowrap"><span class="team-chip" style="background:#002B5C" title="MIN"></span><strong>MIN</strong> <span class="muted">(Minnesota Twins)</span></td>
   <td>
     
     
     
-    Kalshi: DET (ref)
+    Kalshi: MIN (ref)
   </td>
 </tr>
 
@@ -886,29 +865,14 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#BA0021" title="LAA"></span>Los Angeles Angels @ <span class="team-chip" style="background:#FD5A1E" title="SFG"></span>San Francisco Giants</td>
   <td style="white-space:nowrap">4:05 pm</td>
   <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span></span>
-<span style="margin-left:4px">2/2</span></td>
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">1/2</span></td>
   <td style="white-space:nowrap"><span class="team-chip" style="background:#FD5A1E" title="SFG"></span><strong>SFG</strong> <span class="muted">(San Francisco Giants)</span></td>
   <td>
     
     
     
-    Kalshi: SFG (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003087" title="NYY"></span>New York Yankees @ <span class="team-chip" style="background:#E81828" title="PHI"></span>Philadelphia Phillies</td>
-  <td style="white-space:nowrap">6:05 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-off">○</span></span>
-<span style="margin-left:4px">1/2</span></td>
-  <td style="white-space:nowrap"><span class="team-chip" style="background:#E81828" title="PHI"></span><strong>PHI</strong> <span class="muted">(Philadelphia Phillies)</span></td>
-  <td>
-    
-    
-    
-    BPP leans NYY; Kalshi: NYY (ref)
+    My model leans LAA; Kalshi: SFG (ref)
   </td>
 </tr>
 
@@ -924,97 +888,21 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
       <tbody>
       
 <tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0C2340" title="CLE"></span>Cleveland Guardians @ <span class="team-chip" style="background:#092C5C" title="TBR"></span>Tampa Bay Rays</td>
-  <td style="white-space:nowrap">6:10 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
-<span style="margin-left:4px">3/3</span></td>
-  <td style="white-space:nowrap">
-    
-    Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8)
-    
-  </td>
-  <td>
-    
-    
-    
-    Kalshi: under (ref); Betting split: over (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#13274F" title="ATL"></span>Atlanta Braves @ <span class="team-chip" style="background:#DF4601" title="BAL"></span>Baltimore Orioles</td>
-  <td style="white-space:nowrap">7:05 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
-<span style="margin-left:4px">3/3</span></td>
-  <td style="white-space:nowrap">
-    
-    Market 9.0 → sources avg 9.5 (<strong>OVER</strong> by 0.5)
-    
-  </td>
-  <td>
-    
-    
-    
-    Kalshi: under (ref); Betting split: under (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#33006F" title="COL"></span>Colorado Rockies @ <span class="team-chip" style="background:#12284B" title="MIL"></span>Milwaukee Brewers</td>
-  <td style="white-space:nowrap">7:10 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
-<span style="margin-left:4px">3/3</span></td>
-  <td style="white-space:nowrap">
-    
-    Market 8.5 → sources avg 9.8 (<strong>OVER</strong> by 1.3)
-    
-  </td>
-  <td>
-    
-    
-    
-    Kalshi: under (ref); Betting split: over (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#005A9C" title="LAD"></span>Los Angeles Dodgers @ <span class="team-chip" style="background:#002D72" title="NYM"></span>New York Mets</td>
-  <td style="white-space:nowrap">7:15 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
-<span style="margin-left:4px">3/3</span></td>
-  <td style="white-space:nowrap">
-    
-    Market 8.0 → sources avg 7.3 (<strong>UNDER</strong> by 0.7)
-    
-  </td>
-  <td>
-    
-    
-    
-    Kalshi: under (ref); Betting split: over (ref)
-  </td>
-</tr>
-
-<tr>
   <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</td>
   <td style="white-space:nowrap">4:05 pm</td>
   <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
-<span style="margin-left:4px">2/3</span></td>
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
+<span style="margin-left:4px">3/3</span></td>
   <td style="white-space:nowrap">
     
-    Market 9.0 → sources avg 9.9 (<strong>OVER</strong> by 0.9)
+    Market 9.0 → sources avg 10.2 (<strong>OVER</strong> by 1.2)
     
   </td>
   <td>
     
     
     
-    DRatings leans under by 0.3; Kalshi: under (ref); Betting split: under (ref)
+    Kalshi: over (ref); Betting split: under (ref)
   </td>
 </tr>
 
@@ -1022,18 +910,94 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#BA0021" title="LAA"></span>Los Angeles Angels @ <span class="team-chip" style="background:#FD5A1E" title="SFG"></span>San Francisco Giants</td>
   <td style="white-space:nowrap">4:05 pm</td>
   <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
-<span style="margin-left:4px">2/3</span></td>
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
+<span style="margin-left:4px">3/3</span></td>
   <td style="white-space:nowrap">
     
-    Market 8.5 → sources avg 9.2 (<strong>OVER</strong> by 0.8)
+    Market 8.5 → sources avg 9.1 (<strong>OVER</strong> by 0.6)
     
   </td>
   <td>
     
     
     
-    My model leans under by 0.3; Kalshi: under (ref); Betting split: over (ref)
+    Kalshi: under (ref); Betting split: over (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0E3386" title="CHC"></span>Chicago Cubs @ <span class="team-chip" style="background:#27251F" title="PIT"></span>Pittsburgh Pirates</td>
+  <td style="white-space:nowrap">6:40 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
+<span style="margin-left:4px">3/3</span></td>
+  <td style="white-space:nowrap">
+    
+    Market 8.0 → sources avg 9.2 (<strong>OVER</strong> by 1.2)
+    
+  </td>
+  <td>
+    
+    
+    
+    Kalshi: under (ref); Betting split: over (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#002D62" title="HOU"></span>Houston Astros @ <span class="team-chip" style="background:#27251F" title="CHW"></span>Chicago White Sox</td>
+  <td style="white-space:nowrap">7:10 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
+<span style="margin-left:4px">3/3</span></td>
+  <td style="white-space:nowrap">
+    
+    Market 8.5 → sources avg 9.3 (<strong>OVER</strong> by 0.8)
+    
+  </td>
+  <td>
+    
+    
+    
+    Kalshi: under (ref); Betting split: over (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#C6011F" title="CIN"></span>Cincinnati Reds @ <span class="team-chip" style="background:#C41E3A" title="STL"></span>St. Louis Cardinals</td>
+  <td style="white-space:nowrap">7:15 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-on">●</span></span>
+<span style="margin-left:4px">3/3</span></td>
+  <td style="white-space:nowrap">
+    
+    Market 8.5 → sources avg 8.1 (<strong>UNDER</strong> by 0.4)
+    
+  </td>
+  <td>
+    
+    
+    
+    Kalshi: under (ref); Betting split: over (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#004687" title="KCR"></span>Kansas City Royals @ <span class="team-chip" style="background:#0C2340" title="DET"></span>Detroit Tigers</td>
+  <td style="white-space:nowrap">1:10 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">2/3</span></td>
+  <td style="white-space:nowrap">
+    
+    Market 8.5 → sources avg 8.5 (<strong>UNDER</strong> by 0.0)
+    
+  </td>
+  <td>
+    
+    
+    
+    DRatings leans over by 0.3; Kalshi: under (ref); Betting split: under (ref)
   </td>
 </tr>
 
@@ -1045,7 +1009,7 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <span style="margin-left:4px">2/3</span></td>
   <td style="white-space:nowrap">
     
-    Market 8.0 → sources avg 8.2 (<strong>OVER</strong> by 0.2)
+    Market 8.0 → sources avg 9.4 (<strong>OVER</strong> by 1.4)
     
   </td>
   <td>
@@ -1064,6 +1028,44 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <span style="margin-left:4px">2/3</span></td>
   <td style="white-space:nowrap">
     
+    Market 7.5 → sources avg 9.1 (<strong>OVER</strong> by 1.6)
+    
+  </td>
+  <td>
+    
+    
+    
+    DRatings leans under by 0.5; Kalshi: under (ref); Betting split: over (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003087" title="NYY"></span>New York Yankees @ <span class="team-chip" style="background:#E81828" title="PHI"></span>Philadelphia Phillies</td>
+  <td style="white-space:nowrap">6:05 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">2/3</span></td>
+  <td style="white-space:nowrap">
+    
+    Market 8.5 → sources avg 10.0 (<strong>OVER</strong> by 1.5)
+    
+  </td>
+  <td>
+    
+    
+    
+    DRatings leans under by 0.5; Kalshi: under (ref); Betting split: over (ref)
+  </td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0C2340" title="CLE"></span>Cleveland Guardians @ <span class="team-chip" style="background:#092C5C" title="TBR"></span>Tampa Bay Rays</td>
+  <td style="white-space:nowrap">6:10 pm</td>
+  <td style="white-space:nowrap">
+<span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
+<span style="margin-left:4px">2/3</span></td>
+  <td style="white-space:nowrap">
+    
     Market 7.5 → sources avg 8.4 (<strong>OVER</strong> by 0.9)
     
   </td>
@@ -1071,64 +1073,64 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
     
     
     
-    DRatings leans under by 0.1; Kalshi: under (ref); Betting split: over (ref)
+    DRatings leans under by 1.1; Kalshi: under (ref); Betting split: over (ref)
   </td>
 </tr>
 
 <tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0E3386" title="CHC"></span>Chicago Cubs @ <span class="team-chip" style="background:#27251F" title="PIT"></span>Pittsburgh Pirates</td>
-  <td style="white-space:nowrap">6:40 pm</td>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#13274F" title="ATL"></span>Atlanta Braves @ <span class="team-chip" style="background:#DF4601" title="BAL"></span>Baltimore Orioles</td>
+  <td style="white-space:nowrap">7:05 pm</td>
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
 <span style="margin-left:4px">2/3</span></td>
   <td style="white-space:nowrap">
     
-    Market 8.0 → sources avg 7.6 (<strong>UNDER</strong> by 0.4)
+    Market 9.0 → sources avg 8.7 (<strong>UNDER</strong> by 0.3)
     
   </td>
   <td>
     
     
     
-    BPP leans over by 1.2; Kalshi: under (ref); Betting split: over (ref)
+    BPP leans over by 0.7; Kalshi: under (ref); Betting split: under (ref)
   </td>
 </tr>
 
 <tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#002D62" title="HOU"></span>Houston Astros @ <span class="team-chip" style="background:#27251F" title="CHW"></span>Chicago White Sox</td>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#33006F" title="COL"></span>Colorado Rockies @ <span class="team-chip" style="background:#12284B" title="MIL"></span>Milwaukee Brewers</td>
   <td style="white-space:nowrap">7:10 pm</td>
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
 <span style="margin-left:4px">2/3</span></td>
   <td style="white-space:nowrap">
     
-    Market 8.5 → sources avg 8.3 (<strong>UNDER</strong> by 0.2)
+    Market 8.5 → sources avg 7.9 (<strong>UNDER</strong> by 0.6)
     
   </td>
   <td>
     
     
     
-    BPP leans over by 0.7; Kalshi: under (ref); Betting split: over (ref)
+    BPP leans over by 1.6; Kalshi: under (ref); Betting split: over (ref)
   </td>
 </tr>
 
 <tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#C6011F" title="CIN"></span>Cincinnati Reds @ <span class="team-chip" style="background:#C41E3A" title="STL"></span>St. Louis Cardinals</td>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#005A9C" title="LAD"></span>Los Angeles Dodgers @ <span class="team-chip" style="background:#002D72" title="NYM"></span>New York Mets</td>
   <td style="white-space:nowrap">7:15 pm</td>
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span><span class="dot-off">○</span></span>
 <span style="margin-left:4px">2/3</span></td>
   <td style="white-space:nowrap">
     
-    Market 8.5 → sources avg 8.3 (<strong>UNDER</strong> by 0.2)
+    Market 8.0 → sources avg 7.5 (<strong>UNDER</strong> by 0.5)
     
   </td>
   <td>
     
     
     
-    My model leans over by 0.2; Kalshi: under (ref); Betting split: over (ref)
+    DRatings leans over by 0.9; Kalshi: under (ref); Betting split: over (ref)
   </td>
 </tr>
 
@@ -1140,52 +1142,33 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <span style="margin-left:4px">2/3</span></td>
   <td style="white-space:nowrap">
     
-    Market 7.5 → sources avg 8.0 (<strong>OVER</strong> by 0.5)
+    Market 7.5 → sources avg 7.2 (<strong>UNDER</strong> by 0.3)
     
   </td>
   <td>
     
     
     
-    DRatings leans under by 0.1; Kalshi: under (ref); Betting split: over (ref)
+    BPP leans over by 0.7; Kalshi: under (ref); Betting split: over (ref)
   </td>
 </tr>
 
 <tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#004687" title="KCR"></span>Kansas City Royals @ <span class="team-chip" style="background:#0C2340" title="DET"></span>Detroit Tigers</td>
-  <td style="white-space:nowrap">1:10 pm</td>
+  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003831" title="ATH"></span>Athletics @ <span class="team-chip" style="background:#002B5C" title="MIN"></span>Minnesota Twins</td>
+  <td style="white-space:nowrap">—</td>
   <td style="white-space:nowrap">
 <span class="board-dots"><span class="dot-on">●</span><span class="dot-on">●</span></span>
 <span style="margin-left:4px">2/2</span></td>
   <td style="white-space:nowrap">
     
-    Market 8.5 → sources avg 8.2 (<strong>UNDER</strong> by 0.3)
+    Market 10.0 → sources avg 9.1 (<strong>UNDER</strong> by 0.9)
     
   </td>
   <td>
     
     
     
-    Kalshi: under (ref); Betting split: under (ref)
-  </td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003087" title="NYY"></span>New York Yankees @ <span class="team-chip" style="background:#E81828" title="PHI"></span>Philadelphia Phillies</td>
-  <td style="white-space:nowrap">6:05 pm</td>
-  <td style="white-space:nowrap">
-<span class="board-dots"><span class="dot-on">●</span><span class="dot-off">○</span></span>
-<span style="margin-left:4px">1/2</span></td>
-  <td style="white-space:nowrap">
-    
-    Market 8.5 → sources avg 8.4 (<strong>UNDER</strong> by 0.1)
-    
-  </td>
-  <td>
-    
-    
-    
-    BPP leans over by 1.0; Kalshi: under (ref); Betting split: over (ref)
+    Kalshi: over (ref)
   </td>
 </tr>
 
@@ -1225,14 +1208,14 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tr>
 
 <tr>
-<td><span class="g-head"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</span></td>
-<td style="white-space:nowrap">4:05 pm</td>
+<td><span class="g-head"><span class="team-chip" style="background:#134A8E" title="TOR"></span>Toronto Blue Jays @ <span class="team-chip" style="background:#BD3039" title="BOS"></span>Boston Red Sox</span></td>
+<td style="white-space:nowrap">4:10 pm</td>
 <td class="num">
-<strong>Washington Nationals</strong> 4.6–5.1
+<strong>Boston Red Sox</strong> 4.3–4.6
 </td>
 <td><span class="badge badge-confidence conf-strong" title="strong consensus"><span class="badge-icon">●</span>Strong</span></td>
-<td><span class="badge badge-weather" title="Weather makes scoring a bit easier"><span class="badge-icon">↑</span>Easier</span></td>
-<td><span class="badge badge-flag" title="Model total differs notably from the market number">≠ Differs from market</span></td>
+<td><span class="badge badge-weather" title="Weather makes scoring notably easier"><span class="badge-icon">↑</span>Easier</span></td>
+<td></td>
 </tr>
 
 <tr>
@@ -1247,17 +1230,6 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tr>
 
 <tr>
-<td><span class="g-head"><span class="team-chip" style="background:#134A8E" title="TOR"></span>Toronto Blue Jays @ <span class="team-chip" style="background:#BD3039" title="BOS"></span>Boston Red Sox</span></td>
-<td style="white-space:nowrap">4:10 pm</td>
-<td class="num">
-<strong>Boston Red Sox</strong> 4.3–4.6
-</td>
-<td><span class="badge badge-confidence conf-strong" title="strong consensus"><span class="badge-icon">●</span>Strong</span></td>
-<td><span class="badge badge-weather" title="Weather makes scoring notably easier"><span class="badge-icon">↑</span>Easier</span></td>
-<td></td>
-</tr>
-
-<tr>
 <td><span class="g-head"><span class="team-chip" style="background:#002D62" title="HOU"></span>Houston Astros @ <span class="team-chip" style="background:#27251F" title="CHW"></span>Chicago White Sox</span></td>
 <td style="white-space:nowrap">7:10 pm</td>
 <td class="num">
@@ -1269,24 +1241,24 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tr>
 
 <tr>
-<td><span class="g-head"><span class="team-chip" style="background:#003087" title="NYY"></span>New York Yankees @ <span class="team-chip" style="background:#E81828" title="PHI"></span>Philadelphia Phillies</span></td>
-<td style="white-space:nowrap">6:05 pm</td>
+<td><span class="g-head"><span class="team-chip" style="background:#003831" title="ATH"></span>Athletics @ <span class="team-chip" style="background:#002B5C" title="MIN"></span>Minnesota Twins</span></td>
+<td style="white-space:nowrap">—</td>
 <td class="num">
-<strong>New York Yankees</strong> 5.0–4.5
+<strong>Minnesota Twins</strong> 4.2–5.0
 </td>
 <td><span class="badge badge-confidence conf-fair" title="fairly confident pick"><span class="badge-icon">◐</span>Fairly confident</span></td>
-<td><span class="badge badge-weather" title="Weather close to a neutral effect on scoring"><span class="badge-icon">—</span>Neutral</span></td>
+<td><span class="badge badge-weather" title="Weather "><span class="badge-icon">—</span>Neutral</span></td>
 <td></td>
 </tr>
 
 <tr>
-<td><span class="g-head"><span class="team-chip" style="background:#003831" title="ATH"></span>Athletics @ <span class="team-chip" style="background:#002B5C" title="MIN"></span>Minnesota Twins</span></td>
-<td style="white-space:nowrap">—</td>
+<td><span class="g-head"><span class="team-chip" style="background:#2F241D" title="SDP"></span>San Diego Padres @ <span class="team-chip" style="background:#00A3E0" title="MIA"></span>Miami Marlins</span></td>
+<td style="white-space:nowrap">4:10 pm</td>
 <td class="num">
-<strong>Minnesota Twins</strong> 4.3–5.3
+<strong>Miami Marlins</strong> 3.7–3.8
 </td>
 <td><span class="badge badge-confidence conf-fair" title="fairly confident pick"><span class="badge-icon">◐</span>Fairly confident</span></td>
-<td><span class="badge badge-weather" title="Weather "><span class="badge-icon">—</span>Neutral</span></td>
+<td><span class="badge badge-weather" title="Weather makes scoring a bit harder"><span class="badge-icon">↓</span>Harder</span></td>
 <td></td>
 </tr>
 
@@ -1305,10 +1277,10 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tr>
 
 <tr>
-<td><span class="g-head"><span class="team-chip" style="background:#0E3386" title="CHC"></span>Chicago Cubs @ <span class="team-chip" style="background:#27251F" title="PIT"></span>Pittsburgh Pirates</span></td>
-<td style="white-space:nowrap">6:40 pm</td>
+<td><span class="g-head"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</span></td>
+<td style="white-space:nowrap">4:05 pm</td>
 <td class="num">
-<strong>Chicago Cubs</strong> 4.7–4.5
+<strong>Washington Nationals</strong> 4.6–5.1
 </td>
 <td><span class="badge badge-confidence conf-mixed" title="mixed signals"><span class="badge-icon">⚠</span>Mixed</span></td>
 <td><span class="badge badge-weather" title="Weather makes scoring a bit easier"><span class="badge-icon">↑</span>Easier</span></td>
@@ -1327,14 +1299,25 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tr>
 
 <tr>
-<td><span class="g-head"><span class="team-chip" style="background:#2F241D" title="SDP"></span>San Diego Padres @ <span class="team-chip" style="background:#00A3E0" title="MIA"></span>Miami Marlins</span></td>
-<td style="white-space:nowrap">4:10 pm</td>
+<td><span class="g-head"><span class="team-chip" style="background:#003087" title="NYY"></span>New York Yankees @ <span class="team-chip" style="background:#E81828" title="PHI"></span>Philadelphia Phillies</span></td>
+<td style="white-space:nowrap">6:05 pm</td>
 <td class="num">
-<strong>Miami Marlins</strong> 3.7–3.8
+<strong>New York Yankees</strong> 5.0–4.5
 </td>
-<td><span class="badge badge-confidence conf-tossup" title="not much consensus"><span class="badge-icon">–</span>Toss-up</span></td>
-<td><span class="badge badge-weather" title="Weather makes scoring a bit harder"><span class="badge-icon">↓</span>Harder</span></td>
+<td><span class="badge badge-confidence conf-mixed" title="mixed signals"><span class="badge-icon">⚠</span>Mixed</span></td>
+<td><span class="badge badge-weather" title="Weather close to a neutral effect on scoring"><span class="badge-icon">—</span>Neutral</span></td>
 <td></td>
+</tr>
+
+<tr>
+<td><span class="g-head"><span class="team-chip" style="background:#0E3386" title="CHC"></span>Chicago Cubs @ <span class="team-chip" style="background:#27251F" title="PIT"></span>Pittsburgh Pirates</span></td>
+<td style="white-space:nowrap">6:40 pm</td>
+<td class="num">
+<strong>Chicago Cubs</strong> 4.7–4.5
+</td>
+<td><span class="badge badge-confidence conf-mixed" title="mixed signals"><span class="badge-icon">⚠</span>Mixed</span></td>
+<td><span class="badge badge-weather" title="Weather makes scoring a bit easier"><span class="badge-icon">↑</span>Easier</span></td>
+<td><span class="badge badge-flag" title="Model total differs notably from the market number">≠ Differs from market</span></td>
 </tr>
 
 <tr>
@@ -1343,7 +1326,7 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <td class="num">
 <strong>Baltimore Orioles</strong> 4.8–4.9
 </td>
-<td><span class="badge badge-confidence conf-tossup" title="not much consensus"><span class="badge-icon">–</span>Toss-up</span></td>
+<td><span class="badge badge-confidence conf-mixed" title="mixed signals"><span class="badge-icon">⚠</span>Mixed</span></td>
 <td><span class="badge badge-weather" title="Weather close to a neutral effect on scoring"><span class="badge-icon">—</span>Neutral</span></td>
 <td></td>
 </tr>
@@ -1370,6 +1353,8 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <a href="#dd-kalshi-depth">Market Depth</a>
   <a href="#dd-predictions">Predictions</a>
   <a href="#dd-track-record">Track Record</a>
+  <a href="#dd-accuracy-all">Accuracy — All Games</a>
+  <a href="#dd-accuracy-predictors">What Predicts Accuracy</a>
   <a href="#dd-sources-summary">Source summary</a>
   <a href="#dd-reddit">Reddit</a>
   <a href="#dd-glossary">Glossary</a>
@@ -1409,7 +1394,7 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr><td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#0C2C56" title="SEA"></span>SEA @ <span class="team-chip" style="background:#003278" title="TEX"></span>TEX</td><td>7:15 pm</td><td>Globe Life</td><td>B. Woo</td><td>N. Eovaldi</td></tr>
 
-<tr><td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003831" title="ATH"></span>ATH @ <span class="team-chip" style="background:#002B5C" title="MIN"></span>MIN</td><td>—</td><td>—</td><td>Mason Barnett</td><td>UNDECIDED UNDECIDED</td></tr>
+<tr><td style="font-weight:600; white-space:nowrap"><span class="team-chip" style="background:#003831" title="ATH"></span>ATH @ <span class="team-chip" style="background:#002B5C" title="MIN"></span>MIN</td><td>—</td><td>—</td><td>Jeffrey Springs</td><td>Connor Prielipp</td></tr>
 
 </tbody>
 </table></div>
@@ -1527,51 +1512,55 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr><td style="font-weight:600; white-space:nowrap">COL @ MIL</td>
   <td style="white-space:nowrap"><strong>MIL</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.4–5.7</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 10.5 runs vs. market total 8.5 runs (off by 2.0)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings projects 8.9 total runs, BPP projects 10.1 (off by 1.2)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Public bets and public money don&#39;t agree</span><span class="detail-main">Total Over: 17-point gap between % of bets and % of money; Total Under: 17-point gap between % of bets and % of money</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">R. Gasser home ERA 3.16 vs season 4.91 (-1.75)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably easier (+8% simulated effect)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">MoundEdge&#39;s trend arrow looks inconsistent</span><span class="detail-main">MIL hitting trend arrow vs L30/season numbers (101.0 vs 103.0)</span></span></div></td></tr>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 10.5 runs vs. market total 8.5 runs (off by 2.0)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings projects 8.3 total runs, BPP projects 10.1 (off by 1.8)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Public bets and public money don&#39;t agree</span><span class="detail-main">Total Over: 17-point gap between % of bets and % of money; Total Under: 17-point gap between % of bets and % of money</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">R. Gasser home ERA 3.16 vs season 4.91 (-1.75)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably easier (+8% simulated effect)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">MoundEdge&#39;s trend arrow looks inconsistent</span><span class="detail-main">MIL hitting trend arrow vs L30/season numbers (101.0 vs 103.0)</span></span></div></td></tr>
 
 <tr><td style="font-weight:600; white-space:nowrap">LAA @ SFG</td>
   <td style="white-space:nowrap">even<br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.8–4.8</span></td>
   <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 10.3 runs vs. market total 8.5 runs (off by 1.8)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the tie team</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">R. Johnson road ERA 7.36 vs season 6.10 (+1.26)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably easier (+9% simulated effect)</span></span></div></td></tr>
 
+<tr><td style="font-weight:600; white-space:nowrap">ARI @ WSN</td>
+  <td style="white-space:nowrap"><strong>WSN</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.6–5.1</span></td>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 11.1 runs vs. market total 9.0 runs (off by 2.1)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the away team, MoundEdge&#39;s BPP sim picks the home team</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Public bets and public money don&#39;t agree</span><span class="detail-main">ML ARI: 19-point gap between % of bets and % of money; ML WSN: 19-point gap between % of bets and % of money</span></span></div></td></tr>
+
 <tr><td style="font-weight:600; white-space:nowrap">CLE @ TBR</td>
   <td style="white-space:nowrap"><strong>CLE</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.5–4.2</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 8.9 runs vs. market total 7.5 runs (off by 1.4)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the away team; DRatings projects 7.8 total runs, BPP projects 8.8 (off by 1.0)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">MoundEdge&#39;s trend arrow looks inconsistent</span><span class="detail-main">CLE hitting trend arrow vs L30/season numbers (96.0 vs 94.0)</span></span></div></td></tr>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 8.9 runs vs. market total 7.5 runs (off by 1.4)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the away team; DRatings projects 6.4 total runs, BPP projects 8.8 (off by 2.4)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">MoundEdge&#39;s trend arrow looks inconsistent</span><span class="detail-main">CLE hitting trend arrow vs L30/season numbers (96.0 vs 94.0)</span></span></div></td></tr>
 
 <tr><td style="font-weight:600; white-space:nowrap">HOU @ CHW</td>
   <td style="white-space:nowrap"><strong>CHW</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.5–4.7</span></td>
   <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 9.7 runs vs. market total 8.5 runs (off by 1.2)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">S. Burke home ERA 4.62 vs season 3.20 (+1.42)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably easier (+9% simulated effect)</span></span></div></td></tr>
 
-<tr><td style="font-weight:600; white-space:nowrap">ARI @ WSN</td>
-  <td style="white-space:nowrap"><strong>WSN</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.6–5.1</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 11.1 runs vs. market total 9.0 runs (off by 2.1)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Public bets and public money don&#39;t agree</span><span class="detail-main">ML ARI: 19-point gap between % of bets and % of money; ML WSN: 19-point gap between % of bets and % of money</span></span></div></td></tr>
+<tr><td style="font-weight:600; white-space:nowrap">LAD @ NYM</td>
+  <td style="white-space:nowrap"><strong>LAD</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.2–3.3</span></td>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings projects 8.9 total runs, BPP projects 7.4 (off by 1.5)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">N. McLean home ERA 4.47 vs season 3.34 (+1.13)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably harder (-12% simulated effect)</span></span></div></td></tr>
 
 <tr><td style="font-weight:600; white-space:nowrap">TOR @ BOS</td>
   <td style="white-space:nowrap"><strong>BOS</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.3–4.6</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings projects 7.4 total runs, BPP projects 9.0 (off by 1.6)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably easier (+13% simulated effect)</span></span></div></td></tr>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings projects 7.0 total runs, BPP projects 9.0 (off by 2.0)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably easier (+13% simulated effect)</span></span></div></td></tr>
 
 <tr><td style="font-weight:600; white-space:nowrap">CHC @ PIT</td>
   <td style="white-space:nowrap"><strong>CHC</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.7–4.5</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 9.5 runs vs. market total 8.0 runs (off by 1.5)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the away team; DRatings projects 7.7 total runs, BPP projects 9.2 (off by 1.5)</span></span></div></td></tr>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Models expect a different total than the betting market</span><span class="detail-main">Model total 9.5 runs vs. market total 8.0 runs (off by 1.5)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the away team</span></span></div></td></tr>
+
+<tr><td style="font-weight:600; white-space:nowrap">ATL @ BAL</td>
+  <td style="white-space:nowrap"><strong>BAL</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.8–4.9</span></td>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the away team, MoundEdge&#39;s BPP sim picks the home team</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">B. Elder road ERA 5.31 vs season 4.06 (+1.25)</span></span></div></td></tr>
 
 <tr><td style="font-weight:600; white-space:nowrap">CIN @ STL</td>
   <td style="white-space:nowrap"><strong>CIN</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.6–3.7</span></td>
   <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the away team</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">H. Greene road ERA 4.50 vs season 6.06 (-1.56)</span></span></div></td></tr>
 
-<tr><td style="font-weight:600; white-space:nowrap">LAD @ NYM</td>
-  <td style="white-space:nowrap"><strong>LAD</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.2–3.3</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">N. McLean home ERA 4.47 vs season 3.34 (+1.13)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Weather/ballpark will change scoring a lot</span><span class="detail-main">makes scoring notably harder (-12% simulated effect)</span></span></div></td></tr>
+<tr><td style="font-weight:600; white-space:nowrap">SEA @ TEX</td>
+  <td style="white-space:nowrap"><strong>SEA</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.3–3.9</span></td>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings projects 7.1 total runs, BPP projects 8.2 (off by 1.1)</span></span></div><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">B. Woo road ERA 6.28 vs season 4.16 (+2.12)</span></span></div></td></tr>
+
+<tr><td style="font-weight:600; white-space:nowrap">SDP @ MIA</td>
+  <td style="white-space:nowrap"><strong>MIA</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">3.7–3.8</span></td>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings projects 9.8 total runs, BPP projects 7.5 (off by 2.2)</span></span></div></td></tr>
 
 <tr><td style="font-weight:600; white-space:nowrap">NYY @ PHI</td>
   <td style="white-space:nowrap"><strong>NYY</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">5.0–4.5</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the away team; DRatings projects 8.4 total runs, BPP projects 9.5 (off by 1.1)</span></span></div></td></tr>
-
-<tr><td style="font-weight:600; white-space:nowrap">ATL @ BAL</td>
-  <td style="white-space:nowrap"><strong>BAL</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.8–4.9</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">B. Elder road ERA 5.31 vs season 4.06 (+1.25)</span></span></div></td></tr>
-
-<tr><td style="font-weight:600; white-space:nowrap">SEA @ TEX</td>
-  <td style="white-space:nowrap"><strong>SEA</strong><br><span class="num" style="font-size:var(--fs-fine);color:var(--muted)">4.3–3.9</span></td>
-  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">Starting pitcher is far from their normal form</span><span class="detail-main">B. Woo road ERA 6.28 vs season 4.16 (+2.12)</span></span></div></td></tr>
+  <td><div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">The two models disagree with each other</span><span class="detail-main">DRatings picks the home team, MoundEdge&#39;s BPP sim picks the away team; DRatings projects 8.0 total runs, BPP projects 9.5 (off by 1.5)</span></span></div></td></tr>
 
 </tbody>
 </table></div>
@@ -1580,6 +1569,15 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <div class="table-wrap"><table>
 <thead><tr><th>Matchup</th><th>Model favors</th><th>Split favors</th><th>Reddit favors</th><th>Kalshi favors</th><th>Verdict</th></tr></thead>
 <tbody>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap">ARI @ WSN</td>
+  <td>away</td>
+  <td>home</td>
+  <td>—</td>
+  <td>away</td>
+  <td><span class="verdict no"><span class="dot"></span>Conflict</span></td>
+</tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">SDP @ MIA</td>
@@ -1595,15 +1593,6 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <td>home</td>
   <td>away</td>
   <td>—</td>
-  <td>away</td>
-  <td><span class="verdict no"><span class="dot"></span>Conflict</span></td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap">ATL @ BAL</td>
-  <td>home</td>
-  <td>away</td>
-  <td>—</td>
   <td>home</td>
   <td><span class="verdict no"><span class="dot"></span>Conflict</span></td>
 </tr>
@@ -1613,21 +1602,12 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <td>away</td>
   <td>home</td>
   <td>—</td>
-  <td>away</td>
+  <td>tie</td>
   <td><span class="verdict no"><span class="dot"></span>Conflict</span></td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">KCR @ DET</td>
-  <td>home</td>
-  <td>home</td>
-  <td>—</td>
-  <td>home</td>
-  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap">ARI @ WSN</td>
   <td>home</td>
   <td>home</td>
   <td>—</td>
@@ -1668,6 +1648,15 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
   <td>home</td>
   <td>—</td>
   <td>home</td>
+  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap">ATL @ BAL</td>
+  <td>away</td>
+  <td>away</td>
+  <td>—</td>
+  <td>away</td>
   <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
 </tr>
 
@@ -1726,29 +1715,29 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">ARI @ WSN</td>
-  <td class="num">8.7<span class="muted"> (-0.3)</span></td>
+  <td class="num">9.4<span class="muted"> (+0.4)</span></td>
   <td class="num">9.7<span class="muted"> (+0.7)</span></td>
   <td class="num">11.1<span class="muted"> (+2.1)</span></td>
   <td class="num">9.0</td>
   <td>
     
-    Market 9.0 → sources avg 9.8 (OVER by 0.8)
+    Market 9.0 → sources avg 10.1 (OVER by 1.1)
     
   </td>
   <td>under</td>
-  <td>under</td>
+  <td>over</td>
   <td><span class="verdict no"><span class="dot"></span>Conflict</span></td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">ATL @ BAL</td>
-  <td class="num">9.1<span class="muted"> (+0.1)</span></td>
+  <td class="num">8.8<span class="muted"> (-0.2)</span></td>
   <td class="num">9.7<span class="muted"> (+0.7)</span></td>
   <td class="num">9.5<span class="muted"> (+0.5)</span></td>
   <td class="num">9.0</td>
   <td>
     
-    Market 9.0 → sources avg 9.4 (OVER by 0.4)
+    Market 9.0 → sources avg 9.3 (OVER by 0.3)
     
   </td>
   <td>under</td>
@@ -1758,13 +1747,13 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">CIN @ STL</td>
-  <td class="num">8.2<span class="muted"> (-0.3)</span></td>
+  <td class="num">8.4<span class="muted"> (-0.1)</span></td>
   <td class="num">8.3<span class="muted"> (-0.2)</span></td>
   <td class="num">7.8<span class="muted"> (-0.7)</span></td>
   <td class="num">8.5</td>
   <td>
     
-    Market 8.5 → sources avg 8.1 (UNDER by 0.4)
+    Market 8.5 → sources avg 8.2 (UNDER by 0.3)
     
   </td>
   <td>over</td>
@@ -1774,13 +1763,13 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">LAD @ NYM</td>
-  <td class="num">7.6<span class="muted"> (-0.4)</span></td>
+  <td class="num">8.9<span class="muted"> (+0.9)</span></td>
   <td class="num">7.4<span class="muted"> (-0.6)</span></td>
   <td class="num">7.6<span class="muted"> (-0.4)</span></td>
   <td class="num">8.0</td>
   <td>
     
-    Market 8.0 → sources avg 7.5 (UNDER by 0.5)
+    Market 8.0 → sources avg 8.0 (UNDER by 0.0)
     
   </td>
   <td>over</td>
@@ -1790,13 +1779,29 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">LAA @ SFG</td>
-  <td class="num">8.9<span class="muted"> (+0.4)</span></td>
+  <td class="num">9.0<span class="muted"> (+0.5)</span></td>
   <td class="num">9.6<span class="muted"> (+1.1)</span></td>
   <td class="num">10.3<span class="muted"> (+1.8)</span></td>
   <td class="num">8.5</td>
   <td>
     
-    Market 8.5 → sources avg 9.6 (OVER by 1.1)
+    Market 8.5 → sources avg 9.7 (OVER by 1.1)
+    
+  </td>
+  <td>over</td>
+  <td>under</td>
+  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap">SDP @ MIA</td>
+  <td class="num">9.8<span class="muted"> (+1.8)</span></td>
+  <td class="num">7.5<span class="muted"> (-0.5)</span></td>
+  <td class="num">8.7<span class="muted"> (+0.7)</span></td>
+  <td class="num">8.0</td>
+  <td>
+    
+    Market 8.0 → sources avg 8.7 (OVER by 0.7)
     
   </td>
   <td>over</td>
@@ -1806,9 +1811,41 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">TOR @ BOS</td>
-  <td class="num">7.4<span class="muted"> (-0.1)</span></td>
+  <td class="num">7.0<span class="muted"> (-0.5)</span></td>
   <td class="num">9.0<span class="muted"> (+1.5)</span></td>
   <td class="num">7.7<span class="muted"> (+0.2)</span></td>
+  <td class="num">7.5</td>
+  <td>
+    
+    Market 7.5 → sources avg 7.9 (OVER by 0.4)
+    
+  </td>
+  <td>over</td>
+  <td>under</td>
+  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap">NYY @ PHI</td>
+  <td class="num">8.0<span class="muted"> (-0.5)</span></td>
+  <td class="num">9.5<span class="muted"> (+1.0)</span></td>
+  <td class="num">9.3<span class="muted"> (+0.8)</span></td>
+  <td class="num">8.5</td>
+  <td>
+    
+    Market 8.5 → sources avg 8.9 (OVER by 0.4)
+    
+  </td>
+  <td>over</td>
+  <td>under</td>
+  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
+</tr>
+
+<tr>
+  <td style="font-weight:600; white-space:nowrap">CLE @ TBR</td>
+  <td class="num">6.4<span class="muted"> (-1.1)</span></td>
+  <td class="num">8.8<span class="muted"> (+1.3)</span></td>
+  <td class="num">8.9<span class="muted"> (+1.4)</span></td>
   <td class="num">7.5</td>
   <td>
     
@@ -1821,46 +1858,14 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tr>
 
 <tr>
-  <td style="font-weight:600; white-space:nowrap">NYY @ PHI</td>
-  <td class="num">8.4<span class="muted"> (-0.1)</span></td>
-  <td class="num">9.5<span class="muted"> (+1.0)</span></td>
-  <td class="num">9.3<span class="muted"> (+0.8)</span></td>
-  <td class="num">8.5</td>
-  <td>
-    
-    Market 8.5 → sources avg 9.1 (OVER by 0.6)
-    
-  </td>
-  <td>over</td>
-  <td>under</td>
-  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
-</tr>
-
-<tr>
-  <td style="font-weight:600; white-space:nowrap">CLE @ TBR</td>
-  <td class="num">7.8<span class="muted"> (+0.3)</span></td>
-  <td class="num">8.8<span class="muted"> (+1.3)</span></td>
-  <td class="num">8.9<span class="muted"> (+1.4)</span></td>
-  <td class="num">7.5</td>
-  <td>
-    
-    Market 7.5 → sources avg 8.5 (OVER by 1.0)
-    
-  </td>
-  <td>over</td>
-  <td>under</td>
-  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Aligned</span></td>
-</tr>
-
-<tr>
   <td style="font-weight:600; white-space:nowrap">CHC @ PIT</td>
-  <td class="num">7.7<span class="muted"> (-0.3)</span></td>
+  <td class="num">8.9<span class="muted"> (+0.9)</span></td>
   <td class="num">9.2<span class="muted"> (+1.2)</span></td>
   <td class="num">9.5<span class="muted"> (+1.5)</span></td>
   <td class="num">8.0</td>
   <td>
     
-    Market 8.0 → sources avg 8.8 (OVER by 0.8)
+    Market 8.0 → sources avg 9.2 (OVER by 1.2)
     
   </td>
   <td>over</td>
@@ -1870,13 +1875,13 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">COL @ MIL</td>
-  <td class="num">8.9<span class="muted"> (+0.4)</span></td>
+  <td class="num">8.3<span class="muted"> (-0.2)</span></td>
   <td class="num">10.1<span class="muted"> (+1.6)</span></td>
   <td class="num">10.5<span class="muted"> (+2.0)</span></td>
   <td class="num">8.5</td>
   <td>
     
-    Market 8.5 → sources avg 9.8 (OVER by 1.3)
+    Market 8.5 → sources avg 9.6 (OVER by 1.1)
     
   </td>
   <td>over</td>
@@ -1886,13 +1891,13 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">HOU @ CHW</td>
-  <td class="num">8.2<span class="muted"> (-0.3)</span></td>
+  <td class="num">9.0<span class="muted"> (+0.5)</span></td>
   <td class="num">9.2<span class="muted"> (+0.7)</span></td>
   <td class="num">9.7<span class="muted"> (+1.2)</span></td>
   <td class="num">8.5</td>
   <td>
     
-    Market 8.5 → sources avg 9.0 (OVER by 0.5)
+    Market 8.5 → sources avg 9.3 (OVER by 0.8)
     
   </td>
   <td>over</td>
@@ -1902,13 +1907,13 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">SEA @ TEX</td>
-  <td class="num">7.4<span class="muted"> (-0.1)</span></td>
+  <td class="num">7.1<span class="muted"> (-0.4)</span></td>
   <td class="num">8.2<span class="muted"> (+0.7)</span></td>
   <td class="num">7.9<span class="muted"> (+0.4)</span></td>
   <td class="num">7.5</td>
   <td>
     
-    Market 7.5 → sources avg 7.8 (OVER by 0.3)
+    Market 7.5 → sources avg 7.7 (OVER by 0.2)
     
   </td>
   <td>over</td>
@@ -1929,121 +1934,121 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <tr>
   <td style="font-weight:600; white-space:nowrap">KCR @ DET</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">KCR</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:29.5%"></span></span><span class="cell-bar-pct">30%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">DET</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:70.5%"></span></span><span class="cell-bar-pct">70%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">KCR</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:37.5%"></span></span><span class="cell-bar-pct">38%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">DET</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:63.5%"></span></span><span class="cell-bar-pct">64%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 43% / Under 57%</td>
+  <td>Over 46% / Under 54%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">ARI @ WSN</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">ARI</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:44.5%"></span></span><span class="cell-bar-pct">44%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">WSN</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:55.5%"></span></span><span class="cell-bar-pct">56%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">ARI</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:52.5%"></span></span><span class="cell-bar-pct">52%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">WSN</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:48.5%"></span></span><span class="cell-bar-pct">48%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 46% / Under 54%</td>
+  <td>Over 56% / Under 44%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">LAA @ SFG</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">LAA</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:45.5%"></span></span><span class="cell-bar-pct">46%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">SFG</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:54.5%"></span></span><span class="cell-bar-pct">54%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">LAA</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:48.5%"></span></span><span class="cell-bar-pct">48%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">SFG</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:52.5%"></span></span><span class="cell-bar-pct">52%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 46% / Under 54%</td>
+  <td>Over 34% / Under 66%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">SDP @ MIA</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">SDP</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:44.5%"></span></span><span class="cell-bar-pct">44%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">MIA</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:56.5%"></span></span><span class="cell-bar-pct">56%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">SDP</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:45.5%"></span></span><span class="cell-bar-pct">46%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">MIA</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:54.5%"></span></span><span class="cell-bar-pct">54%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 34% / Under 66%</td>
+  <td>Over 42% / Under 58%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">TOR @ BOS</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">TOR</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:49.5%"></span></span><span class="cell-bar-pct">50%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">BOS</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:50.5%"></span></span><span class="cell-bar-pct">50%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">TOR</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:44.5%"></span></span><span class="cell-bar-pct">44%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">BOS</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:56.5%"></span></span><span class="cell-bar-pct">56%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 28% / Under 72%</td>
+  <td>Over 36% / Under 64%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">NYY @ PHI</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">NYY</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:53.5%"></span></span><span class="cell-bar-pct">54%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">PHI</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:46.5%"></span></span><span class="cell-bar-pct">46%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">NYY</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:38.5%"></span></span><span class="cell-bar-pct">38%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">PHI</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:61.5%"></span></span><span class="cell-bar-pct">62%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 44% / Under 56%</td>
+  <td>Over 35% / Under 65%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">CLE @ TBR</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">CLE</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:47.5%"></span></span><span class="cell-bar-pct">48%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">TBR</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:52.5%"></span></span><span class="cell-bar-pct">52%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">CLE</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:44.5%"></span></span><span class="cell-bar-pct">44%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">TBR</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:55.5%"></span></span><span class="cell-bar-pct">56%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 34% / Under 66%</td>
+  <td>Over 24% / Under 76%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">CHC @ PIT</td>
   <td>
     <div class="cell-bar-row"><span class="cell-bar-label">CHC</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:46.5%"></span></span><span class="cell-bar-pct">46%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">PIT</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:54.5%"></span></span><span class="cell-bar-pct">54%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">PIT</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:53.5%"></span></span><span class="cell-bar-pct">54%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 34% / Under 66%</td>
+  <td>Over 42% / Under 58%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">ATL @ BAL</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">ATL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:49.5%"></span></span><span class="cell-bar-pct">50%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">BAL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:51.5%"></span></span><span class="cell-bar-pct">52%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">ATL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:50.5%"></span></span><span class="cell-bar-pct">50%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">BAL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:50.0%"></span></span><span class="cell-bar-pct">50%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 46% / Under 54%</td>
+  <td>Over 42% / Under 58%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">COL @ MIL</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">COL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:31.5%"></span></span><span class="cell-bar-pct">32%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">MIL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:68.5%"></span></span><span class="cell-bar-pct">68%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">COL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:24.5%"></span></span><span class="cell-bar-pct">24%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">MIL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:75.5%"></span></span><span class="cell-bar-pct">76%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 46% / Under 54%</td>
+  <td>Over 32% / Under 68%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">HOU @ CHW</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">HOU</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:46.5%"></span></span><span class="cell-bar-pct">46%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">CHW</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:53.5%"></span></span><span class="cell-bar-pct">54%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">HOU</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:49.5%"></span></span><span class="cell-bar-pct">50%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">CHW</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:50.5%"></span></span><span class="cell-bar-pct">50%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 40% / Under 60%</td>
+  <td>Over 48% / Under 52%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">CIN @ STL</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">CIN</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:49.5%"></span></span><span class="cell-bar-pct">50%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">STL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:50.5%"></span></span><span class="cell-bar-pct">50%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">CIN</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:45.5%"></span></span><span class="cell-bar-pct">46%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">STL</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:55.5%"></span></span><span class="cell-bar-pct">56%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 36% / Under 64%</td>
+  <td>Over 40% / Under 60%</td>
 </tr>
 
 <tr>
@@ -2053,27 +2058,27 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
     <div class="cell-bar-row"><span class="cell-bar-label">NYM</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:40.5%"></span></span><span class="cell-bar-pct">40%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 30% / Under 70%</td>
+  <td>Over 48% / Under 52%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">SEA @ TEX</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">SEA</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:51.5%"></span></span><span class="cell-bar-pct">52%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">TEX</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:49.5%"></span></span><span class="cell-bar-pct">50%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">SEA</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:50.5%"></span></span><span class="cell-bar-pct">50%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">TEX</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:50.5%"></span></span><span class="cell-bar-pct">50%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 30% / Under 70%</td>
+  <td>Over 28% / Under 72%</td>
 </tr>
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">ATH @ MIN</td>
   <td>
-    <div class="cell-bar-row"><span class="cell-bar-label">ATH</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:40.5%"></span></span><span class="cell-bar-pct">40%</span></div>
-    <div class="cell-bar-row"><span class="cell-bar-label">MIN</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:59.5%"></span></span><span class="cell-bar-pct">60%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">ATH</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:44.5%"></span></span><span class="cell-bar-pct">44%</span></div>
+    <div class="cell-bar-row"><span class="cell-bar-label">MIN</span><span class="prob-bar-track sm"><span class="prob-bar-fill" style="width:55.5%"></span></span><span class="cell-bar-pct">56%</span></div>
   </td>
   <td class="num">9.5</td>
-  <td>Over 56% / Under 44%</td>
+  <td>Over 54% / Under 46%</td>
 </tr>
 
 </tbody>
@@ -2084,28 +2089,28 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 
 <div class="hero-card">
-  <div class="kicker"><span class="team-chip" style="background:#A71930" title="ARI"></span>ARI @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>WSN</div>
+  <div class="kicker"><span class="team-chip" style="background:#004687" title="KCR"></span>KCR @ <span class="team-chip" style="background:#0C2340" title="DET"></span>DET</div>
 
   <div class="depth-block">
     <div class="depth-block-label">Win market</div>
     
 <div class="depth-row">
-  <span class="depth-name"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks</span>
-  <span class="depth-pct">44%</span>
-  <span class="depth-bidask">bid 44¢ / ask 45¢</span>
+  <span class="depth-name"><span class="team-chip" style="background:#004687" title="KCR"></span>Kansas City Royals</span>
+  <span class="depth-pct">38%</span>
+  <span class="depth-bidask">bid 37¢ / ask 38¢</span>
   
 </div>
 
     
 <div class="depth-row">
-  <span class="depth-name"><span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</span>
-  <span class="depth-pct">56%</span>
-  <span class="depth-bidask">bid 55¢ / ask 56¢</span>
+  <span class="depth-name"><span class="team-chip" style="background:#0C2340" title="DET"></span>Detroit Tigers</span>
+  <span class="depth-pct">64%</span>
+  <span class="depth-bidask">bid 63¢ / ask 64¢</span>
   
 </div>
 
     
-    <div class="depth-stat"><span class="depth-stat-value">429,685</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
+    <div class="depth-stat"><span class="depth-stat-value">34,221</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
   </div>
 
   
@@ -2116,7 +2121,7 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <div class="depth-row">
   <span class="depth-name">Over 9.5</span>
   <span class="depth-pct">46%</span>
-  <span class="depth-bidask">bid 45¢ / ask 46¢</span>
+  <span class="depth-bidask">bid 45¢ / ask 47¢</span>
   
 </div>
 
@@ -2124,11 +2129,11 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <div class="depth-row">
   <span class="depth-name">Under 9.5</span>
   <span class="depth-pct">54%</span>
-  <span class="depth-bidask">bid 54¢ / ask 55¢</span>
+  <span class="depth-bidask">bid 53¢ / ask 55¢</span>
   
 </div>
 
-    <div class="depth-stat"><span class="depth-stat-value">16,305</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
+    <div class="depth-stat"><span class="depth-stat-value">11,104</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
   </div>
   
 
@@ -2136,28 +2141,28 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </div>
 
 <div class="hero-card">
-  <div class="kicker"><span class="team-chip" style="background:#0C2340" title="CLE"></span>CLE @ <span class="team-chip" style="background:#092C5C" title="TBR"></span>TBR</div>
+  <div class="kicker"><span class="team-chip" style="background:#A71930" title="ARI"></span>ARI @ <span class="team-chip" style="background:#AB0003" title="WSN"></span>WSN</div>
 
   <div class="depth-block">
     <div class="depth-block-label">Win market</div>
     
 <div class="depth-row">
-  <span class="depth-name"><span class="team-chip" style="background:#0C2340" title="CLE"></span>Cleveland Guardians</span>
-  <span class="depth-pct">48%</span>
-  <span class="depth-bidask">bid 47¢ / ask 48¢</span>
-  
-</div>
-
-    
-<div class="depth-row">
-  <span class="depth-name"><span class="team-chip" style="background:#092C5C" title="TBR"></span>Tampa Bay Rays</span>
+  <span class="depth-name"><span class="team-chip" style="background:#A71930" title="ARI"></span>Arizona Diamondbacks</span>
   <span class="depth-pct">52%</span>
   <span class="depth-bidask">bid 52¢ / ask 53¢</span>
   
 </div>
 
     
-    <div class="depth-stat"><span class="depth-stat-value">309,756</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
+<div class="depth-row">
+  <span class="depth-name"><span class="team-chip" style="background:#AB0003" title="WSN"></span>Washington Nationals</span>
+  <span class="depth-pct">48%</span>
+  <span class="depth-bidask">bid 48¢ / ask 49¢</span>
+  
+</div>
+
+    
+    <div class="depth-stat"><span class="depth-stat-value">58,393</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
   </div>
 
   
@@ -2167,20 +2172,20 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
     
 <div class="depth-row">
   <span class="depth-name">Over 9.5</span>
-  <span class="depth-pct">34%</span>
-  <span class="depth-bidask">bid 33¢ / ask 34¢</span>
+  <span class="depth-pct">56%</span>
+  <span class="depth-bidask">bid 55¢ / ask 56¢</span>
   
 </div>
 
     
 <div class="depth-row">
   <span class="depth-name">Under 9.5</span>
-  <span class="depth-pct">66%</span>
-  <span class="depth-bidask">bid 66¢ / ask 67¢</span>
+  <span class="depth-pct">44%</span>
+  <span class="depth-bidask">bid 44¢ / ask 45¢</span>
   
 </div>
 
-    <div class="depth-stat"><span class="depth-stat-value">402</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
+    <div class="depth-stat"><span class="depth-stat-value">6,766</span><span class="depth-stat-label">contracts traded, last 24h</span></div>
   </div>
   
 
@@ -2190,174 +2195,219 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 
 <div class="eyebrow" id="dd-predictions"><span class="label">Model Predictions</span><span class="rule"></span></div>
-<div class="disclaimer-strip">Four independent projections per game — they won't always agree with each other, which is normal and part of the point of tracking them. "My model" is the only one built from scratch here (raw Statcast pitcher/team stats, see the Glossary); DRatings, MoundEdge, and BPP are each other sites' own aggregated projections.</div>
+<div class="disclaimer-strip">Four independent projections per game — they won't always agree with each other, which is normal and part of the point of tracking them. "My model" is the only one built from scratch here (raw Statcast pitcher/team stats, see the Glossary); DRatings, MoundEdge, and BPP are each other sites' own aggregated projections. Rows highlighted gold are today's highest-conviction pick(s) - see "Highest conviction tonight" above.</div>
 <div class="table-wrap"><table>
 <thead><tr><th>Matchup</th><th class="num">DRatings</th><th>Winner</th><th class="num">MoundEdge Model</th><th class="num">BPP sim</th><th>BPP winner</th><th class="num">My model</th><th>My model winner</th></tr></thead>
 <tbody>
 
-<tr>
-  <td style="font-weight:600; white-space:nowrap">KCR @ DET</td>
-  <td class="num">—</td>
-  <td>—</td>
+
+
+
+<tr class="top-pick-row">
+  <td style="font-weight:600; white-space:nowrap">KCR @ DET<span class="top-pick-badge" title="Today's highest-conviction moneyline pick">🏆 ML</span></td>
+  <td class="num">3.8–5.0</td>
+  <td>DET (61.0%)</td>
   <td class="num">3.8–5.2</td>
   <td class="num">3.7–4.9</td>
   <td>DET</td>
-  <td class="num">3.2–4.6</td>
+  <td class="num">3.6–4.9</td>
   <td>DET</td>
 </tr>
 
-<tr>
-  <td style="font-weight:600; white-space:nowrap">ARI @ WSN</td>
-  <td class="num">4.0–4.7</td>
-  <td>WSN (57.2%)</td>
+
+
+
+<tr class="top-pick-row">
+  <td style="font-weight:600; white-space:nowrap">ARI @ WSN<span class="top-pick-badge" title="Today's highest-conviction totals pick">↕ Totals</span></td>
+  <td class="num">4.8–4.6</td>
+  <td>ARI (51.7%)</td>
   <td class="num">4.7–6.3</td>
   <td class="num">4.6–5.1</td>
   <td>WSN</td>
-  <td class="num">4.3–5.8</td>
-  <td>WSN</td>
+  <td class="num">5.9–5.6</td>
+  <td>ARI</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">LAA @ SFG</td>
-  <td class="num">4.2–4.8</td>
-  <td>SFG (55.6%)</td>
+  <td class="num">4.5–4.6</td>
+  <td>SFG (50.9%)</td>
   <td class="num">5.2–5.2</td>
   <td class="num">4.8–4.8</td>
   <td>SFG</td>
-  <td class="num">3.9–4.3</td>
-  <td>SFG</td>
+  <td class="num">4.8–3.8</td>
+  <td>LAA</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">SDP @ MIA</td>
-  <td class="num">3.8–4.5</td>
-  <td>MIA (56.4%)</td>
+  <td class="num">4.5–5.3</td>
+  <td>MIA (57.6%)</td>
   <td class="num">4.0–4.7</td>
   <td class="num">3.7–3.8</td>
   <td>MIA</td>
-  <td class="num">3.3–5.0</td>
-  <td>MIA</td>
+  <td class="num">5.4–3.7</td>
+  <td>SDP</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">TOR @ BOS</td>
-  <td class="num">3.5–3.9</td>
-  <td>BOS (53.4%)</td>
+  <td class="num">3.1–3.9</td>
+  <td>BOS (57.7%)</td>
   <td class="num">3.8–3.9</td>
   <td class="num">4.3–4.6</td>
   <td>BOS</td>
-  <td class="num">3.6–4.1</td>
+  <td class="num">3.9–5.4</td>
   <td>BOS</td>
 </tr>
 
+
+
+
 <tr>
   <td style="font-weight:600; white-space:nowrap">NYY @ PHI</td>
-  <td class="num">4.2–4.2</td>
-  <td>PHI (50.4%)</td>
+  <td class="num">3.5–4.6</td>
+  <td>PHI (60.6%)</td>
   <td class="num">5.4–3.9</td>
   <td class="num">5.0–4.5</td>
   <td>NYY</td>
-  <td class="num">—</td>
-  <td>—</td>
+  <td class="num">4.9–5.5</td>
+  <td>PHI</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">CLE @ TBR</td>
-  <td class="num">3.6–4.2</td>
-  <td>TBR (56.4%)</td>
+  <td class="num">3.0–3.5</td>
+  <td>TBR (54.5%)</td>
   <td class="num">4.3–4.7</td>
   <td class="num">4.5–4.2</td>
   <td>CLE</td>
-  <td class="num">4.5–4.0</td>
+  <td class="num">4.5–3.5</td>
   <td>CLE</td>
 </tr>
 
+
+
+
 <tr>
   <td style="font-weight:600; white-space:nowrap">CHC @ PIT</td>
-  <td class="num">3.6–4.1</td>
-  <td>PIT (54.9%)</td>
+  <td class="num">4.2–4.7</td>
+  <td>PIT (54.2%)</td>
   <td class="num">4.4–5.1</td>
   <td class="num">4.7–4.5</td>
   <td>CHC</td>
-  <td class="num">3.6–3.9</td>
-  <td>PIT</td>
+  <td class="num">5.5–4.0</td>
+  <td>CHC</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">ATL @ BAL</td>
-  <td class="num">4.5–4.6</td>
-  <td>BAL (50.3%)</td>
+  <td class="num">4.7–4.1</td>
+  <td>ATL (55.4%)</td>
   <td class="num">4.5–5.0</td>
   <td class="num">4.8–4.9</td>
   <td>BAL</td>
-  <td class="num">4.2–5.6</td>
+  <td class="num">3.8–4.8</td>
   <td>BAL</td>
 </tr>
 
+
+
+
 <tr>
   <td style="font-weight:600; white-space:nowrap">COL @ MIL</td>
-  <td class="num">3.6–5.3</td>
-  <td>MIL (67.0%)</td>
+  <td class="num">2.6–5.6</td>
+  <td>MIL (78.3%)</td>
   <td class="num">4.2–6.2</td>
   <td class="num">4.4–5.7</td>
   <td>MIL</td>
-  <td class="num">4.8–5.6</td>
+  <td class="num">2.9–4.7</td>
   <td>MIL</td>
 </tr>
 
+
+
+
 <tr>
   <td style="font-weight:600; white-space:nowrap">HOU @ CHW</td>
-  <td class="num">3.9–4.3</td>
-  <td>CHW (53.0%)</td>
+  <td class="num">4.5–4.5</td>
+  <td>CHW (50.5%)</td>
   <td class="num">4.3–5.4</td>
   <td class="num">4.5–4.7</td>
   <td>CHW</td>
-  <td class="num">3.3–5.1</td>
+  <td class="num">4.4–5.1</td>
   <td>CHW</td>
 </tr>
 
+
+
+
 <tr>
   <td style="font-weight:600; white-space:nowrap">CIN @ STL</td>
-  <td class="num">4.1–4.2</td>
-  <td>STL (50.6%)</td>
+  <td class="num">4.0–4.4</td>
+  <td>STL (53.5%)</td>
   <td class="num">3.7–4.0</td>
   <td class="num">4.6–3.7</td>
   <td>CIN</td>
-  <td class="num">4.4–4.2</td>
-  <td>CIN</td>
+  <td class="num">3.8–3.9</td>
+  <td>STL</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">LAD @ NYM</td>
-  <td class="num">4.4–3.2</td>
-  <td>LAD (60.9%)</td>
+  <td class="num">4.9–4.0</td>
+  <td>LAD (58.1%)</td>
   <td class="num">4.2–3.3</td>
   <td class="num">4.2–3.3</td>
   <td>LAD</td>
-  <td class="num">3.9–3.1</td>
+  <td class="num">4.3–3.3</td>
   <td>LAD</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">SEA @ TEX</td>
-  <td class="num">3.7–3.7</td>
-  <td>SEA (50.3%)</td>
+  <td class="num">3.6–3.4</td>
+  <td>SEA (52.0%)</td>
   <td class="num">3.9–4.0</td>
   <td class="num">4.3–3.9</td>
   <td>SEA</td>
-  <td class="num">3.7–4.2</td>
-  <td>TEX</td>
+  <td class="num">3.8–3.5</td>
+  <td>SEA</td>
 </tr>
+
+
+
 
 <tr>
   <td style="font-weight:600; white-space:nowrap">ATH @ MIN</td>
-  <td class="num">4.3–5.3</td>
-  <td>MIN (59.6%)</td>
+  <td class="num">4.2–5.0</td>
+  <td>MIN (57.8%)</td>
   <td class="num">—</td>
   <td class="num">—</td>
   <td>—</td>
-  <td class="num">—</td>
-  <td>—</td>
+  <td class="num">4.1–4.8</td>
+  <td>MIN</td>
 </tr>
 
 </tbody>
@@ -2368,6 +2418,15 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <div class="table-wrap"><table>
 <thead><tr><th>Date</th><th>Highest-conviction matchup</th><th>Pick</th><th>Agreement</th><th>Actual winner</th><th>Result</th></tr></thead>
 <tbody>
+
+<tr>
+  <td style="white-space:nowrap">2026-07-25</td>
+  <td style="white-space:nowrap">ARI @ WSN</td>
+  <td><span class="team-chip" style="background:#AB0003" title="WSN"></span>WSN <span class="muted">(Washington Nationals)</span></td>
+  <td>3/3</td>
+  <td>WSN</td>
+  <td><span class="verdict yes"><span class="dot dot-quiet"></span>Correct</span></td>
+</tr>
 
 <tr>
   <td style="white-space:nowrap">2026-07-24</td>
@@ -2404,6 +2463,16 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 <tbody>
 
 <tr>
+  <td style="white-space:nowrap">2026-07-25</td>
+  <td style="white-space:nowrap">ATL @ BAL</td>
+  <td>OVER</td>
+  <td>3/3</td>
+  <td class="num">9.0</td>
+  <td class="num">5</td>
+  <td><span class="verdict no"><span class="dot"></span>Wrong</span></td>
+</tr>
+
+<tr>
   <td style="white-space:nowrap">2026-07-24</td>
   <td style="white-space:nowrap">CHC @ PIT</td>
   <td>OVER</td>
@@ -2436,7 +2505,68 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 </tbody>
 </table></div>
 
-<div class="also-note" style="margin-top:10px">Accuracy shown is based on 3 day(s) of tracking so far - treat this as a small early sample, not a proven track record yet. Only the single highest-conviction pick per category is shown per day (at least 2 of 3 counted sources agreeing, at most one dissenting - same bar as the Conviction Board above), and a day with no game clearing that bar shows "—" rather than a forced pick.</div>
+<div class="also-note" style="margin-top:10px">Accuracy shown is based on 4 day(s) of tracking so far - treat this as a small early sample, not a proven track record yet. Only the single highest-conviction pick per category is shown per day (at least 2 of 3 counted sources agreeing, at most one dissenting - same bar as the Conviction Board above), and a day with no game clearing that bar shows "—" rather than a forced pick.</div>
+
+
+<div class="eyebrow" id="dd-accuracy-all"><span class="label">Accuracy — All Games</span><span class="sub">every scored game, not just the daily top pick - accumulated across every day tracked so far</span><span class="rule"></span></div>
+
+<div class="table-wrap"><table>
+<thead><tr><th>Source</th><th class="num">Moneyline games</th><th class="num">Moneyline correct</th><th class="num">Moneyline accuracy</th><th class="num">Totals games</th><th class="num">Totals avg error (runs)</th></tr></thead>
+<tbody>
+
+<tr>
+  <td style="font-weight:600">DRatings</td>
+  <td class="num">33</td>
+  <td class="num">18</td>
+  <td class="num">54.5%</td>
+  <td class="num">33</td>
+  <td class="num">3.43</td>
+</tr>
+
+<tr>
+  <td style="font-weight:600">BPP</td>
+  <td class="num">48</td>
+  <td class="num">23</td>
+  <td class="num">47.9%</td>
+  <td class="num">51</td>
+  <td class="num">3.58</td>
+</tr>
+
+<tr>
+  <td style="font-weight:600">My model</td>
+  <td class="num">49</td>
+  <td class="num">25</td>
+  <td class="num">51.0%</td>
+  <td class="num">49</td>
+  <td class="num">3.19</td>
+</tr>
+
+</tbody>
+</table></div>
+<div class="also-note" style="margin-top:10px">Every game with a final score counts here, not just the day's single highest-conviction pick - a broader (and noisier) read than Track Record above. A source's blank pick or projection for a given game is excluded from that source's own numbers entirely, never counted as a miss.</div>
+
+
+<div class="eyebrow" id="dd-accuracy-predictors"><span class="label">What Predicts Accuracy</span><span class="sub">does confidence tier, source agreement, or a flagged game actually correlate with a correct pick?</span><span class="rule"></span></div>
+
+
+
+<div class="stale-banner">⚠ Only 4 day(s) of scored games logged so far - not enough data yet to draw conclusions. The numbers below are shown for transparency, but treat them as noise until there's a real sample (roughly 14+ days).</div>
+
+
+<div class="disclaimer-strip">Win-pick accuracy by confidence tier — the report's own "Strong/Fairly confident/Mixed/Toss-up" badge (model, betting split, Reddit, and Kalshi agreement) vs. whether that pick actually won.</div>
+
+<div class="card boxed">No scored games with a confidence tier logged yet.</div>
+
+
+<div class="disclaimer-strip" style="margin-top:16px">Win-pick accuracy by source agreement — how many of DRatings/BPP/My model agreed on the winner that day, and whether more agreement actually meant a more accurate pick.</div>
+
+<div class="card boxed">No scored games with an agreement count logged yet.</div>
+
+
+<div class="disclaimer-strip" style="margin-top:16px">Win-pick accuracy: flagged/notable games (tripped one of the six checks — see "Where Sources Disagree" above) vs. routine games.</div>
+
+<div class="card boxed">No scored games with flagged/notable status logged yet.</div>
+
 
 
 <div class="eyebrow" id="dd-sources-summary"><span class="label">Source Summary</span><span class="rule"></span></div>
@@ -2454,7 +2584,7 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <div class="eyebrow" id="dd-reddit"><span class="label">Reddit Sentiment</span><span class="rule"></span></div>
 
-<div class="disclaimer-strip">Source: rss. fetched via RSS - original post text only, no comment discussion (Reddit&#39;s .json endpoints are blocked; RSS is submissions-only, so this confirms the thread and its OP text, not recurring picks/reasoning across commenters) — thread: "MLB Props and Home Run Picks - 7/25/26 (Saturday)"</div>
+<div class="disclaimer-strip">Source: rss. fetched via RSS - original post text only, no comment discussion (Reddit&#39;s .json endpoints are blocked; RSS is submissions-only, so this confirms the thread and its OP text, not recurring picks/reasoning across commenters) — thread: "MLB Props and Home Run Picks - 7/26/26 (Sunday)"</div>
 
 <div class="disclaimer-strip">Note: RSS only provides the thread's original post, not comments — the mentions below reflect the OP's text alone, not recurring picks/reasoning across posters. For that, paste the thread's text manually (see below).</div>
 
@@ -2506,7 +2636,7 @@ Market 7.5 → sources avg 8.3 (<strong>OVER</strong> by 0.8) — 3/3 agree
 
 <li><span class="src-name">Baseball Savant (My model&#39;s data)</span><a href="https://baseballsavant.mlb.com/" target="_blank" rel="noopener">https://baseballsavant.mlb.com/</a></li>
 
-<li><span class="src-name">Reddit</span><a href="https://www.reddit.com/r/sportsbook/comments/1v5wlhu/mlb_props_and_home_run_picks_72526_saturday/" target="_blank" rel="noopener">https://www.reddit.com/r/sportsbook/comments/1v5wlhu/mlb_props_and_home_run_picks_72526_saturday/</a></li>
+<li><span class="src-name">Reddit</span><a href="https://www.reddit.com/r/sportsbook/comments/1v6sj3b/mlb_props_and_home_run_picks_72626_sunday/" target="_blank" rel="noopener">https://www.reddit.com/r/sportsbook/comments/1v6sj3b/mlb_props_and_home_run_picks_72626_sunday/</a></li>
 </ul>
 
 <div class="final-note">Personal learning project: compares model/market/public-sentiment data to actual outcomes over time. No betting units, stake sizing, or recommended plays are included or implied anywhere in this report.</div>
