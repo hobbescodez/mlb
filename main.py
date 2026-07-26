@@ -17,8 +17,10 @@ from mlb_daily.analysis.build import build_report_data
 from mlb_daily.fetch import dratings, kalshi, moundedge, mymodel, reddit, schedule, sportsbettingdime
 from mlb_daily.report import fonts
 from mlb_daily.report.render import render_artifact_fragment, render_report
+from mlb_daily.tracker.accuracy_breakdown import build_accuracy_breakdown
 from mlb_daily.tracker.log_predictions import log_todays_predictions
 from mlb_daily.tracker.log_results import PREDICTIONS_LOG_PATH, RESULTS_LOG_PATH, fetch_and_log_results
+from mlb_daily.tracker.scoring import score_predictions
 from mlb_daily.tracker.track_record import build_track_record
 
 ET = ZoneInfo("America/New_York")  # MLB slates are organized by US Eastern date
@@ -123,23 +125,60 @@ def main():
     # Track Record section: trailing days' highest-conviction picks vs what
     # actually happened - pure display over the two CSVs above, so a
     # failure here shouldn't take down the rest of the report either.
+    import csv as _csv
+
+    def _read_csv(path):
+        if not path.exists():
+            return []
+        with path.open(newline="", encoding="utf-8") as f:
+            return list(_csv.DictReader(f))
+
+    predictions_rows, results_rows = [], []
     try:
-        import csv as _csv
-
-        def _read_csv(path):
-            if not path.exists():
-                return []
-            with path.open(newline="", encoding="utf-8") as f:
-                return list(_csv.DictReader(f))
-
+        predictions_rows = _read_csv(PREDICTIONS_LOG_PATH)
+        results_rows = _read_csv(RESULTS_LOG_PATH)
         report_data["track_record"] = build_track_record(
-            _read_csv(PREDICTIONS_LOG_PATH), _read_csv(RESULTS_LOG_PATH), num_days=7, exclude_date=today_iso,
+            predictions_rows, results_rows, num_days=7, exclude_date=today_iso,
         )
         print(f"Track record: {len(report_data['track_record'])} day(s)")
     except Exception as e:
         print(f"[warn] Track record build failed: {e}", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
         report_data["track_record"] = []
+
+    # Overall accuracy: every logged/scored game (not just the daily top
+    # pick), accumulated across all days tracked so far - shown alongside
+    # Track Record above, not replacing it. Pure re-use of scoring.py,
+    # which already computes exactly this per source.
+    try:
+        scored = score_predictions(predictions_rows, results_rows)
+        report_data["overall_accuracy"] = [
+            {
+                "label": label,
+                "ml_games": scored["moneyline"][key].games_scored,
+                "ml_correct": scored["moneyline"][key].correct_picks,
+                "ml_pct": scored["moneyline"][key].accuracy_pct,
+                "tot_games": scored["totals"][key].games_scored,
+                "tot_avg_err": scored["totals"][key].avg_abs_error_runs,
+            }
+            for key, label in (("dratings", "DRatings"), ("bpp", "BPP"), ("mymodel", "My model"))
+        ]
+        print(f"Overall accuracy: {len(report_data['overall_accuracy'])} source(s) scored")
+    except Exception as e:
+        print(f"[warn] Overall accuracy build failed: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        report_data["overall_accuracy"] = []
+
+    # "What predicts accuracy" analysis: win-pick accuracy broken out by
+    # confidence tier, source-agreement count, and flagged/notable status -
+    # see accuracy_breakdown.py for the not-enough-data-yet threshold.
+    try:
+        report_data["accuracy_breakdown"] = build_accuracy_breakdown(predictions_rows, results_rows)
+        print(f"Accuracy breakdown: {report_data['accuracy_breakdown']['days_logged']} day(s) with scored games")
+    except Exception as e:
+        print(f"[warn] Accuracy breakdown build failed: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        report_data["accuracy_breakdown"] = None
 
     inline_font_css = _fetch_safe("Google Fonts (Oswald/Inter)", _inline_font_css, "")
     if inline_font_css:

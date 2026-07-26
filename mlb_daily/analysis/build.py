@@ -813,6 +813,27 @@ def _moneyline_votes(m):
     return votes
 
 
+def moneyline_tally(m):
+    """The moneyline vote tally for a game - the majority pick among the 3
+    counted sources (DRatings, BPP, My model) and how many agreed, with no
+    minimum-sources/max-dissent gate (unlike the Conviction Board, which
+    only surfaces games clearing that bar). Used by the prediction logger
+    so every game gets an agreement count recorded, not just the ones the
+    live board highlights - see accuracy_breakdown.py, which needs a
+    per-game agreement count for every scored game to check whether more
+    agreement actually predicts a more accurate pick.
+
+    Returns (pick_abbrev, agree_count, total_count), or (None, 0, 0) if no
+    source had data for this game."""
+    votes = _moneyline_votes(m)
+    if not votes:
+        return None, 0, 0
+    counts = Counter(d for _, d in votes)
+    top_dir, top_count = counts.most_common(1)[0]
+    pick = m.away_abbrev if top_dir == "away" else m.home_abbrev
+    return pick, top_count, len(votes)
+
+
 def _moneyline_reference(m):
     """Kalshi's win-market lean - shown alongside the Moneyline agreement
     count for reference (same team-abbrev direction as the counted votes
@@ -1009,6 +1030,17 @@ def build_report_data(
     top_totals_pick_is_spotlight = bool(
         top_totals_pick and (top_totals_pick["matchup"].away_abbrev, top_totals_pick["matchup"].home_abbrev) in spotlight_keys
     )
+    # (away, home, game_number) keys so the Model Predictions table can mark
+    # today's highest-conviction row(s) in context, not just in the
+    # standalone callout above.
+    top_moneyline_key = (
+        (top_moneyline_pick["matchup"].away_abbrev, top_moneyline_pick["matchup"].home_abbrev, top_moneyline_pick["matchup"].game_number)
+        if top_moneyline_pick else None
+    )
+    top_totals_key = (
+        (top_totals_pick["matchup"].away_abbrev, top_totals_pick["matchup"].home_abbrev, top_totals_pick["matchup"].game_number)
+        if top_totals_pick else None
+    )
 
     # "Clear" = signals agree AND are strong enough to clear the toss-up bar;
     # everything else (weak signals, OR strong-but-conflicting "mixed
@@ -1039,6 +1071,8 @@ def build_report_data(
         "top_picks_same_game": top_picks_same_game,
         "top_moneyline_pick_is_spotlight": top_moneyline_pick_is_spotlight,
         "top_totals_pick_is_spotlight": top_totals_pick_is_spotlight,
+        "top_moneyline_key": top_moneyline_key,
+        "top_totals_key": top_totals_key,
         "kalshi_depth_games": kalshi_depth_games,
         "rest_clear_games": rest_clear_games,
         "rest_toss_up_games": rest_toss_up_games,

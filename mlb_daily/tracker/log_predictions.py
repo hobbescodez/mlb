@@ -30,6 +30,8 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from mlb_daily.analysis.build import moneyline_tally
+
 ET = ZoneInfo("America/New_York")
 
 DEFAULT_LOG_PATH = Path(__file__).resolve().parent.parent / "data" / "predictions_log.csv"
@@ -42,6 +44,15 @@ FIELDNAMES = [
     "kalshi_pick", "kalshi_away_price", "kalshi_home_price",
     "kalshi_total_line", "kalshi_over_pct", "kalshi_total_pick",
     "market_total",
+    # "what predicts accuracy" metadata (see accuracy_breakdown.py) - logged
+    # alongside the pick itself so later analysis never has to recompute
+    # game-day state (confidence tier, agreement count, weather, flags)
+    # from scratch; blank on any row logged before these columns existed,
+    # which analysis code treats the same as "no data for this game" -
+    # never a fabricated 0/None result.
+    "confidence_label", "confidence_score",
+    "prediction_winner_pick", "ml_majority_pick", "ml_agree_count", "ml_total_count",
+    "notable", "weather_net_pct",
 ]
 
 
@@ -73,6 +84,14 @@ class PredictionRow:
     kalshi_over_pct: float | None = None
     kalshi_total_pick: str = ""
     market_total: float | None = None
+    confidence_label: str = ""
+    confidence_score: float | None = None
+    prediction_winner_pick: str = ""
+    ml_majority_pick: str = ""
+    ml_agree_count: int | None = None
+    ml_total_count: int | None = None
+    notable: str = ""
+    weather_net_pct: float | None = None
 
     def as_dict(self):
         return {f.name: getattr(self, f.name) for f in fields(self)}
@@ -115,6 +134,14 @@ def _row_from_matchup(m, today_iso, logged_at):
     game_number = getattr(m, "game_number", 1) or 1
     game_id = f"{today_iso}_{m.away_abbrev}_{m.home_abbrev}_G{game_number}"
 
+    # "what predicts accuracy" metadata - see accuracy_breakdown.py
+    confidence_label = m.prose.get("label", "") if m.prose else ""
+    confidence_score = m.prose.get("score") if m.prose else None
+    prediction_winner_pick = m.prediction_winner if m.prediction_winner and m.prediction_winner != "tie" else ""
+    ml_majority_pick, ml_agree_count, ml_total_count = moneyline_tally(m)
+    notable = "1" if m.flags else "0"
+    weather_net_pct = me.weather_net_pct if me else None
+
     return PredictionRow(
         game_id=game_id,
         date=today_iso,
@@ -142,6 +169,14 @@ def _row_from_matchup(m, today_iso, logged_at):
         kalshi_over_pct=kalshi.over_pct if kalshi else None,
         kalshi_total_pick=kalshi_total_pick,
         market_total=market_total,
+        confidence_label=confidence_label,
+        confidence_score=confidence_score,
+        prediction_winner_pick=prediction_winner_pick,
+        ml_majority_pick=ml_majority_pick or "",
+        ml_agree_count=ml_agree_count or None,
+        ml_total_count=ml_total_count or None,
+        notable=notable,
+        weather_net_pct=weather_net_pct,
     )
 
 
