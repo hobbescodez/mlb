@@ -216,6 +216,17 @@
   .board-dots .dot-on { color: var(--accent-3); }
   .board-dots .dot-off { color: var(--line); }
 
+  /* Model Predictions table: marks today's highest-conviction row(s) in
+     context, reusing --accent-3 (the same gold already used for the
+     Conviction Board's agreement dots and "Highest conviction tonight"
+     callout) so the visual language for "this is a top pick" stays
+     consistent everywhere it shows up. */
+  tr.top-pick-row { background: var(--accent-3-tint); }
+  tr.top-pick-row:nth-child(even) { background: var(--accent-3-tint); }
+  .top-pick-badge { display: inline-block; margin-left: 6px; font-size: var(--fs-fine); font-weight: 700;
+    padding: 1px 7px; border-radius: 20px; background: var(--accent-3-tint); color: var(--accent-3);
+    border: 1px solid var(--accent-3); white-space: nowrap; }
+
   /* Sparkline: totals-runs ticks (DRatings/BPP/Model/Market) on one line,
      each positioned by its precomputed 0-100 x (see _totals_sparkline in
      build.py) - plain positioned divs rather than an SVG viewBox, so it
@@ -640,6 +651,8 @@ Market {{ row.market_total }} → sources avg {{ "%.1f"|format(row.sources_avg_t
   <a href="#dd-kalshi-depth">Market Depth</a>
   <a href="#dd-predictions">Predictions</a>
   <a href="#dd-track-record">Track Record</a>
+  <a href="#dd-accuracy-all">Accuracy — All Games</a>
+  <a href="#dd-accuracy-predictors">What Predicts Accuracy</a>
   <a href="#dd-sources-summary">Source summary</a>
   <a href="#dd-reddit">Reddit</a>
   <a href="#dd-glossary">Glossary</a>
@@ -793,13 +806,16 @@ No Kalshi market depth to show today - either today's highest-conviction picks (
 {% endif %}
 
 <div class="eyebrow" id="dd-predictions"><span class="label">Model Predictions</span><span class="rule"></span></div>
-<div class="disclaimer-strip">Four independent projections per game — they won't always agree with each other, which is normal and part of the point of tracking them. "My model" is the only one built from scratch here (raw Statcast pitcher/team stats, see the Glossary); DRatings, MoundEdge, and BPP are each other sites' own aggregated projections.</div>
+<div class="disclaimer-strip">Four independent projections per game — they won't always agree with each other, which is normal and part of the point of tracking them. "My model" is the only one built from scratch here (raw Statcast pitcher/team stats, see the Glossary); DRatings, MoundEdge, and BPP are each other sites' own aggregated projections. Rows highlighted gold are today's highest-conviction pick(s) - see "Highest conviction tonight" above.</div>
 <div class="table-wrap"><table>
 <thead><tr><th>Matchup</th><th class="num">DRatings</th><th>Winner</th><th class="num">MoundEdge Model</th><th class="num">BPP sim</th><th>BPP winner</th><th class="num">My model</th><th>My model winner</th></tr></thead>
 <tbody>
 {% for m in r.games %}
-<tr>
-  <td style="font-weight:600; white-space:nowrap">{{ m.away_abbrev }} @ {{ m.home_abbrev }}</td>
+{% set mkey = (m.away_abbrev, m.home_abbrev, m.game_number) %}
+{% set is_top_ml = r.top_moneyline_key and mkey == r.top_moneyline_key %}
+{% set is_top_tot = r.top_totals_key and mkey == r.top_totals_key %}
+<tr{% if is_top_ml or is_top_tot %} class="top-pick-row"{% endif %}>
+  <td style="font-weight:600; white-space:nowrap">{{ m.away_abbrev }} @ {{ m.home_abbrev }}{% if is_top_ml %}<span class="top-pick-badge" title="Today's highest-conviction moneyline pick">🏆 ML</span>{% endif %}{% if is_top_tot %}<span class="top-pick-badge" title="Today's highest-conviction totals pick">↕ Totals</span>{% endif %}</td>
   <td class="num">{% if m.dratings and m.dratings.away_projected_runs is not none %}{{ "%.1f"|format(m.dratings.away_projected_runs) }}–{{ "%.1f"|format(m.dratings.home_projected_runs) }}{% else %}—{% endif %}</td>
   <td>{% if m.dratings and m.dratings.away_win_pct is not none %}{{ m.away_abbrev if m.dratings.away_win_pct > m.dratings.home_win_pct else m.home_abbrev }} ({{ m.dratings.away_win_pct if m.dratings.away_win_pct > m.dratings.home_win_pct else m.dratings.home_win_pct }}%){% else %}—{% endif %}</td>
   <td class="num">{% if m.moundedge and m.moundedge.model_away_runs is not none %}{{ "%.1f"|format(m.moundedge.model_away_runs) }}–{{ "%.1f"|format(m.moundedge.model_home_runs) }}{% else %}—{% endif %}</td>
@@ -855,6 +871,99 @@ No Kalshi market depth to show today - either today's highest-conviction picks (
 {% else %}
 <div class="card boxed">
 No track record yet - this fills in once predictions_log.csv and results_log.csv have a few days of history logged.
+</div>
+{% endif %}
+
+<div class="eyebrow" id="dd-accuracy-all"><span class="label">Accuracy — All Games</span><span class="sub">every scored game, not just the daily top pick - accumulated across every day tracked so far</span><span class="rule"></span></div>
+{% if r.overall_accuracy %}
+<div class="table-wrap"><table>
+<thead><tr><th>Source</th><th class="num">Moneyline games</th><th class="num">Moneyline correct</th><th class="num">Moneyline accuracy</th><th class="num">Totals games</th><th class="num">Totals avg error (runs)</th></tr></thead>
+<tbody>
+{% for row in r.overall_accuracy %}
+<tr>
+  <td style="font-weight:600">{{ row.label }}</td>
+  <td class="num">{{ row.ml_games if row.ml_games else "—" }}</td>
+  <td class="num">{{ row.ml_correct if row.ml_games else "—" }}</td>
+  <td class="num">{{ ("%.1f"|format(row.ml_pct)) ~ "%" if row.ml_pct is not none else "—" }}</td>
+  <td class="num">{{ row.tot_games if row.tot_games else "—" }}</td>
+  <td class="num">{{ "%.2f"|format(row.tot_avg_err) if row.tot_avg_err is not none else "—" }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table></div>
+<div class="also-note" style="margin-top:10px">Every game with a final score counts here, not just the day's single highest-conviction pick - a broader (and noisier) read than Track Record above. A source's blank pick or projection for a given game is excluded from that source's own numbers entirely, never counted as a miss.</div>
+{% else %}
+<div class="card boxed">
+No scored games yet - this fills in once results_log.csv has at least one Final game logged.
+</div>
+{% endif %}
+
+<div class="eyebrow" id="dd-accuracy-predictors"><span class="label">What Predicts Accuracy</span><span class="sub">does confidence tier, source agreement, or a flagged game actually correlate with a correct pick?</span><span class="rule"></span></div>
+{% if r.accuracy_breakdown %}
+{% set ab = r.accuracy_breakdown %}
+{% if not ab.enough_data %}
+<div class="stale-banner">⚠ Only {{ ab.days_logged }} day(s) of scored games logged so far - not enough data yet to draw conclusions. The numbers below are shown for transparency, but treat them as noise until there's a real sample (roughly {{ ab.min_days }}+ days).</div>
+{% endif %}
+
+<div class="disclaimer-strip">Win-pick accuracy by confidence tier — the report's own "Strong/Fairly confident/Mixed/Toss-up" badge (model, betting split, Reddit, and Kalshi agreement) vs. whether that pick actually won.</div>
+{% if ab.by_confidence %}
+<div class="table-wrap"><table>
+<thead><tr><th>Confidence tier</th><th class="num">Games</th><th class="num">Correct</th><th class="num">Accuracy</th></tr></thead>
+<tbody>
+{% for row in ab.by_confidence %}
+<tr>
+  <td style="font-weight:600">{{ row.label }}</td>
+  <td class="num">{{ row.n }}</td>
+  <td class="num">{{ row.correct }}</td>
+  <td class="num">{{ ("%.1f"|format(row.pct)) ~ "%" if row.pct is not none else "—" }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table></div>
+{% else %}
+<div class="card boxed">No scored games with a confidence tier logged yet.</div>
+{% endif %}
+
+<div class="disclaimer-strip" style="margin-top:16px">Win-pick accuracy by source agreement — how many of DRatings/BPP/My model agreed on the winner that day, and whether more agreement actually meant a more accurate pick.</div>
+{% if ab.by_agreement %}
+<div class="table-wrap"><table>
+<thead><tr><th>Agreement</th><th class="num">Games</th><th class="num">Correct</th><th class="num">Accuracy</th></tr></thead>
+<tbody>
+{% for row in ab.by_agreement %}
+<tr>
+  <td style="font-weight:600">{{ row.label }}</td>
+  <td class="num">{{ row.n }}</td>
+  <td class="num">{{ row.correct }}</td>
+  <td class="num">{{ ("%.1f"|format(row.pct)) ~ "%" if row.pct is not none else "—" }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table></div>
+{% else %}
+<div class="card boxed">No scored games with an agreement count logged yet.</div>
+{% endif %}
+
+<div class="disclaimer-strip" style="margin-top:16px">Win-pick accuracy: flagged/notable games (tripped one of the six checks — see "Where Sources Disagree" above) vs. routine games.</div>
+{% if ab.by_notable %}
+<div class="table-wrap"><table>
+<thead><tr><th></th><th class="num">Games</th><th class="num">Correct</th><th class="num">Accuracy</th></tr></thead>
+<tbody>
+{% for row in ab.by_notable %}
+<tr>
+  <td style="font-weight:600">{{ row.label }}</td>
+  <td class="num">{{ row.n }}</td>
+  <td class="num">{{ row.correct }}</td>
+  <td class="num">{{ ("%.1f"|format(row.pct)) ~ "%" if row.pct is not none else "—" }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table></div>
+{% else %}
+<div class="card boxed">No scored games with flagged/notable status logged yet.</div>
+{% endif %}
+{% else %}
+<div class="card boxed">
+No scored games yet - this fills in once results_log.csv has at least one Final game logged.
 </div>
 {% endif %}
 
