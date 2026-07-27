@@ -41,10 +41,10 @@
  *      WORKER_URL constant, commit, done.
  */
 
-const OWNER = "meganfinnrigney-eng";
+const OWNER = "hobbescodez";
 const REPO = "mlb";
 const BRANCH = "main";
-const ALLOWED_ORIGIN = "https://meganfinnrigney-eng.github.io";
+const ALLOWED_ORIGIN = "https://hobbescodez.github.io";
 const MAX_TEXT_LENGTH = 200000; // sanity cap, not a real rate limit
 
 function jsonResponse(body, status = 200) {
