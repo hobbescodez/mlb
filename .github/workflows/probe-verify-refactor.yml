@@ -1,0 +1,25 @@
+name: Probe Verify Refactor
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch live index and check structure/content
+        run: |
+          curl -sS "https://hobbescodez.github.io/mlb/" -o live.html
+          echo "--- title ---"
+          grep -o "<title>[^<]*</title>" live.html | head -1
+          echo "--- lines ---"
+          wc -l live.html
+          echo "--- key sections present ---"
+          for s in "CONVICTION BOARD" "MODEL PREDICTIONS" "TRACK RECORD" "Accuracy — All Games" "What Predicts Accuracy" "GLOSSARY" "SOURCES"; do
+            grep -qi "$s" live.html && echo "OK: $s" || echo "MISSING: $s"
+          done
+          echo "--- top-pick / dots / badge markup present ---"
+          grep -c "top-pick-badge\|top-pick-row\|board-dots\|badge-confidence\|badge-weather" live.html
+          echo "--- no leftover template artifacts ---"
+          grep -c "{% include\|{% import\|{% macro" live.html || true
+          echo "--- disclaimer verbatim ---"
+          grep -o "No betting units, stake sizing, or recommended plays anywhere in this report\." live.html | head -1
