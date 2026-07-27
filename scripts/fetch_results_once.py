@@ -1,5 +1,5 @@
 """
-One-off manual invocation of the results tracker (mlb_daily/tracker/log_results.py),
+One-off manual invocation of the results tracker (sports/mlb/tracker/log_results.py),
 for spot-checking real completed games' data in results_log.csv.
 
 Deliberately does NOT touch docs/, MoundEdge, DRatings, Kalshi, or My
@@ -15,7 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from mlb_daily.tracker.log_results import fetch_and_log_results
+from sports.mlb.tracker.log_results import fetch_and_log_results
 
 
 def main():

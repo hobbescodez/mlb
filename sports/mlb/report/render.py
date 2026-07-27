@@ -5,11 +5,16 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 TEMPLATE_DIR = Path(__file__).resolve().parent
+CORE_SITE_TEMPLATE_DIR = Path(__file__).resolve().parent.parent.parent.parent / "core" / "site_template"
 
 
 def _env():
+    # search this sport's own template dir first, then the shared
+    # core/site_template/ dir (base.css, macros.html) - lets
+    # artifact_template.html {% include %} the shared CSS/macros without
+    # duplicating them per sport.
     return Environment(
-        loader=FileSystemLoader(str(TEMPLATE_DIR)),
+        loader=FileSystemLoader([str(TEMPLATE_DIR), str(CORE_SITE_TEMPLATE_DIR)]),
         autoescape=select_autoescape(["html"]),
     )
 
@@ -28,7 +33,7 @@ def render_report(report_data, generated_at, inline_font_css=""):
 
 def render_artifact_fragment(report_data, generated_at, inline_font_css=""):
     """Content-only fragment (no <html>/<head>/<body>) for publishing as a
-    Claude Artifact - see mlb_daily/report/artifact_template.html."""
+    Claude Artifact - see sports/mlb/report/artifact_template.html."""
     return _env().get_template("artifact_template.html").render(
         r=report_data, generated_at=generated_at, inline_font_css=inline_font_css
     )

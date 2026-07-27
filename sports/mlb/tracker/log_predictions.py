@@ -6,7 +6,7 @@ records what each source predicted (and, for Kalshi, what its market
 price was at logging time) purely so accuracy can be compared after the
 fact. There is no order-placement code here, no API credentials beyond
 Kalshi's public read-only market-data GET (the same endpoint
-mlb_daily/fetch/kalshi.py already uses for the report itself - see that
+sports/mlb/fetch/kalshi.py already uses for the report itself - see that
 module's docstring), and no code path that could ever submit a
 transaction. Keep it that way: this module must never grow a write/POST
 call to any trading endpoint.
@@ -30,7 +30,7 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from mlb_daily.analysis.build import moneyline_tally
+from sports.mlb.analysis.build import moneyline_tally
 
 ET = ZoneInfo("America/New_York")
 

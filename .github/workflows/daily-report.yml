@@ -36,14 +36,14 @@ jobs:
           git config user.name "mlb-daily-bot"
           git config user.email "actions@users.noreply.github.com"
           git add docs/
-          if [ -f mlb_daily/report/inline_fonts.cache.css ]; then
-            git add mlb_daily/report/inline_fonts.cache.css
+          if [ -f sports/mlb/report/inline_fonts.cache.css ]; then
+            git add sports/mlb/report/inline_fonts.cache.css
           fi
           # covers predictions_log.csv, results_log.csv, and anything else
           # the tracker writes there in the future - listing files
           # individually here is exactly the bug that silently dropped
           # predictions_log.csv commits until it was caught and fixed
-          git add mlb_daily/data/
+          git add sports/mlb/data/
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

@@ -19,7 +19,7 @@ that generic API docs didn't:
     "over", confirmed structurally, not by parsing text.
   - `yes_sub_title`/`no_sub_title` use Kalshi's own short city/market names
     ("Houston", "Chicago WS", "New York M") which do NOT reliably contain
-    this project's team nicknames, so mlb_daily.teams.abbrev_from_name()
+    this project's team nicknames, so sports.mlb.teams.abbrev_from_name()
     can't resolve them - team identity here comes entirely from the
     3-letter code in the ticker/event_ticker instead.
   - GET /markets?status=open returns markets for every future game, not
@@ -39,7 +39,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 
-from mlb_daily.teams import ABBREV_TO_FULL_NAME, NICKNAME_TO_ABBREV
+from sports.mlb.teams import ABBREV_TO_FULL_NAME, NICKNAME_TO_ABBREV
 
 BASE_URL = "https://external-api.kalshi.com/trade-api/v2"
 

@@ -6,12 +6,13 @@ recommendations of any kind (no stakes, no "plays").
 """
 
 import re
-from collections import Counter
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-from mlb_daily.teams import TEAM_PRIMARY_COLOR, abbrev_from_name, full_name
+from core.conviction import majority_pick, tally_votes
+from core.flagging import Flag, run_checks
+from sports.mlb.teams import TEAM_PRIMARY_COLOR, abbrev_from_name, full_name
 
 ET = ZoneInfo("America/New_York")
 
@@ -97,13 +98,6 @@ _CONFIDENCE_ICONS = {
 
 
 @dataclass
-class Flag:
-    code: str
-    label: str
-    detail: str
-
-
-@dataclass
 class Matchup:
     away_abbrev: str
     home_abbrev: str
@@ -119,7 +113,7 @@ class Matchup:
     dratings: object = None
     moundedge: object = None
     kalshi: object = None
-    mymodel: object = None  # MyModelGame - see mlb_daily/fetch/mymodel.py
+    mymodel: object = None  # MyModelGame - see sports/mlb/fetch/mymodel.py
     reddit_away: object = None
     reddit_home: object = None
 
@@ -271,7 +265,7 @@ def _resolve_source_by_game(candidates, schedule_entries, number_fn, time_fn):
     module docstring addendum below _build_matchups for why this exists.
 
     schedule_entries: [(game_number, sched_dt_utc), ...] for this pair,
-    from the official schedule spine (mlb_daily.fetch.schedule) - the
+    from the official schedule spine (sports.mlb.fetch.schedule) - the
     ground truth for "how many real games are there and when."
 
     number_fn(candidate) -> an explicit game number if this source
@@ -474,7 +468,7 @@ def _build_matchups(dr_games, me_games, reddit_result, kalshi_games=None, mymode
     them apart internally), so joining everything by (away, home) alone
     used to silently collapse a doubleheader's two real games into one
     Matchup - mixing one source's Game 1 row with another source's Game 2
-    row. schedule_games (mlb_daily.fetch.schedule.fetch_today_schedule) is
+    row. schedule_games (sports.mlb.fetch.schedule.fetch_today_schedule) is
     the authoritative spine that fixes this: for each team pair, it's the
     ground truth for how many real games there are today, and each
     source's row(s) get matched to the correct game_number via
@@ -601,10 +595,7 @@ def _build_matchups(dr_games, me_games, reddit_result, kalshi_games=None, mymode
 
         m.totals_spark = _totals_sparkline(m)
 
-        for check in ALL_CHECKS:
-            flag = check(m)
-            if flag:
-                m.flags.append(flag)
+        m.flags = run_checks(m, ALL_CHECKS)
 
         matchups.append(m)
 
@@ -826,12 +817,11 @@ def moneyline_tally(m):
     Returns (pick_abbrev, agree_count, total_count), or (None, 0, 0) if no
     source had data for this game."""
     votes = _moneyline_votes(m)
-    if not votes:
+    top_dir, top_count, total_count = majority_pick(votes)
+    if top_dir is None:
         return None, 0, 0
-    counts = Counter(d for _, d in votes)
-    top_dir, top_count = counts.most_common(1)[0]
     pick = m.away_abbrev if top_dir == "away" else m.home_abbrev
-    return pick, top_count, len(votes)
+    return pick, top_count, total_count
 
 
 def _moneyline_reference(m):
@@ -896,26 +886,21 @@ def _totals_reference(m):
 
 
 def _conviction_row(m, votes, direction_to_label):
-    """Shared scoring for both Conviction Board lists: tallies the votes,
-    finds the majority direction, and reports which sources agree/dissent.
+    """Shared scoring for both Conviction Board lists: tallies the votes
+    via core.conviction's generic engine, then adds the game (m) and
+    reshapes into the plain-dict shape the templates already expect.
     direction_to_label converts a raw direction ('away'/'home' or
     'over'/'under') into the text shown for that direction."""
-    if len(votes) < CONVICTION_MIN_SOURCES:
+    row = tally_votes(votes, CONVICTION_MIN_SOURCES, CONVICTION_MAX_DISSENT, direction_to_label)
+    if row is None:
         return None
-    counts = Counter(d for _, d in votes)
-    top_dir, top_count = counts.most_common(1)[0]
-    total = len(votes)
-    if total - top_count > CONVICTION_MAX_DISSENT:
-        return None
-    agreeing = [src for src, d in votes if d == top_dir]
-    dissenting = [(src, direction_to_label(d)) for src, d in votes if d != top_dir]
     return {
         "matchup": m,
-        "label": direction_to_label(top_dir),
-        "agree_count": top_count,
-        "total_count": total,
-        "agreeing_sources": agreeing,
-        "dissenting": dissenting,
+        "label": row.label,
+        "agree_count": row.agree_count,
+        "total_count": row.total_count,
+        "agreeing_sources": row.agreeing_sources,
+        "dissenting": row.dissenting,
     }
 
 

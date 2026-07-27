@@ -75,7 +75,7 @@ rather than crashing.
 **To include Reddit sentiment on a given day: paste the daily thread's text
 as a message in a Claude session on this project.** No GitHub or git needed
 — just paste the text and ask for it to be picked up; it gets written to
-`mlb_daily/data/reddit_manual_<YYYY-MM-DD>.txt` and the workflow is
+`sports/mlb/data/reddit_manual_<YYYY-MM-DD>.txt` and the workflow is
 re-run so the report (and the published artifact) reflect it right away.
 (Under the hood: `reddit.py` checks for that file before giving up, so
 committing it there manually - e.g. via GitHub's web UI - and re-running
@@ -84,7 +84,7 @@ committing it there manually - e.g. via GitHub's web UI - and re-running
 ## Notable-game triggers
 
 Every game is checked against six triggers (thresholds in
-`mlb_daily/analysis/build.py`):
+`sports/mlb/analysis/build.py`):
 
 - **(a)** model total vs. market total gap `> 1.0` runs
 - **(b)** DRatings vs. MoundEdge BPP disagree on winner or total (`> 1.0` run gap)

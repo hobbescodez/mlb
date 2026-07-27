@@ -4,7 +4,7 @@ the real content is readable) and the SportsBettingDime widget tag/attrs
 that actually carries the betting-split data.
 
 Fourth recon pass: Kalshi's MLB prediction-market data - real market JSON
-so mlb_daily/fetch/kalshi.py's ticker/polarity parsing can be designed
+so sports/mlb/fetch/kalshi.py's ticker/polarity parsing can be designed
 against actual payloads instead of guessed from public docs (which is all
 that was available from the dev sandbox - Kalshi's API itself was
 unreachable from there, likely Cloudflare bot-protection on the edge).
@@ -161,7 +161,7 @@ def probe_moundedge_freshness_now():
     from datetime import datetime
     from zoneinfo import ZoneInfo
 
-    from mlb_daily.fetch import moundedge
+    from sports.mlb.fetch import moundedge
 
     hr("MoundEdge: live freshness check right now")
     now_utc = datetime.now(ZoneInfo("UTC"))
@@ -182,8 +182,8 @@ def probe_moundedge_freshness_now():
 
 
 def probe_dratings():
-    from mlb_daily.fetch import dratings
-    from mlb_daily.teams import abbrev_from_name
+    from sports.mlb.fetch import dratings
+    from sports.mlb.teams import abbrev_from_name
 
     hr("DRatings: raw table structure vs what fetch_today_games() actually returns")
     r = get(dratings.URL, headers=dratings.HEADERS)
@@ -233,8 +233,8 @@ def probe_dratings():
 def probe_doubleheaders():
     from datetime import date
 
-    from mlb_daily.fetch import dratings, kalshi, moundedge
-    from mlb_daily.teams import abbrev_from_name
+    from sports.mlb.fetch import dratings, kalshi, moundedge
+    from sports.mlb.teams import abbrev_from_name
 
     today_iso = date.today().isoformat()
 
@@ -333,7 +333,7 @@ def probe_doubleheaders():
 
     hr("Doubleheader recon: try fetching Statcast rolling stats for each G2 pitcher (both sides)")
     try:
-        import mlb_daily.fetch.mymodel as mymodel
+        import sports.mlb.fetch.mymodel as mymodel
         for pair, sched_games in dh_pairs.items():
             away_ab, home_ab = pair
             g2 = next((s for s in sched_games if s["gameNumber"] == 2), None)
@@ -397,7 +397,7 @@ def probe_final_score_schema():
 
 def probe_reddit_rss():
     """Tests Reddit's RSS feed as an alternative to the .json endpoints
-    (which have been getting 403'd) - see mlb_daily/fetch/reddit.py's
+    (which have been getting 403'd) - see sports/mlb/fetch/reddit.py's
     USER_AGENT/HEADERS, reused as-is here. RSS only ever gives post
     titles/links (plus, it turns out, each entry's own selftext in
     <content>), not comment threads, so this checks: does it work at
@@ -409,7 +409,7 @@ def probe_reddit_rss():
     whether that was genuine blocking or just rapid-fire rate limiting."""
     import time
 
-    from mlb_daily.fetch.reddit import HEADERS
+    from sports.mlb.fetch.reddit import HEADERS
 
     for i, (label, url) in enumerate(
         [

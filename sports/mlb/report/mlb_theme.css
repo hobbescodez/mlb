@@ -1,0 +1,14 @@
+/* MLB-only layer on top of core/site_template/base.css: real Tigers/
+   Mariners team colors, used ONLY as a thin left border + tiny accent dot
+   on that team's own spotlight card, never as a background or dominant
+   fill (see base.css's .callout-game, which this extends). Each sport
+   gets its own small theme file like this one instead of baking any
+   team/league colors into the shared base. */
+:root {
+  --det-navy:#0C2340; --det-orange:#FA4616;
+  --sea-navy:#0C2C56; --sea-teal:#005C5C;
+}
+.callout-game.team-det { border-left-color: var(--det-navy); }
+.callout-game.team-sea { border-left-color: var(--sea-navy); }
+.callout-game.team-det .team-dot { background: var(--det-orange); }
+.callout-game.team-sea .team-dot { background: var(--sea-teal); }

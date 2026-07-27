@@ -11,11 +11,11 @@ then checks each against what actually happened. Scoped to one pick per
 side per day, not all of that day's games, to keep the table readable.
 """
 
-from collections import Counter
 from dataclasses import dataclass
 
-from mlb_daily.analysis.build import CONVICTION_MAX_DISSENT, CONVICTION_MIN_SOURCES
-from mlb_daily.teams import full_name
+from core.conviction import tally_votes
+from sports.mlb.analysis.build import CONVICTION_MAX_DISSENT, CONVICTION_MIN_SOURCES
+from sports.mlb.teams import full_name
 
 _MONEYLINE_FIELDS = (("dratings_pick", "DRatings"), ("bpp_pick", "BPP"), ("mymodel_pick", "My model"))
 _TOTALS_PROJ_FIELDS = (("dratings_total_proj", "DRatings"), ("bpp_total_proj", "BPP"), ("mymodel_total_proj", "My model"))
@@ -71,24 +71,21 @@ def _totals_votes(row):
 
 def _highest_conviction(rows, votes_fn):
     """The single game (from a day's predictions_log rows) with the most
-    source agreement, same 'at least 2 of 3 sources, at most 1 dissenting'
-    bar as build.py's Conviction Board - never a forced pick if nothing
-    clears it. Ties broken the same way the live board is sorted: more
-    agreeing sources first, then more total sources present."""
+    source agreement, via core.conviction's same generic tally used by
+    build.py's live Conviction Board (same CONVICTION_MIN_SOURCES/
+    CONVICTION_MAX_DISSENT bar) - never a forced pick if nothing clears
+    it. Ties broken the same way the live board is sorted: more agreeing
+    sources first, then more total sources present."""
     best = None
     best_key = None
     for row in rows:
         votes = votes_fn(row)
-        if len(votes) < CONVICTION_MIN_SOURCES:
+        tally = tally_votes(votes, CONVICTION_MIN_SOURCES, CONVICTION_MAX_DISSENT, lambda d: d)
+        if tally is None:
             continue
-        counts = Counter(choice for _, choice in votes)
-        top_choice, top_count = counts.most_common(1)[0]
-        total = len(votes)
-        if total - top_count > CONVICTION_MAX_DISSENT:
-            continue
-        key = (top_count, total)
+        key = (tally.agree_count, tally.total_count)
         if best is None or key > best_key:
-            best = (row, top_choice, top_count, total)
+            best = (row, tally.label, tally.agree_count, tally.total_count)
             best_key = key
     return best
 

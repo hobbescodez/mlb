@@ -130,7 +130,7 @@ export default {
     }
 
     const fileDate = isValidDate(date) ? date : todayEasternISO();
-    const path = `mlb_daily/data/reddit_manual_${fileDate}.txt`;
+    const path = `sports/mlb/data/reddit_manual_${fileDate}.txt`;
 
     // Updating an existing file requires its current blob sha; a 404 just
     // means this is the first paste for that date (create, no sha needed).
