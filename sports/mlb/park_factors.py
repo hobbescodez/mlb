@@ -1,6 +1,6 @@
 """
 Hand-maintained run-scoring park factors, keyed by the HOME team's
-canonical abbreviation (see mlb_daily/teams.py).
+canonical abbreviation (see sports/mlb/teams.py).
 
 Why hand-maintained rather than fetched: pybaseball has no dedicated
 park-factor function (`park_codes()` is Retrosheet park ID/location

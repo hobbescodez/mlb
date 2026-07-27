@@ -13,20 +13,20 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from mlb_daily.analysis.build import build_report_data
-from mlb_daily.fetch import dratings, kalshi, moundedge, mymodel, reddit, schedule, sportsbettingdime
-from mlb_daily.report import fonts
-from mlb_daily.report.render import render_artifact_fragment, render_report
-from mlb_daily.tracker.accuracy_breakdown import build_accuracy_breakdown
-from mlb_daily.tracker.log_predictions import log_todays_predictions
-from mlb_daily.tracker.log_results import PREDICTIONS_LOG_PATH, RESULTS_LOG_PATH, fetch_and_log_results
-from mlb_daily.tracker.scoring import score_predictions
-from mlb_daily.tracker.track_record import build_track_record
+from sports.mlb.analysis.build import build_report_data
+from sports.mlb.fetch import dratings, kalshi, moundedge, mymodel, reddit, schedule, sportsbettingdime
+from sports.mlb.report import fonts
+from sports.mlb.report.render import render_artifact_fragment, render_report
+from sports.mlb.tracker.accuracy_breakdown import build_accuracy_breakdown
+from sports.mlb.tracker.log_predictions import log_todays_predictions
+from sports.mlb.tracker.log_results import PREDICTIONS_LOG_PATH, RESULTS_LOG_PATH, fetch_and_log_results
+from sports.mlb.tracker.scoring import score_predictions
+from sports.mlb.tracker.track_record import build_track_record
 
 ET = ZoneInfo("America/New_York")  # MLB slates are organized by US Eastern date
 PT = ZoneInfo("America/Los_Angeles")  # "generated at" is shown in Pacific time
 OUTPUT_DIR = Path(__file__).resolve().parent / "docs"
-FONT_CACHE_PATH = Path(__file__).resolve().parent / "mlb_daily" / "report" / "inline_fonts.cache.css"
+FONT_CACHE_PATH = Path(__file__).resolve().parent / "sports" / "mlb" / "report" / "inline_fonts.cache.css"
 
 
 def _inline_font_css():

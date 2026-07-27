@@ -1,0 +1,26 @@
+{# Shared scorecard components - pair with core/site_template/base.css's
+   classes. Every sport page {% import %}s this file so these render
+   identically everywhere instead of being re-typed as inline HTML per
+   sport/section. #}
+
+{# Agreement dots: total_count dots, agree_count of them filled (gold),
+   the rest hollow - the Conviction Board's at-a-glance "how many sources
+   agree" indicator. #}
+{% macro agreement_dots(agree_count, total_count) %}<span class="board-dots">{% for i in range(total_count) %}{% if i < agree_count %}<span class="dot-on">●</span>{% else %}<span class="dot-off">○</span>{% endif %}{% endfor %}</span>{% endmacro %}
+
+{# Confidence badge: icon + short label (e.g. "● Strong", "◐ Fairly
+   confident", "⚠ Mixed", "– Toss-up") in the confidence-tier color for
+   that tier. `p` is a prose/confidence dict with .icon, .icon_class,
+   .label, .badge - see each sport's analysis module for how it's built. #}
+{% macro confidence_badge(p) %}{% if p %}<span class="badge badge-confidence conf-{{ p.icon_class }}" title="{{ p.label }}"><span class="badge-icon">{{ p.icon }}</span>{{ p.badge }}</span>{% endif %}{% endmacro %}
+
+{# Trend/weather-effect arrow badge: an up/down glyph (or em dash if
+   neutral) plus a short badge word (e.g. "↑ Easier", "↓ Harder",
+   "— Neutral"). arrow/plain/badge come from each sport's own effect
+   calculation (e.g. MLB's weather net-scoring-effect). #}
+{% macro trend_arrow_badge(arrow, plain_title, badge) %}<span class="badge badge-weather" title="{{ plain_title }}"><span class="badge-icon">{{ arrow if arrow else "—" }}</span>{{ badge }}</span>{% endmacro %}
+
+{# Gold "this is today's highest-conviction pick" badge, shown inline
+   next to a matchup name in the Model Predictions table - see base.css's
+   tr.top-pick-row for the matching row highlight. #}
+{% macro top_pick_badge(title, label) %}<span class="top-pick-badge" title="{{ title }}">{{ label }}</span>{% endmacro %}

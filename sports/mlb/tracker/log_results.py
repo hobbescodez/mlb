@@ -5,7 +5,7 @@ for scoring prediction accuracy later. Read-only against the official
 MLB Stats API's basic schedule endpoint (no hydration needed - score and
 status are already present on every game object, confirmed via
 scripts/probe_sources.py's probe_final_score_schema()), the same host
-mlb_daily/fetch/schedule.py already uses. No writes, no order/trade
+sports/mlb/fetch/schedule.py already uses. No writes, no order/trade
 capability anywhere - this only ever reads public schedule data and
 appends historical rows to a local CSV.
 
@@ -25,7 +25,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 
-from mlb_daily.teams import abbrev_from_name
+from sports.mlb.teams import abbrev_from_name
 
 ET = ZoneInfo("America/New_York")
 

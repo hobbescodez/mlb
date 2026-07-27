@@ -15,7 +15,7 @@ does exactly one GET per run and does not retry - we only need the thread
 once a day, and retrying risks tripping the limit further for no benefit.
 
 Manual fallback: drop the thread's text into
-    mlb_daily/data/reddit_manual_<YYYY-MM-DD>.txt
+    sports/mlb/data/reddit_manual_<YYYY-MM-DD>.txt
 (one paste per day, plain text) before/after a run - the next run (or a
 manual `workflow_dispatch` re-run) will pick it up automatically. This is
 still the only way to get real comment-level sentiment into the report.
@@ -30,7 +30,7 @@ from pathlib import Path
 
 import requests
 
-from mlb_daily.teams import NICKNAME_TO_ABBREV
+from sports.mlb.teams import NICKNAME_TO_ABBREV
 
 USER_AGENT = "mlb-daily-tracker/1.0 (personal project; non-commercial daily digest)"
 HEADERS = {"User-Agent": USER_AGENT}
@@ -169,7 +169,7 @@ def fetch_daily_sentiment(today_iso):
             source="unavailable",
             note=(
                 f"live RSS fetch failed ({api_exc}) and no manual paste found at "
-                f"mlb_daily/data/reddit_manual_{today_iso}.txt - to include Reddit "
+                f"sports/mlb/data/reddit_manual_{today_iso}.txt - to include Reddit "
                 f"sentiment today, paste the daily thread's text into that file and "
                 f"re-run the workflow."
             ),

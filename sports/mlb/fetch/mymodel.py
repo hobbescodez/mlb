@@ -29,14 +29,14 @@ Cloudflare even from GitHub Actions' cloud IPs):
         xwOBA plus the league average in one shot (confirmed ~2s for a
         15-day window during recon, not the many-minutes worst case
         feared going in).
-  - mlb_daily/park_factors.py - hand-maintained run-scoring factors
+  - sports/mlb/park_factors.py - hand-maintained run-scoring factors
     (pybaseball has no usable park-factor source; see that module's
     docstring for why).
 
 Every step is defensive (skip-and-continue / None on missing data) -
 this source is best-effort like every other one in this project, and a
 Statcast-schema surprise for one pitcher shouldn't take down the whole
-fetch. Team abbreviations are normalized through mlb_daily.teams, since
+fetch. Team abbreviations are normalized through sports.mlb.teams, since
 both MLB Stats API and Statcast use slightly different conventions than
 this project's canonical one (e.g. Statcast's "SD"/"SF"/"AZ"/"WSH").
 """
@@ -46,8 +46,8 @@ from datetime import date, timedelta
 
 import requests
 
-from mlb_daily.park_factors import park_factor as _park_factor
-from mlb_daily.teams import ABBREV_TO_FULL_NAME, NICKNAME_TO_ABBREV, abbrev_from_name
+from sports.mlb.park_factors import park_factor as _park_factor
+from sports.mlb.teams import ABBREV_TO_FULL_NAME, NICKNAME_TO_ABBREV, abbrev_from_name
 
 TEAM_XWOBA_WINDOW_DAYS = 15  # "recent" team-batting window
 

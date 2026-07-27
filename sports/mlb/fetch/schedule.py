@@ -16,7 +16,7 @@ signal (see build.py for the per-source matching logic).
 
 import requests
 
-from mlb_daily.teams import abbrev_from_name
+from sports.mlb.teams import abbrev_from_name
 
 HEADERS = {
     "User-Agent": "mlb-daily-tracker/1.0 (personal project; non-commercial daily digest)",
