@@ -14,12 +14,13 @@ real fetch modules get written the same way MLB's were (see e.g.
 sports/mlb/fetch/kalshi.py's docstring for the pattern: cite what the probe
 showed, then implement against it).
 
-Known gap going in: football-data.org requires a free API token
-(X-Auth-Token header) that this environment doesn't have. That probe will
-report clearly whether FOOTBALL_DATA_TOKEN is set rather than silently
-skip - if it's missing, that's a real blocker for the user to resolve
-(sign up at football-data.org, add the token as a repo secret), not
-something to work around.
+football-data.org's token (FOOTBALL_DATA_TOKEN) was added as a repo
+secret 2026-07-29 - probe_football_data_org() now expects a real
+authenticated response, not the "no token" branch.
+
+Action Network was dropped 2026-07-29 after 3 probe runs showed it fails
+~2/3 of the time (empty 202 responses, not a fixable header/retry issue) -
+no probe function for it remains here.
 """
 
 import json
@@ -90,51 +91,57 @@ def probe_dratings_epl():
 
 def probe_understat():
     hr("Understat: EPL league page - locate embedded JSON blob(s)")
-    # first pass (no season suffix) returned an 18KB page with none of the
-    # expected blobs - trying season-suffixed URLs and dumping enough raw
-    # HTML to see what the page actually is (redirect page? paywall?
-    # different template entirely?) if all of them still come up empty
-    candidates = [
-        "https://understat.com/league/EPL/2026",
-        "https://understat.com/league/EPL/2025",
-        "https://understat.com/league/EPL",
-    ]
-    for url in candidates:
-        print(f"\n--- trying {url} ---")
-        r = get(url)
-        text = r.text
-        print(f"final URL after redirects: {r.url}")
-        found_any = False
-        for varname in ("datesData", "teamsData", "playersData", "leagueData"):
-            m = re.search(rf"var {varname}\s*=\s*JSON\.parse\('(.+?)'\)", text)
-            if m:
-                found_any = True
-                raw = m.group(1)
-                print(f"  {varname}: found, raw encoded length: {len(raw)} chars")
-                try:
-                    decoded = raw.encode("utf-8").decode("unicode_escape").encode("latin1").decode("utf-8")
-                    data = json.loads(decoded)
-                    if isinstance(data, dict):
-                        keys = list(data.keys())[:5]
-                        print(f"    decoded OK - dict with {len(data)} keys, sample: {keys}")
-                        first_key = keys[0] if keys else None
-                        if first_key:
-                            print(f"    data[{first_key!r}] = {json.dumps(data[first_key], indent=2)[:1200]}")
-                    elif isinstance(data, list):
-                        print(f"    decoded OK - list with {len(data)} items")
-                        if data:
-                            print(f"    data[0] = {json.dumps(data[0], indent=2)[:1200]}")
-                except Exception as e:
-                    print(f"    decode FAILED: {type(e).__name__}: {e}")
-                    print(f"    first 500 raw chars: {raw[:500]}")
-        if not found_any:
-            print("  none of the expected JSON.parse blobs found on this URL")
-            # dump title + any <script> tag var names, to see what's really here
-            title_m = re.search(r"<title>(.*?)</title>", text)
-            print(f"  <title>: {title_m.group(1) if title_m else '(none)'}")
-            script_vars = sorted(set(re.findall(r"var (\w+)\s*=", text)))
-            print(f"  top-level JS var names found anywhere on page: {script_vars}")
-            print(f"  first 800 chars of body:\n{text[:800]}")
+    # Passes 1-2 confirmed the old assumption (server-rendered
+    # `var xData = JSON.parse('...')` blobs) is dead - the page now only
+    # has top-level vars BASE_URL/THEME/flagFontsLoading/j, meaning data
+    # loads client-side via an API call this probe hasn't found yet. This
+    # pass checks two real possibilities instead of guessing again:
+    #  1. Is this now a Next.js app (like Action Network turned out to be)
+    #     with a __NEXT_DATA__ blob carrying the table server-side?
+    #  2. If not, what does the actual JS bundle reference as its data
+    #     endpoint - grep every <script src> bundle for fetch(...)/api
+    #     URL patterns instead of guessing endpoint names blind.
+    url = "https://understat.com/league/EPL/2026"
+    r = get(url)
+    text = r.text
+    print(f"final URL after redirects: {r.url}")
+
+    next_data_m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.+?)</script>', text, re.S)
+    if next_data_m:
+        print("\n__NEXT_DATA__ FOUND - this is a Next.js page after all")
+        try:
+            data = json.loads(next_data_m.group(1))
+            page_props = data.get("props", {}).get("pageProps", {})
+            print(f"pageProps top-level keys: {list(page_props.keys())}")
+            print(json.dumps(page_props, indent=2, default=str)[:2500])
+        except Exception as e:
+            print(f"json parse failed: {e}")
+        return
+
+    print("\nno __NEXT_DATA__ - not Next.js. Searching <script src> bundles for API endpoint strings.")
+    script_srcs = re.findall(r'<script[^>]+src="([^"]+)"', text)
+    print(f"script src attributes found: {script_srcs}")
+    resolved = []
+    for src in script_srcs:
+        if src.startswith("http"):
+            resolved.append(src)
+        elif src.startswith("/"):
+            resolved.append("https://understat.com" + src)
+    # local/first-party bundles only - skip third-party analytics/ad scripts,
+    # which won't reference this site's own data API
+    own_bundles = [u for u in resolved if "understat.com" in u]
+    print(f"first-party bundle URLs to inspect: {own_bundles}")
+
+    endpoint_pattern = re.compile(r'["\'](/(?:main|api)/[a-zA-Z0-9_/]+)["\']')
+    fetch_pattern = re.compile(r'(?:fetch|axios\.(?:get|post))\(\s*["\']([^"\']+)["\']')
+    for bundle_url in own_bundles[:6]:
+        try:
+            br = get(bundle_url)
+            btext = br.text
+            endpoints = sorted(set(endpoint_pattern.findall(btext)) | set(fetch_pattern.findall(btext)))
+            print(f"\n--- {bundle_url} ({len(btext)} chars) - candidate endpoint strings: {endpoints[:20]}")
+        except Exception as e:
+            print(f"  FAILED fetching {bundle_url}: {e}")
 
 
 def probe_football_data_org():
@@ -232,44 +239,6 @@ def probe_kalshi_epl():
         print(f"parse failed: {e}; body: {r.text[:500]}")
 
 
-def probe_action_network():
-    hr("Action Network: EPL odds page - locate the real game/matchup array inside __NEXT_DATA__")
-    # second pass confirmed __NEXT_DATA__ is real and huge (677KB) but the
-    # first 2000 chars printed previously were just the allBooks lookup
-    # table, not actual matchups. This pass walks pageProps' own keys and
-    # prints whichever ones are list-shaped (that's where per-game data
-    # would live) plus their first item, instead of a blind character slice.
-    headers = {**BROWSER_HEADERS, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
-    r = get("https://www.actionnetwork.com/soccer/odds", headers=headers)
-    text = r.text
-    m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.+?)</script>', text, re.S)
-    if not m:
-        print("__NEXT_DATA__ not found this time either")
-        return
-    try:
-        data = json.loads(m.group(1))
-    except Exception as e:
-        print(f"json parse failed: {e}")
-        return
-    page_props = data.get("props", {}).get("pageProps", {})
-    print(f"pageProps top-level keys: {list(page_props.keys())}")
-    for key, val in page_props.items():
-        if isinstance(val, list):
-            print(f"\n--- pageProps[{key!r}]: list with {len(val)} items ---")
-            if val:
-                print(json.dumps(val[0], indent=2, default=str)[:2500])
-        elif isinstance(val, dict):
-            # some APIs nest the real game list one level deeper, e.g. {'games': [...]}
-            nested_lists = [k for k, v in val.items() if isinstance(v, list)]
-            if nested_lists:
-                print(f"\n--- pageProps[{key!r}] is a dict with list-valued sub-keys: {nested_lists} ---")
-                for nk in nested_lists:
-                    nested = val[nk]
-                    print(f"  pageProps[{key!r}][{nk!r}]: list with {len(nested)} items")
-                    if nested:
-                        print(f"  first item: {json.dumps(nested[0], indent=2, default=str)[:2000]}")
-
-
 def probe_reddit_soccer_rss():
     hr("Reddit RSS: r/soccer (same pattern as sports/mlb/fetch/reddit.py's r/sportsbook)")
     r = get("https://www.reddit.com/r/soccer/new.rss")
@@ -284,13 +253,16 @@ def probe_reddit_soccer_rss():
 
 
 def main():
+    # Action Network dropped (2026-07-29): confirmed unreliable across 3
+    # probe runs (1 real 917KB response, 2 empty 202 placeholders) - not a
+    # fixable header/retry issue, and not needed (ClubElo + Kalshi's
+    # title-winner market already give some market signal for EPL).
     for fn in (
         probe_dratings_epl,
         probe_understat,
         probe_football_data_org,
         probe_clubelo,
         probe_kalshi_epl,
-        probe_action_network,
         probe_reddit_soccer_rss,
     ):
         try:
