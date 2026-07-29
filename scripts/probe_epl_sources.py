@@ -121,20 +121,33 @@ def probe_understat():
     print("\nno __NEXT_DATA__ - not Next.js. Searching <script src> bundles for API endpoint strings.")
     script_srcs = re.findall(r'<script[^>]+src="([^"]+)"', text)
     print(f"script src attributes found: {script_srcs}")
+    # BUG in the previous pass: "//host/path" (protocol-relative, e.g.
+    # Google's CDN) also starts with "/", so the old `elif src.startswith("/")`
+    # branch wrongly treated it as same-origin and mangled it into
+    # "https://understat.com//host/path" (confirmed 404 last run). Real
+    # first-party bundles here are plain relative paths like
+    # "js/league.min.js?t=..." with no leading slash at all, which the old
+    # code never matched and so never fetched. Fixed: three real cases -
+    # absolute (http/https), protocol-relative (//host/...), and
+    # page-relative (everything else, resolved against the page URL).
     resolved = []
     for src in script_srcs:
-        if src.startswith("http"):
+        if src.startswith("http://") or src.startswith("https://"):
             resolved.append(src)
-        elif src.startswith("/"):
-            resolved.append("https://understat.com" + src)
-    # local/first-party bundles only - skip third-party analytics/ad scripts,
-    # which won't reference this site's own data API
+        elif src.startswith("//"):
+            resolved.append("https:" + src)
+        else:
+            resolved.append("https://understat.com/" + src.lstrip("/"))
     own_bundles = [u for u in resolved if "understat.com" in u]
     print(f"first-party bundle URLs to inspect: {own_bundles}")
 
+    # inspect league.min.js and main.min.js first (most likely to hold
+    # this page's own data-fetching logic, by name), then everything else
+    own_bundles.sort(key=lambda u: (0 if ("league" in u or "main" in u) else 1, u))
+
     endpoint_pattern = re.compile(r'["\'](/(?:main|api)/[a-zA-Z0-9_/]+)["\']')
     fetch_pattern = re.compile(r'(?:fetch|axios\.(?:get|post))\(\s*["\']([^"\']+)["\']')
-    for bundle_url in own_bundles[:6]:
+    for bundle_url in own_bundles:
         try:
             br = get(bundle_url)
             btext = br.text
