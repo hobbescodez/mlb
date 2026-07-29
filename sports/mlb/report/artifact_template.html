@@ -143,7 +143,8 @@ Market {{ row.market_total }} → sources avg {{ "%.1f"|format(row.sources_avg_t
 </tr>
 {% endmacro %}
 
-<div class="hero-band">
+{% if show_nav %}{{ shared.site_nav('mlb') }}{% endif %}
+<div class="hero-band{% if show_nav %} with-nav{% endif %}">
 <div class="masthead">
   <h1>MLB Daily Analysis</h1>
   <div class="meta">{{ r.date_display }}<strong>Published {{ generated_at }}</strong></div>
@@ -609,6 +610,28 @@ No scored games yet - this fills in once results_log.csv has at least one Final 
 <div class="card boxed">
 No scored games yet - this fills in once results_log.csv has at least one Final game logged.
 </div>
+{% endif %}
+
+<div class="eyebrow" id="dd-totals-threshold"><span class="label">Totals Threshold Tracking</span><span class="sub">forward-only test of the "model total ≥ market + threshold, bet the over" rule - paper/analysis only, never connected to real order placement</span><span class="rule"></span></div>
+<div class="disclaimer-strip">Candidate thresholds were chosen from a one-time backtest against history logged before {{ r.totals_threshold_start_date }} (0.5 and 1.0 runs were the only thresholds with enough qualifying games to read anything into - both landed near 48%, a coin flip in that early sample). Everything below only counts games logged on/after {{ r.totals_threshold_start_date }}, so it's a genuine forward test on new data, never a re-run of the same games used to pick these thresholds.</div>
+{% if r.totals_threshold_forward %}
+<div class="table-wrap"><table>
+<thead><tr><th class="num">Threshold (runs)</th><th class="num">Qualifying games</th><th class="num">Pushes</th><th class="num">Hits</th><th class="num">Hit rate</th><th></th></tr></thead>
+<tbody>
+{% for row in r.totals_threshold_forward %}
+<tr>
+  <td class="num">{{ "%.1f"|format(row.threshold) }}</td>
+  <td class="num">{{ row.qualifying }}</td>
+  <td class="num">{{ row.pushes }}</td>
+  <td class="num">{{ row.hits }}</td>
+  <td class="num">{{ ("%.1f"|format(row.hit_rate)) ~ "%" if row.hit_rate is not none else "—" }}</td>
+  <td>{% if row.too_small %}<span class="badge badge-flag" title="Fewer than 15 qualifying decided games so far">Too small to trust yet</span>{% endif %}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table></div>
+{% else %}
+<div class="card boxed">No forward-tracked games yet - this fills in as new days are logged on/after {{ r.totals_threshold_start_date }}.</div>
 {% endif %}
 
 <div class="eyebrow" id="dd-sources-summary"><span class="label">Source Summary</span><span class="rule"></span></div>

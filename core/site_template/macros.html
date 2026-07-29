@@ -24,3 +24,15 @@
    next to a matchup name in the Model Predictions table - see base.css's
    tr.top-pick-row for the matching row highlight. #}
 {% macro top_pick_badge(title, label) %}<span class="top-pick-badge" title="{{ title }}">{{ label }}</span>{% endmacro %}
+
+{# Cross-sport header nav - same on every real page, only the active-page
+   highlight changes. `active` is "home"/"mlb"/"epl"/"nfl". NFL stays a
+   dead, unfocusable link (not a real href) until #46-48 ship it - flip
+   it to a normal href here (and drop is-disabled) once nfl.html exists,
+   the one place this needs to change. #}
+{% macro site_nav(active) %}<nav class="site-nav">
+<a class="site-nav-link{% if active == 'home' %} is-active{% endif %}" href="index.html">Home</a>
+<a class="site-nav-link{% if active == 'mlb' %} is-active{% endif %}" href="mlb.html">MLB</a>
+<a class="site-nav-link{% if active == 'epl' %} is-active{% endif %}" href="epl.html">EPL</a>
+<a class="site-nav-link is-disabled" href="#" aria-disabled="true" tabindex="-1">NFL</a>
+</nav>{% endmacro %}

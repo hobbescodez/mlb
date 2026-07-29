@@ -1,0 +1,22 @@
+name: Backtest xwOBA windows
+
+# One-off / manual analysis workflow, same pattern as probe-pybaseball.yml.
+# Run manually (workflow_dispatch) - see scripts/backtest_xwoba_windows.py
+# for what it does and why it needs real network access to Baseball
+# Savant, which this repo's dev sandbox doesn't have.
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install requests pandas pybaseball
+      - name: Backtest xwOBA windows
+        run: python scripts/backtest_xwoba_windows.py

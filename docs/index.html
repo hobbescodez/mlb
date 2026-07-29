@@ -107,6 +107,23 @@ body {
 td, th { font-variant-numeric: tabular-nums; }
 strong { font-weight: 600; }
 
+/* ---------- site nav ---------- */
+/* Cross-sport header, shown on every real page (index/mlb/epl/nfl) but
+   deliberately left out of the Claude Artifact fragment - see
+   macros.html's site_nav() and each sport's render.py (show_nav=False
+   for render_artifact_fragment). Sticky so it stays reachable while
+   scrolling a long report, same "genuinely usable" bar for mobile and
+   desktop alike since it's just a handful of short text links. */
+.site-nav { position: sticky; top: 0; z-index: 20; display: flex; justify-content: center;
+  gap: 6px; flex-wrap: wrap; margin: -26px -20px 0; padding: 10px 20px;
+  background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.site-nav-link { font-family: var(--font-display); font-size: var(--fs-fine); font-weight: 700;
+  letter-spacing: 0.03em; text-transform: uppercase; color: var(--muted); text-decoration: none;
+  padding: 6px 14px; border-radius: 20px; transition: background 0.15s ease, color 0.15s ease; }
+.site-nav-link:hover { background: var(--card); color: var(--ink); }
+.site-nav-link.is-active { background: var(--accent-2); color: #fff; }
+.site-nav-link.is-disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+
 /* ---------- masthead ---------- */
 /* Pale sky-to-chalk gradient band, dark text throughout in light mode -
    the "safe" version of the reference weather-app's dark hero strip.
@@ -115,6 +132,10 @@ strong { font-weight: 600; }
 .hero-band { margin: -26px -20px 28px; padding: 26px 20px 22px;
   background: linear-gradient(180deg, var(--sky-a), var(--sky-b));
   border-radius: 0 0 20px 20px; }
+/* When site-nav precedes it, the nav bar already cancels body's top
+   padding - hero-band shouldn't also pull up (that would tuck its top
+   26px behind the nav bar). */
+.hero-band.with-nav { margin-top: 0; }
 .masthead { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
   border-bottom: 3px solid var(--ink); padding-bottom: 14px; margin-bottom: 6px; flex-wrap: wrap; }
 .masthead h1 { margin: 0; font-family: var(--font-display); font-size: var(--fs-title); font-weight: 700;
@@ -395,6 +416,14 @@ a { color: var(--ink); }
 
 .landing-footer { color: var(--muted); font-size: var(--fs-fine); text-align: center; margin-top: 48px; max-width: 560px; }
 </style>
+
+
+<nav class="site-nav">
+<a class="site-nav-link is-active" href="index.html">Home</a>
+<a class="site-nav-link" href="mlb.html">MLB</a>
+<a class="site-nav-link" href="epl.html">EPL</a>
+<a class="site-nav-link is-disabled" href="#" aria-disabled="true" tabindex="-1">NFL</a>
+</nav>
 
 <div class="landing-wrap">
   <h1 class="landing-title">Daily Sports Analysis</h1>
