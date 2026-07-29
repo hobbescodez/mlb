@@ -90,33 +90,51 @@ def probe_dratings_epl():
 
 def probe_understat():
     hr("Understat: EPL league page - locate embedded JSON blob(s)")
-    url = "https://understat.com/league/EPL"
-    r = get(url)
-    text = r.text
-    # understat embeds JSON.parse('...') blobs for datesData / teamsData / playersData
-    for varname in ("datesData", "teamsData", "playersData", "leagueData"):
-        m = re.search(rf"var {varname}\s*=\s*JSON\.parse\('(.+?)'\)", text)
-        print(f"\n{varname}: {'found' if m else 'NOT FOUND'}")
-        if m:
-            raw = m.group(1)
-            print(f"  raw encoded length: {len(raw)} chars")
-            # understat encodes as escaped JSON (\x hex escapes for unicode)
-            try:
-                decoded = raw.encode("utf-8").decode("unicode_escape").encode("latin1").decode("utf-8")
-                data = json.loads(decoded)
-                if isinstance(data, dict):
-                    keys = list(data.keys())[:5]
-                    print(f"  decoded OK - dict with {len(data)} keys, sample: {keys}")
-                    first_key = keys[0] if keys else None
-                    if first_key:
-                        print(f"  data[{first_key!r}] = {json.dumps(data[first_key], indent=2)[:1500]}")
-                elif isinstance(data, list):
-                    print(f"  decoded OK - list with {len(data)} items")
-                    if data:
-                        print(f"  data[0] = {json.dumps(data[0], indent=2)[:1500]}")
-            except Exception as e:
-                print(f"  decode FAILED: {type(e).__name__}: {e}")
-                print(f"  first 500 raw chars: {raw[:500]}")
+    # first pass (no season suffix) returned an 18KB page with none of the
+    # expected blobs - trying season-suffixed URLs and dumping enough raw
+    # HTML to see what the page actually is (redirect page? paywall?
+    # different template entirely?) if all of them still come up empty
+    candidates = [
+        "https://understat.com/league/EPL/2026",
+        "https://understat.com/league/EPL/2025",
+        "https://understat.com/league/EPL",
+    ]
+    for url in candidates:
+        print(f"\n--- trying {url} ---")
+        r = get(url)
+        text = r.text
+        print(f"final URL after redirects: {r.url}")
+        found_any = False
+        for varname in ("datesData", "teamsData", "playersData", "leagueData"):
+            m = re.search(rf"var {varname}\s*=\s*JSON\.parse\('(.+?)'\)", text)
+            if m:
+                found_any = True
+                raw = m.group(1)
+                print(f"  {varname}: found, raw encoded length: {len(raw)} chars")
+                try:
+                    decoded = raw.encode("utf-8").decode("unicode_escape").encode("latin1").decode("utf-8")
+                    data = json.loads(decoded)
+                    if isinstance(data, dict):
+                        keys = list(data.keys())[:5]
+                        print(f"    decoded OK - dict with {len(data)} keys, sample: {keys}")
+                        first_key = keys[0] if keys else None
+                        if first_key:
+                            print(f"    data[{first_key!r}] = {json.dumps(data[first_key], indent=2)[:1200]}")
+                    elif isinstance(data, list):
+                        print(f"    decoded OK - list with {len(data)} items")
+                        if data:
+                            print(f"    data[0] = {json.dumps(data[0], indent=2)[:1200]}")
+                except Exception as e:
+                    print(f"    decode FAILED: {type(e).__name__}: {e}")
+                    print(f"    first 500 raw chars: {raw[:500]}")
+        if not found_any:
+            print("  none of the expected JSON.parse blobs found on this URL")
+            # dump title + any <script> tag var names, to see what's really here
+            title_m = re.search(r"<title>(.*?)</title>", text)
+            print(f"  <title>: {title_m.group(1) if title_m else '(none)'}")
+            script_vars = sorted(set(re.findall(r"var (\w+)\s*=", text)))
+            print(f"  top-level JS var names found anywhere on page: {script_vars}")
+            print(f"  first 800 chars of body:\n{text[:800]}")
 
 
 def probe_football_data_org():
@@ -165,7 +183,14 @@ KALSHI_BASE = "https://external-api.kalshi.com/trade-api/v2"
 
 def probe_kalshi_epl():
     hr("Kalshi: search for EPL/soccer series (ticker unknown - try candidates + category listing)")
-    candidate_tickers = ["KXEPLGAME", "KXEPL", "KXSOCCER", "KXPREMIERLEAGUE"]
+    # first pass found KXPREMIERLEAGUE (season-long title-winner futures,
+    # confirmed real) but no per-game series among these specific guesses -
+    # widening the guess list for a per-game/match-winner market
+    candidate_tickers = [
+        "KXEPLGAME", "KXEPL", "KXSOCCER", "KXPREMIERLEAGUE",
+        "KXEPLWIN", "KXENGPREM", "KXPREM", "KXEPLMATCH", "KXSOCCERGAME",
+        "KXUEFAGAME",  # showed up in the broad series list last run - check its shape
+    ]
     for ticker in candidate_tickers:
         print(f"\n--- trying series_ticker={ticker} ---")
         r = get(f"{KALSHI_BASE}/markets?series_ticker={ticker}&status=open&limit=5")
@@ -178,24 +203,50 @@ def probe_kalshi_epl():
         except Exception as e:
             print(f"parse failed: {e}; body: {r.text[:300]}")
 
-    hr("Kalshi: list all series (to find real EPL ticker name if candidates above missed)")
+    # first pass's regex matched against the FULL json.dumps() of each
+    # series object, which is why it false-positived on 1510/3035 series
+    # (e.g. matched "football" inside unrelated title text). This pass
+    # only checks the 'title' field itself, and only for tighter phrases.
+    hr("Kalshi: list all series - title-only match this time (first pass's full-object regex was too broad)")
     r = get(f"{KALSHI_BASE}/series?category=Sports&limit=200")
     try:
         data = r.json()
         series_list = data.get("series", [])
         print(f"series returned: {len(series_list)}")
-        soccer_like = [s for s in series_list if re.search(r"soccer|premier|epl|football", json.dumps(s), re.I)]
-        print(f"soccer/EPL-looking series: {len(soccer_like)}")
-        for s in soccer_like[:15]:
-            print(f"  ticker={s.get('ticker')!r} title={s.get('title')!r} category={s.get('category')!r}")
+        cursor = data.get("cursor")
+        print(f"cursor present (more pages exist): {bool(cursor)}")
+        title_matches = [
+            s for s in series_list
+            if re.search(r"premier league|\bepl\b|english.*soccer|english.*football", s.get("title", ""), re.I)
+        ]
+        print(f"title-matched series: {len(title_matches)}")
+        for s in title_matches[:20]:
+            print(f"  ticker={s.get('ticker')!r} title={s.get('title')!r}")
+        # also print every ticker that starts with KX and contains "GAME",
+        # to eyeball any per-match series regardless of naming
+        game_series = [s for s in series_list if "GAME" in s.get("ticker", "")]
+        print(f"\nall *GAME* tickers on this page ({len(game_series)}), for manual eyeballing:")
+        for s in game_series[:40]:
+            print(f"  ticker={s.get('ticker')!r} title={s.get('title')!r}")
     except Exception as e:
         print(f"parse failed: {e}; body: {r.text[:500]}")
 
 
 def probe_action_network():
     hr("Action Network: EPL odds page - locate widget/embedded JSON")
-    r = get("https://www.actionnetwork.com/soccer/odds")
+    # first pass got status=202 bytes=0 with default headers - likely
+    # bot-detection or an async placeholder response. Trying an Accept
+    # header and printing response headers this time to see what's
+    # actually being returned before giving up on this source.
+    headers = {**BROWSER_HEADERS, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
+    r = get("https://www.actionnetwork.com/soccer/odds", headers=headers)
+    print(f"response headers: {dict(r.headers)}")
     text = r.text
+    if not text:
+        print("still empty body - trying Action Network's public JSON API directly instead of the HTML page")
+        r2 = get("https://api.actionnetwork.com/web/v2/scoreboard/soccer/8", headers=headers)
+        print(f"api attempt body (first 1500 chars): {r2.text[:1500]}")
+        return
     custom_tags = sorted(set(re.findall(r"<([a-z]+-[a-z-]+)[ >]", text)))
     print(f"custom element tag names found: {custom_tags[:20]}")
     for kw in ("__NEXT_DATA__", "window.__INITIAL_STATE__", "matchups", "odds"):
