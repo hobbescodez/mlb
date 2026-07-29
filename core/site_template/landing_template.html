@@ -1,0 +1,59 @@
+<title>Daily Sports Analysis</title>
+<style>
+{{ inline_font_css|safe }}
+{% include "base.css" %}
+
+.landing-wrap { display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
+.landing-title { font-family: var(--font-display); font-size: 34px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.02em; text-align: center; margin: 0 0 8px; }
+.landing-sub { color: var(--muted); text-align: center; max-width: 560px; margin: 0 0 40px; }
+
+.sport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px; width: 100%; max-width: 780px; }
+
+.sport-box { background: var(--card); border-radius: 18px; box-shadow: var(--shadow-card);
+  padding: 28px 20px; text-align: center; text-decoration: none; color: var(--ink);
+  border-top: 4px solid var(--box-accent, var(--accent-2)); transition: transform 0.15s ease; }
+.sport-box:hover { transform: translateY(-3px); }
+.sport-box.disabled { opacity: 0.55; cursor: default; pointer-events: none; }
+
+.sport-icon { font-size: 52px; display: inline-block; animation: sport-bob 2.4s ease-in-out infinite; }
+.sport-box:nth-child(2) .sport-icon { animation-delay: 0.3s; }
+.sport-box:nth-child(3) .sport-icon { animation-delay: 0.6s; }
+@keyframes sport-bob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(-6deg); } }
+@media (prefers-reduced-motion: reduce) { .sport-icon { animation: none; } }
+
+.sport-name { font-family: var(--font-display); font-size: var(--fs-section); font-weight: 700;
+  text-transform: uppercase; margin: 14px 0 4px; }
+.sport-status { color: var(--muted); font-size: var(--fs-fine); }
+.sport-status.live { color: var(--accent-2); font-weight: 600; }
+
+.landing-footer { color: var(--muted); font-size: var(--fs-fine); text-align: center; margin-top: 48px; max-width: 560px; }
+</style>
+
+<div class="landing-wrap">
+  <h1 class="landing-title">Daily Sports Analysis</h1>
+  <p class="landing-sub">Personal-learning project comparing model projections, betting markets, and public sentiment to actual outcomes over time. No betting units, stake sizing, or recommended plays anywhere in this site.</p>
+
+  <div class="sport-grid">
+    <a class="sport-box" href="mlb.html" style="--box-accent:#0C2340">
+      <span class="sport-icon">⚾</span>
+      <div class="sport-name">MLB</div>
+      <div class="sport-status live">Daily · live</div>
+    </a>
+
+    <a class="sport-box disabled" href="#" style="--box-accent:var(--panel-totals)" aria-disabled="true">
+      <span class="sport-icon">🏈</span>
+      <div class="sport-name">NFL</div>
+      <div class="sport-status">Coming soon</div>
+    </a>
+
+    <a class="sport-box" href="epl.html" style="--box-accent:var(--accent-2)">
+      <span class="sport-icon">⚽</span>
+      <div class="sport-name">EPL</div>
+      <div class="sport-status live">Daily · live</div>
+    </a>
+  </div>
+
+  <div class="landing-footer">Each sport's page documents its own sources, models, and known limitations in full - see each page's Source Summary and Glossary sections.</div>
+</div>

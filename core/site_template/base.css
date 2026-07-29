@@ -73,7 +73,13 @@
 }
 
 * { box-sizing: border-box; }
-html, body { background: var(--bg); }
+/* Was a flat var(--bg) fill - read as plain grey across a full page of
+   cards with nothing to break it up. Reuses --sky-a (already defined for
+   the hero-band gradient, not a new color) as a soft light source fading
+   in from the top, same "broadcast graphic" concept extended to the
+   whole page instead of just the masthead strip. */
+html, body { background: radial-gradient(ellipse 1400px 900px at 50% -12%, var(--sky-a) 0%, var(--bg) 55%);
+  background-attachment: fixed; }
 body {
   color: var(--ink);
   font-family: var(--font-body);
