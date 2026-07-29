@@ -31,6 +31,9 @@
 .landing-footer { color: var(--muted); font-size: var(--fs-fine); text-align: center; margin-top: 48px; max-width: 560px; }
 </style>
 
+{% import "macros.html" as shared %}
+{{ shared.site_nav('home') }}
+
 <div class="landing-wrap">
   <h1 class="landing-title">Daily Sports Analysis</h1>
   <p class="landing-sub">Personal-learning project comparing model projections, betting markets, and public sentiment to actual outcomes over time. No betting units, stake sizing, or recommended plays anywhere in this site.</p>

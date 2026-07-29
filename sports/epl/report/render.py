@@ -17,9 +17,11 @@ def _env():
 
 
 def render_report(report_data, generated_at, inline_font_css=""):
-    """Full standalone page for docs/ (GitHub Pages)."""
+    """Full standalone page for docs/ (GitHub Pages). show_nav=True here
+    (and only here) - see sports/mlb/report/render.py's render_report
+    docstring for why the Artifact fragment doesn't get the site nav."""
     fragment = _env().get_template("epl_template.html").render(
-        r=report_data, generated_at=generated_at, inline_font_css=inline_font_css
+        r=report_data, generated_at=generated_at, inline_font_css=inline_font_css, show_nav=True,
     )
     return f'<!doctype html>\n<html lang="en">\n{fragment}\n</html>\n'
 
@@ -27,5 +29,5 @@ def render_report(report_data, generated_at, inline_font_css=""):
 def render_artifact_fragment(report_data, generated_at, inline_font_css=""):
     """Content-only fragment for publishing as a Claude Artifact."""
     return _env().get_template("epl_template.html").render(
-        r=report_data, generated_at=generated_at, inline_font_css=inline_font_css
+        r=report_data, generated_at=generated_at, inline_font_css=inline_font_css, show_nav=False,
     )

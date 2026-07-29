@@ -18,7 +18,8 @@
 </tr>
 {% endmacro %}
 
-<div class="hero-band">
+{% if show_nav %}{{ shared.site_nav('epl') }}{% endif %}
+<div class="hero-band{% if show_nav %} with-nav{% endif %}">
 <div class="masthead">
   <h1>EPL Daily Analysis</h1>
   <div class="meta">{{ r.date_display }}<strong>Published {{ generated_at }}</strong></div>
