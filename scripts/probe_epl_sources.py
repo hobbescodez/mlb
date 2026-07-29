@@ -156,6 +156,34 @@ def probe_understat():
         except Exception as e:
             print(f"  FAILED fetching {bundle_url}: {e}")
 
+    # Web search turned up a claim (unverified - AI-summarized search
+    # results, not a primary source) that Understat has an internal XHR
+    # endpoint at /getLeagueData/{league}/{season} returning gzip JSON.
+    # Testing it directly rather than trusting the summary.
+    hr("Understat: testing claimed /getLeagueData/{league}/{season} endpoint directly")
+    candidates = [
+        "https://understat.com/getLeagueData/EPL/2026",
+        "https://understat.com/getLeagueData/EPL/2025",
+        "https://understat.com/main/getLeagueData/EPL/2026",
+    ]
+    xhr_headers = {**BROWSER_HEADERS, "X-Requested-With": "XMLHttpRequest", "Accept": "application/json, text/plain, */*"}
+    for url in candidates:
+        print(f"\n--- trying {url} ---")
+        try:
+            r = requests.get(url, headers=xhr_headers, timeout=20)
+            print(f"status={r.status_code}  bytes={len(r.content)}  content-type={r.headers.get('content-type')}")
+            if r.status_code == 200:
+                try:
+                    data = r.json()
+                    print(f"JSON parsed OK - type: {type(data).__name__}")
+                    print(json.dumps(data, indent=2, default=str)[:2000])
+                except Exception as e:
+                    print(f"not JSON ({e}) - first 500 chars: {r.text[:500]}")
+            else:
+                print(f"body (first 300 chars): {r.text[:300]}")
+        except Exception as e:
+            print(f"FAILED: {type(e).__name__}: {e}")
+
 
 def probe_football_data_org():
     hr("football-data.org: PL competition matches (requires X-Auth-Token)")
