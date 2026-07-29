@@ -62,12 +62,7 @@ class NoTokenError(RuntimeError):
     around like a flaky scrape target."""
 
 
-def fetch_upcoming_matches(status="SCHEDULED", timeout=20):
-    """Returns a list of FootballDataMatch for Premier League fixtures
-    matching the given status filter (default: not-yet-played). Raises
-    NoTokenError if FOOTBALL_DATA_TOKEN isn't set, or on network/parsing
-    failure, so callers can decide how to degrade (this source is
-    optional, same as every source in this project)."""
+def _require_token():
     token = os.environ.get(TOKEN_ENV_VAR)
     if not token:
         raise NoTokenError(
@@ -75,16 +70,10 @@ def fetch_upcoming_matches(status="SCHEDULED", timeout=20):
             "https://www.football-data.org/client/register and add it as "
             "a repo secret"
         )
-    headers = {**HEADERS_BASE, "X-Auth-Token": token}
-    r = requests.get(
-        f"{BASE_URL}/competitions/PL/matches",
-        headers=headers,
-        params={"status": status},
-        timeout=timeout,
-    )
-    r.raise_for_status()
-    data = r.json()
+    return {**HEADERS_BASE, "X-Auth-Token": token}
 
+
+def _parse_matches(data):
     matches = []
     for m in data.get("matches", []):
         try:
@@ -111,8 +100,24 @@ def fetch_upcoming_matches(status="SCHEDULED", timeout=20):
         except (KeyError, ValueError):
             # skip malformed rows rather than failing the whole source
             continue
-
     return matches
+
+
+def fetch_upcoming_matches(status="SCHEDULED", timeout=20):
+    """Returns a list of FootballDataMatch for Premier League fixtures
+    matching the given status filter (default: not-yet-played). Raises
+    NoTokenError if FOOTBALL_DATA_TOKEN isn't set, or on network/parsing
+    failure, so callers can decide how to degrade (this source is
+    optional, same as every source in this project)."""
+    headers = _require_token()
+    r = requests.get(
+        f"{BASE_URL}/competitions/PL/matches",
+        headers=headers,
+        params={"status": status},
+        timeout=timeout,
+    )
+    r.raise_for_status()
+    return _parse_matches(r.json())
 
 
 def fetch_todays_matches(timeout=20):
@@ -121,14 +126,7 @@ def fetch_todays_matches(timeout=20):
     "SCHEDULED" anymore) and filters to today's UTC date client-side -
     same pattern as MLB's Kalshi module filtering an all-future response
     down to today's slate."""
-    token = os.environ.get(TOKEN_ENV_VAR)
-    if not token:
-        raise NoTokenError(
-            f"{TOKEN_ENV_VAR} is not set - register a free token at "
-            "https://www.football-data.org/client/register and add it as "
-            "a repo secret"
-        )
-    headers = {**HEADERS_BASE, "X-Auth-Token": token}
+    headers = _require_token()
     today_iso = date.today().isoformat()
     r = requests.get(
         f"{BASE_URL}/competitions/PL/matches",
@@ -137,32 +135,24 @@ def fetch_todays_matches(timeout=20):
         timeout=timeout,
     )
     r.raise_for_status()
-    data = r.json()
+    return _parse_matches(r.json())
 
-    matches = []
-    for m in data.get("matches", []):
-        try:
-            home = m.get("homeTeam", {})
-            away = m.get("awayTeam", {})
-            score = m.get("score", {})
-            full_time = score.get("fullTime", {})
-            matches.append(
-                FootballDataMatch(
-                    match_id=m["id"],
-                    utc_kickoff=datetime.fromisoformat(m["utcDate"].replace("Z", "+00:00")),
-                    status=m.get("status", ""),
-                    matchday=m.get("matchday"),
-                    home_team=home.get("name") or home.get("shortName") or "",
-                    away_team=away.get("name") or away.get("shortName") or "",
-                    home_tla=home.get("tla"),
-                    away_tla=away.get("tla"),
-                    home_score=full_time.get("home"),
-                    away_score=full_time.get("away"),
-                    winner=score.get("winner"),
-                    raw=m,
-                )
-            )
-        except (KeyError, ValueError):
-            continue
 
-    return matches
+def fetch_season_matches(season, status="FINISHED", timeout=20):
+    """Returns FootballDataMatch list for a specific season (start year,
+    e.g. 2025 for the 2025-26 season) and status filter. Not covered by
+    the original probe (which only checked the current-season default),
+    but `season` is football-data.org's own documented v4 query parameter
+    (https://docs.football-data.org) - used here to pull a *completed*
+    prior season's results for empirically calibrating the Elo model's
+    home-advantage and draw-rate parameters from real data, since the
+    current 2026-27 season has no finished matches yet."""
+    headers = _require_token()
+    r = requests.get(
+        f"{BASE_URL}/competitions/PL/matches",
+        headers=headers,
+        params={"season": season, "status": status},
+        timeout=timeout,
+    )
+    r.raise_for_status()
+    return _parse_matches(r.json())
