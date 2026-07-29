@@ -36,5 +36,9 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Update landing page"
+            # same non-fast-forward race the daily sport workflows can hit
+            # (see daily-report.yml/daily-epl-report.yml) - rebase before
+            # pushing rather than failing the run over it.
+            git pull --rebase origin main
             git push
           fi
