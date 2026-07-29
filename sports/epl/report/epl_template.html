@@ -1,0 +1,168 @@
+<title>EPL Daily Analysis — {{ r.date_display }}</title>
+<style>
+{{ inline_font_css|safe }}
+
+{% include "base.css" %}
+</style>
+
+{% import "macros.html" as shared %}
+
+{% macro fx_matchup(fx) %}{{ fx.away_tla }} @ {{ fx.home_tla }}{% endmacro %}
+
+{% macro pick_row(pick) %}
+<tr>
+  <td>{{ pick.label }}</td>
+  <td class="num">{{ "%.0f"|format(pick.away_pct) if pick.away_pct is not none else "—" }}%</td>
+  <td class="num">{{ "%.0f"|format(pick.draw_pct) if pick.draw_pct is not none else "—" }}%</td>
+  <td class="num">{{ "%.0f"|format(pick.home_pct) if pick.home_pct is not none else "—" }}%</td>
+</tr>
+{% endmacro %}
+
+<div class="hero-band">
+<div class="masthead">
+  <h1>EPL Daily Analysis</h1>
+  <div class="meta">{{ r.date_display }}<strong>Published {{ generated_at }}</strong></div>
+</div>
+<div class="disclaimer-strip">Personal-learning report comparing three from-scratch models (Elo, Poisson/xG, Dixon-Coles Monte Carlo) and DRatings' own projection against each other. No betting units, stake sizing, or recommended plays anywhere in this report.</div>
+{% if r.no_fixtures_banner %}
+{# Deliberately NOT .stale-banner - that class uses --accent (clay), this
+   project's "something needs attention" color (see base.css). A gap
+   between matchdays/seasons isn't a problem, so this uses --accent-2
+   (green) instead - same "nothing's wrong" tone as a positive status. #}
+<div style="background:var(--accent-2-tint); border:1px solid var(--accent-2); color:var(--accent-2); border-radius:4px; padding:10px 14px; font-size:var(--fs-body); margin:14px 0 0">⚽ {{ r.no_fixtures_banner }} Everything below still works and is worth a look (Source Summary, Glossary) - the model/prediction sections just have nothing to show until there's a real fixture.</div>
+{% endif %}
+</div>
+
+<div class="eyebrow" id="dd-slate"><span class="label">Today's Fixtures</span><span class="rule"></span></div>
+<div class="table-wrap"><table>
+<thead><tr><th>Matchup</th><th>Kickoff (UTC)</th><th>Matchday</th></tr></thead>
+<tbody>
+{% for fx in r.fixtures %}
+<tr><td style="font-weight:600; white-space:nowrap">{{ fx_matchup(fx) }}</td><td>{{ fx.kickoff.strftime("%H:%M") if fx.kickoff else "—" }}</td><td>{{ fx.matchday if fx.matchday is not none else "—" }}</td></tr>
+{% else %}
+<tr><td colspan="3">No Premier League fixtures today. This is expected outside the season window (real: the 2026-27 season starts 2026-08-21, confirmed via football-data.org) or on a day between matchdays - not a fetch failure.</td></tr>
+{% endfor %}
+</tbody>
+</table></div>
+
+<div class="eyebrow" id="dd-flags"><span class="label">Where Models Disagree</span><span class="sub">fixtures that tripped at least one of the checks below</span><span class="rule"></span></div>
+<div class="disclaimer-strip" style="margin:0 0 6px">A fixture gets flagged when the models actively favor opposite sides (not just a close call), or when DRatings' own favorite disagrees with the models' majority. See "Glossary" below for any unfamiliar terms.</div>
+<div class="table-wrap"><table>
+<thead><tr><th>Matchup</th><th>Why it's flagged</th></tr></thead>
+<tbody>
+{% for fx in r.notable_fixtures %}
+<tr><td style="font-weight:600; white-space:nowrap">{{ fx_matchup(fx) }}</td>
+  <td>{% for f in fx.flags %}<div class="flag-line"><span class="dot"></span><span class="flag-text"><span class="tag-mini">{{ f.label }}</span><span class="detail-main">{{ f.detail }}</span></span></div>{% endfor %}</td></tr>
+{% else %}
+<tr><td colspan="2">No fixtures tripped any notable-game triggers today.</td></tr>
+{% endfor %}
+</tbody>
+</table></div>
+
+<div class="eyebrow" id="dd-alignment"><span class="label">Conviction Board</span><span class="sub">how many of the up-to-4 sources (DRatings, Elo, Poisson/xG, Dixon-Coles) agree on a winner</span><span class="rule"></span></div>
+<div class="table-wrap"><table>
+<thead><tr><th>Matchup</th><th>Agreement</th><th>Pick</th><th>Verdict</th></tr></thead>
+<tbody>
+{% for fx in r.fixtures %}
+{% if fx.conviction_row %}
+<tr>
+  <td style="font-weight:600; white-space:nowrap">{{ fx_matchup(fx) }}</td>
+  <td>{{ shared.agreement_dots(fx.conviction_row.agree_count, fx.conviction_row.total_count) }} {{ fx.conviction_row.agree_count }}/{{ fx.conviction_row.total_count }}</td>
+  <td>{{ fx.conviction_row.label }}</td>
+  <td>{% if not fx.conviction_row.dissenting %}<span class="verdict yes"><span class="dot dot-quiet"></span>Unanimous</span>{% else %}<span class="verdict no"><span class="dot"></span>Split</span>{% endif %}</td>
+</tr>
+{% endif %}
+{% else %}
+<tr><td colspan="4">No fixtures today.</td></tr>
+{% endfor %}
+</tbody>
+</table></div>
+
+<div class="eyebrow" id="dd-predictions"><span class="label">Model Predictions</span><span class="rule"></span></div>
+<div class="disclaimer-strip">Up to four independent projections per fixture - they won't always agree, which is normal and part of the point of tracking them. DRatings is that site's own aggregated projection; Elo, Poisson/xG, and Dixon-Coles are this project's own models (see Glossary for what each one actually does and where it's a simplification, not a claim of perfect accuracy).</div>
+{% for fx in r.fixtures %}
+<div class="hero-card">
+  <div class="kicker">{{ fx_matchup(fx) }}{% if fx.dc_scoreline_top %} <span class="muted">· Dixon-Coles' most-simulated scoreline: {{ fx.dc_scoreline_top[0] }}–{{ fx.dc_scoreline_top[1] }}</span>{% endif %}</div>
+  {% if fx.model_picks %}
+  <div class="table-wrap"><table>
+  <thead><tr><th>Source</th><th class="num">Away win</th><th class="num">Draw</th><th class="num">Home win</th></tr></thead>
+  <tbody>
+  {% for pick in fx.model_picks %}{{ pick_row(pick) }}{% endfor %}
+  </tbody>
+  </table></div>
+  {% else %}
+  <div class="also-note">No source had enough real data to project this fixture yet (a newly-promoted club with too little Understat history, for example - see each model's own docstring for its exact data-sufficiency bar).</div>
+  {% endif %}
+</div>
+{% else %}
+<div class="card boxed">No fixtures today.</div>
+{% endfor %}
+
+<div class="eyebrow" id="dd-track-record"><span class="label">Track Record</span><span class="sub">trailing days' highest-conviction pick vs. what actually happened</span><span class="rule"></span></div>
+<div class="card boxed">
+Not built yet - this needs a prediction-logging + results-scoring pipeline (the same kind of infrastructure MLB's tracker uses), which is separate follow-up work, not part of shipping this page. Shown here in its correct position so the section order matches the MLB page; it will fill in once that tracker exists.
+</div>
+
+<div class="eyebrow" id="dd-accuracy-all"><span class="label">Accuracy — All Games</span><span class="sub">every scored fixture, accumulated across every day tracked so far</span><span class="rule"></span></div>
+<div class="card boxed">
+Not built yet - same reason as Track Record above: no prediction/results log exists for EPL yet.
+</div>
+
+<div class="eyebrow" id="dd-accuracy-predictors"><span class="label">What Predicts Accuracy</span><span class="sub">does confidence tier or source agreement actually correlate with a correct pick?</span><span class="rule"></span></div>
+<div class="card boxed">
+Not built yet - same reason as the two sections above.
+</div>
+
+<div class="eyebrow" id="dd-sources-summary"><span class="label">Source Summary</span><span class="rule"></span></div>
+<div class="table-wrap"><table>
+<thead><tr><th>Source</th><th>What it contains</th></tr></thead>
+<tbody>
+<tr><td style="white-space:nowrap">DRatings</td><td>Model projected score per team, three-way win/draw/loss probability, and best available market moneyline/total across tracked sportsbooks.</td></tr>
+<tr><td style="white-space:nowrap">ClubElo</td><td>Live Elo power ratings, filtered to England's top flight - also this report's live source of truth for which clubs are actually in the Premier League this season (promotion/relegation isn't hardcoded anywhere here).</td></tr>
+<tr><td style="white-space:nowrap">Understat</td><td>Real per-team, per-match expected-goals (xG) history - feeds the Poisson/xG and Dixon-Coles models' attack/defense strength estimates.</td></tr>
+<tr><td style="white-space:nowrap">football-data.org</td><td>Official fixture list (kickoff times, matchdays, results once played). Requires a free API token - see sports/epl/fetch/football_data.py.</td></tr>
+<tr><td style="white-space:nowrap">Kalshi</td><td>Checked and deliberately <strong>not used</strong> for match predictions: Kalshi offers EPL props (first goalscorer, corners, first-half winner) and a season-long title-winner future, but no full-match moneyline market exists (confirmed by scanning all their listed series) - unlike MLB, where Kalshi's KXMLBGAME market is a direct per-game win probability. Included here for the same reason Reddit's real limitation is documented on the MLB page: an honest gap is more useful than silently pretending the source covers something it doesn't.</td></tr>
+<tr><td style="white-space:nowrap">Reddit</td><td>Club mentions scanned from r/soccer's most recent submissions (titles only, no comment text - RSS doesn't provide that). Unlike MLB's r/sportsbook, r/soccer has no daily "discussion" megathread to anchor on, so this scans recent activity generally rather than one dated thread.</td></tr>
+</tbody>
+</table></div>
+
+<div class="eyebrow" id="dd-reddit"><span class="label">Reddit Sentiment</span><span class="rule"></span></div>
+{% if r.reddit and r.reddit.available %}
+<div class="disclaimer-strip">{{ r.reddit.entry_count }} recent r/soccer submissions scanned. {{ r.reddit.note }}</div>
+{% if r.reddit.mentions %}
+<div class="table-wrap"><table>
+<thead><tr><th>Club</th><th class="num">Mentions</th><th>Sample</th></tr></thead>
+<tbody>
+{% for club, mention in r.reddit.mentions.items() %}
+<tr><td style="font-weight:600">{{ club }}</td><td class="num">{{ mention.count }}</td><td>{{ mention.snippets[0] if mention.snippets else "—" }}</td></tr>
+{% endfor %}
+</tbody>
+</table></div>
+{% else %}
+<div class="card boxed">No club mentions found in the scanned window.</div>
+{% endif %}
+{% else %}
+<div class="card boxed">Reddit sentiment isn't available today{% if r.reddit and r.reddit.note %}: {{ r.reddit.note }}{% endif %}.</div>
+{% endif %}
+
+<div class="eyebrow" id="dd-glossary"><span class="label">Glossary</span><span class="sub">jargon used above, in plain English</span><span class="rule"></span></div>
+<div class="card boxed glossary">
+<dl>
+  <dt>xG (expected goals)</dt><dd>A number representing how good a team's scoring chances were in a match, regardless of whether they actually scored - a shot from close range with no defenders counts for more xG than a long-range speculative effort. More stable match-to-match than actual goals.</dd>
+  <dt>npxG</dt><dd>Non-penalty xG - the same idea, with penalty-kick chances excluded (penalties are converted at a very different, more predictable rate than open play).</dd>
+  <dt>Elo rating</dt><dd>A single number representing team strength, going up when a team beats a stronger opponent and down when it loses to a weaker one - same family of rating chess uses.</dd>
+  <dt>Dixon-Coles model</dt><dd>A statistical adjustment (Dixon &amp; Coles, 1997) to a plain goals-based model that corrects for real football matches having slightly more low-scoring draws (0-0, 1-1) than a naive model expects.</dd>
+  <dt>Monte Carlo simulation</dt><dd>Instead of computing an exact answer with one formula, the model plays out the match thousands of times with realistic randomness and counts how often each outcome happens.</dd>
+  <dt>Moneyline / three-way market</dt><dd>A bet on the match result: home win, draw, or away win - unlike MLB, a draw is a real possible outcome here, not just win/loss.</dd>
+  <dt>Matchday</dt><dd>The Premier League's round number for the current fixture list (all 20 clubs play once per matchday across a normal weekend).</dd>
+</dl>
+</div>
+
+<div class="eyebrow" id="dd-sources"><span class="label">Sources</span><span class="rule"></span></div>
+<ul class="sources">
+{% for name, url in r.source_urls.items() %}
+<li><span class="src-name">{{ name }}</span><a href="{{ url }}" target="_blank" rel="noopener">{{ url }}</a></li>
+{% endfor %}
+</ul>
+
+<div class="final-note">Personal learning project: compares model/market data to actual outcomes over time. No betting units, stake sizing, or recommended plays are included or implied anywhere in this report.</div>
