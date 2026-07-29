@@ -48,5 +48,11 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Daily MLB analysis: $(date -u +%Y-%m-%d)"
+            # another sport's workflow can land a commit on main between
+            # checkout and here (seen for real: this and the EPL workflow
+            # both dispatched around the same time, second push rejected
+            # as non-fast-forward) - rebase onto whatever's there now
+            # before pushing rather than failing the whole run over it.
+            git pull --rebase origin main
             git push
           fi
