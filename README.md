@@ -95,6 +95,20 @@ Every game is checked against six triggers (thresholds in
 - **(e)** weather/park effect (BPP net%) `>= 8%`
 - **(f)** MoundEdge's own trend arrow contradicts its L30-vs-season numbers
 
+## Totals threshold tracking
+
+The report's "Totals Threshold Tracking" section forward-tests the rule
+"bet the over when model total ≥ market total + threshold" — paper/
+analysis only, never connected to real order placement. Candidate
+thresholds (`CANDIDATE_THRESHOLDS` in `sports/mlb/tracker/
+totals_threshold.py`) were picked from a one-time backtest, but the
+number shown on the site only counts games logged on/after the date this
+feature shipped (`FORWARD_TRACKING_START_DATE`), so it's a genuine
+forward test on new data rather than a re-run of the same games used to
+pick the thresholds. Re-run `backtest_thresholds()` in that module
+against the full history any time you want the original backtest numbers
+again.
+
 ## Local development / re-probing sources
 
 `scripts/probe_sources.py` is the reconnaissance script used to figure out

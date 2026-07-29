@@ -21,6 +21,7 @@ from sports.mlb.tracker.accuracy_breakdown import build_accuracy_breakdown
 from sports.mlb.tracker.log_predictions import log_todays_predictions
 from sports.mlb.tracker.log_results import PREDICTIONS_LOG_PATH, RESULTS_LOG_PATH, fetch_and_log_results
 from sports.mlb.tracker.scoring import score_predictions
+from sports.mlb.tracker.totals_threshold import FORWARD_TRACKING_START_DATE, forward_hit_rates
 from sports.mlb.tracker.track_record import build_track_record
 
 ET = ZoneInfo("America/New_York")  # MLB slates are organized by US Eastern date
@@ -179,6 +180,21 @@ def main():
         print(f"[warn] Accuracy breakdown build failed: {e}", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
         report_data["accuracy_breakdown"] = None
+
+    # Totals threshold forward-tracking: paper/analysis only, no order
+    # placement anywhere - see totals_threshold.py's module docstring.
+    # Deliberately re-run every day rather than cached, so each new day's
+    # logged games extend the out-of-sample count without any extra state.
+    try:
+        report_data["totals_threshold_forward"] = forward_hit_rates(predictions_rows, results_rows)
+        report_data["totals_threshold_start_date"] = FORWARD_TRACKING_START_DATE
+        n_qualifying = sum(row.qualifying for row in report_data["totals_threshold_forward"])
+        print(f"Totals threshold forward-tracking: {n_qualifying} qualifying game-threshold entries since {FORWARD_TRACKING_START_DATE}")
+    except Exception as e:
+        print(f"[warn] Totals threshold forward-tracking failed: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        report_data["totals_threshold_forward"] = []
+        report_data["totals_threshold_start_date"] = FORWARD_TRACKING_START_DATE
 
     inline_font_css = _fetch_safe("Google Fonts (Oswald/Inter)", _inline_font_css, "")
     if inline_font_css:
