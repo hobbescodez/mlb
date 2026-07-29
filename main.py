@@ -189,13 +189,16 @@ def main():
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     dated_path = OUTPUT_DIR / f"{today_iso}.html"
-    index_path = OUTPUT_DIR / "index.html"
+    # was docs/index.html - moved to docs/mlb.html so the site root can be
+    # a real cross-sport landing page instead of MLB claiming it outright
+    # (see build_landing_page.py)
+    mlb_index_path = OUTPUT_DIR / "mlb.html"
     fragment_path = OUTPUT_DIR / "artifact_fragment.html"
     dated_path.write_text(html, encoding="utf-8")
-    index_path.write_text(html, encoding="utf-8")
+    mlb_index_path.write_text(html, encoding="utf-8")
     fragment_path.write_text(fragment_html, encoding="utf-8")
 
-    print(f"Wrote {dated_path}, {index_path}, and {fragment_path}")
+    print(f"Wrote {dated_path}, {mlb_index_path}, and {fragment_path}")
 
 
 if __name__ == "__main__":

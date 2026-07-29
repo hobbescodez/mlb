@@ -31,15 +31,17 @@ The live report is published as a Claude Artifact:
 A Claude Code Remote Routine ("MLB Daily Analysis — Artifact Refresh", cron
 `20 14 * * *`) fires 20 minutes after the GitHub Actions job, pulls the
 freshly-generated `docs/artifact_fragment.html`, and redeploys it to that
-same URL, so the link never changes. `docs/index.html` (the full HTML page,
+same URL, so the link never changes. `docs/mlb.html` (the full HTML page,
 not the artifact fragment) is still generated too and works as a plain
-GitHub Pages site if you'd rather host it that way instead/as well.
+GitHub Pages page if you'd rather read it that way instead/as well - the
+site root (`docs/index.html`) is a small cross-sport landing page linking
+out to MLB/NFL/EPL, not the MLB report itself (see `build_landing_page.py`).
 
 ## How it runs
 
 `.github/workflows/daily-report.yml` runs `main.py` once a day (14:00 UTC)
 via GitHub Actions `schedule`, and on-demand via `workflow_dispatch`. It
-writes `docs/<date>.html` and `docs/index.html` and commits them back to
+writes `docs/<date>.html` and `docs/mlb.html` and commits them back to
 the repository.
 
 The 14:00 UTC time (rather than an earlier, "well before first pitch"
