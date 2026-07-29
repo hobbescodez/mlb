@@ -80,7 +80,13 @@
 }
 
 * { box-sizing: border-box; }
-html, body { background: var(--bg); }
+/* Was a flat var(--bg) fill - read as plain grey across a full page of
+   cards with nothing to break it up. Reuses --sky-a (already defined for
+   the hero-band gradient, not a new color) as a soft light source fading
+   in from the top, same "broadcast graphic" concept extended to the
+   whole page instead of just the masthead strip. */
+html, body { background: radial-gradient(ellipse 1400px 900px at 50% -12%, var(--sky-a) 0%, var(--bg) 55%);
+  background-attachment: fixed; }
 body {
   color: var(--ink);
   font-family: var(--font-body);
@@ -100,6 +106,23 @@ body {
 td, th { font-variant-numeric: tabular-nums; }
 strong { font-weight: 600; }
 
+/* ---------- site nav ---------- */
+/* Cross-sport header, shown on every real page (index/mlb/epl/nfl) but
+   deliberately left out of the Claude Artifact fragment - see
+   macros.html's site_nav() and each sport's render.py (show_nav=False
+   for render_artifact_fragment). Sticky so it stays reachable while
+   scrolling a long report, same "genuinely usable" bar for mobile and
+   desktop alike since it's just a handful of short text links. */
+.site-nav { position: sticky; top: 0; z-index: 20; display: flex; justify-content: center;
+  gap: 6px; flex-wrap: wrap; margin: -26px -20px 0; padding: 10px 20px;
+  background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.site-nav-link { font-family: var(--font-display); font-size: var(--fs-fine); font-weight: 700;
+  letter-spacing: 0.03em; text-transform: uppercase; color: var(--muted); text-decoration: none;
+  padding: 6px 14px; border-radius: 20px; transition: background 0.15s ease, color 0.15s ease; }
+.site-nav-link:hover { background: var(--card); color: var(--ink); }
+.site-nav-link.is-active { background: var(--accent-2); color: #fff; }
+.site-nav-link.is-disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+
 /* ---------- masthead ---------- */
 /* Pale sky-to-chalk gradient band, dark text throughout in light mode -
    the "safe" version of the reference weather-app's dark hero strip.
@@ -108,6 +131,10 @@ strong { font-weight: 600; }
 .hero-band { margin: -26px -20px 28px; padding: 26px 20px 22px;
   background: linear-gradient(180deg, var(--sky-a), var(--sky-b));
   border-radius: 0 0 20px 20px; }
+/* When site-nav precedes it, the nav bar already cancels body's top
+   padding - hero-band shouldn't also pull up (that would tuck its top
+   26px behind the nav bar). */
+.hero-band.with-nav { margin-top: 0; }
 .masthead { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
   border-bottom: 3px solid var(--ink); padding-bottom: 14px; margin-bottom: 6px; flex-wrap: wrap; }
 .masthead h1 { margin: 0; font-family: var(--font-display); font-size: var(--fs-title); font-weight: 700;
@@ -368,10 +395,11 @@ a { color: var(--ink); }
 
 
 
+
 <div class="hero-band">
 <div class="masthead">
   <h1>EPL Daily Analysis</h1>
-  <div class="meta">Wednesday, July 29, 2026<strong>Published 2026-07-28 19:50 PDT</strong></div>
+  <div class="meta">Wednesday, July 29, 2026<strong>Published 2026-07-28 23:15 PDT</strong></div>
 </div>
 <div class="disclaimer-strip">Personal-learning report comparing three from-scratch models (Elo, Poisson/xG, Dixon-Coles Monte Carlo) and DRatings' own projection against each other. No betting units, stake sizing, or recommended plays anywhere in this report.</div>
 
@@ -452,6 +480,8 @@ Not built yet - same reason as the two sections above.
 <div class="table-wrap"><table>
 <thead><tr><th>Club</th><th class="num">Mentions</th><th>Sample</th></tr></thead>
 <tbody>
+
+<tr><td style="font-weight:600">Fulham</td><td class="num">1</td><td>[Yahoo Sports] Cesar Palacios getting closer to joining Fulham</td></tr>
 
 <tr><td style="font-weight:600">Brentford</td><td class="num">1</td><td>[L&#39;Equipe] Brentford in advanced talks with Lens for Mamadou Sangaré for a deal worth around €48 million</td></tr>
 
