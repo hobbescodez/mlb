@@ -24,6 +24,13 @@
   <div class="meta">{{ r.date_display }}<strong>Published {{ generated_at }}</strong></div>
 </div>
 <div class="disclaimer-strip">Personal-learning report comparing three from-scratch models (Elo, Poisson/xG, Dixon-Coles Monte Carlo) and DRatings' own projection against each other. No betting units, stake sizing, or recommended plays anywhere in this report.</div>
+{% if r.no_fixtures_banner %}
+{# Deliberately NOT .stale-banner - that class uses --accent (clay), this
+   project's "something needs attention" color (see base.css). A gap
+   between matchdays/seasons isn't a problem, so this uses --accent-2
+   (green) instead - same "nothing's wrong" tone as a positive status. #}
+<div style="background:var(--accent-2-tint); border:1px solid var(--accent-2); color:var(--accent-2); border-radius:4px; padding:10px 14px; font-size:var(--fs-body); margin:14px 0 0">⚽ {{ r.no_fixtures_banner }} Everything below still works and is worth a look (Source Summary, Glossary) - the model/prediction sections just have nothing to show until there's a real fixture.</div>
+{% endif %}
 </div>
 
 <div class="eyebrow" id="dd-slate"><span class="label">Today's Fixtures</span><span class="rule"></span></div>

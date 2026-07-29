@@ -142,6 +142,7 @@ def build_report_data(
     elo_home_advantage,
     elo_draw_rate,
     poisson_league_rates,
+    next_fixture_date=None,
 ):
     """football_data_matches: list[FootballDataMatch], the fixture anchor.
     dratings_matches/clubelo_ratings/understat_histories: raw fetch
@@ -246,11 +247,31 @@ def build_report_data(
 
     notable_fixtures = [fx for fx in fixtures if fx.flags]
 
+    # A real off-season/between-matchdays gap produces an honest but
+    # repetitive page (every section says "no fixtures"/"not built yet"
+    # in a row) - this banner gives a visitor the one-line explanation up
+    # front instead of making them read six empty boxes to piece it
+    # together. next_fixture_date, when given, is a real value the caller
+    # fetched (the earliest real upcoming kickoff) - never guessed here.
+    no_fixtures_banner = None
+    if not fixtures:
+        if next_fixture_date is not None:
+            no_fixtures_banner = (
+                f"No Premier League fixtures today. The next one is "
+                f"{next_fixture_date.strftime('%A, %B %-d')} - check back then for model predictions."
+            )
+        else:
+            no_fixtures_banner = (
+                "No Premier League fixtures today, and no upcoming fixture could be found either "
+                "(likely between seasons). Check back once the schedule is confirmed."
+            )
+
     return {
         "sport": "epl",
         "date_iso": today_iso,
         "date_display": today_display,
         "fixtures": fixtures,
+        "no_fixtures_banner": no_fixtures_banner,
         "notable_fixtures": notable_fixtures,
         "reddit": reddit_result,
         "source_urls": {

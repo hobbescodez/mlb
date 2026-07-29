@@ -55,6 +55,15 @@ def main():
     fd_matches = _fetch_safe("football-data.org", football_data.fetch_todays_matches, [])
     print(f"football-data.org: {len(fd_matches)} fixture(s) today")
 
+    next_fixture_date = None
+    if not fd_matches:
+        # real value for the "no fixtures today" banner, not a guess -
+        # the earliest actual upcoming scheduled kickoff, if any exists
+        upcoming = _fetch_safe("football-data.org (upcoming)", football_data.fetch_upcoming_matches, [])
+        if upcoming:
+            next_fixture_date = min(m.utc_kickoff for m in upcoming)
+            print(f"Next real fixture: {next_fixture_date.isoformat()}")
+
     dr_matches = _fetch_safe("DRatings", dratings.fetch_upcoming_matches, [])
     print(f"DRatings: {len(dr_matches)} upcoming match(es)")
 
@@ -112,6 +121,7 @@ def main():
         fd_matches, dr_matches, clubelo_ratings, understat_histories, reddit_result,
         today_iso, today_display,
         elo_home_advantage, elo_draw_rate, poisson_league_rates,
+        next_fixture_date=next_fixture_date,
     )
 
     inline_font_css = _fetch_safe("Google Fonts (Oswald/Inter)", _inline_font_css, "")
