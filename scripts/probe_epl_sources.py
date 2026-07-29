@@ -233,36 +233,41 @@ def probe_kalshi_epl():
 
 
 def probe_action_network():
-    hr("Action Network: EPL odds page - locate widget/embedded JSON")
-    # first pass got status=202 bytes=0 with default headers - likely
-    # bot-detection or an async placeholder response. Trying an Accept
-    # header and printing response headers this time to see what's
-    # actually being returned before giving up on this source.
+    hr("Action Network: EPL odds page - locate the real game/matchup array inside __NEXT_DATA__")
+    # second pass confirmed __NEXT_DATA__ is real and huge (677KB) but the
+    # first 2000 chars printed previously were just the allBooks lookup
+    # table, not actual matchups. This pass walks pageProps' own keys and
+    # prints whichever ones are list-shaped (that's where per-game data
+    # would live) plus their first item, instead of a blind character slice.
     headers = {**BROWSER_HEADERS, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
     r = get("https://www.actionnetwork.com/soccer/odds", headers=headers)
-    print(f"response headers: {dict(r.headers)}")
     text = r.text
-    if not text:
-        print("still empty body - trying Action Network's public JSON API directly instead of the HTML page")
-        r2 = get("https://api.actionnetwork.com/web/v2/scoreboard/soccer/8", headers=headers)
-        print(f"api attempt body (first 1500 chars): {r2.text[:1500]}")
-        return
-    custom_tags = sorted(set(re.findall(r"<([a-z]+-[a-z-]+)[ >]", text)))
-    print(f"custom element tag names found: {custom_tags[:20]}")
-    for kw in ("__NEXT_DATA__", "window.__INITIAL_STATE__", "matchups", "odds"):
-        c = text.count(kw)
-        if c:
-            idx = text.find(kw)
-            print(f"\nkeyword {kw!r} found {c}x, first context:")
-            print(text[max(0, idx - 100): idx + 600])
     m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.+?)</script>', text, re.S)
-    if m:
-        print(f"\n__NEXT_DATA__ blob length: {len(m.group(1))} chars")
-        try:
-            data = json.loads(m.group(1))
-            print(json.dumps(data, indent=2, default=str)[:2000])
-        except Exception as e:
-            print(f"json parse failed: {e}")
+    if not m:
+        print("__NEXT_DATA__ not found this time either")
+        return
+    try:
+        data = json.loads(m.group(1))
+    except Exception as e:
+        print(f"json parse failed: {e}")
+        return
+    page_props = data.get("props", {}).get("pageProps", {})
+    print(f"pageProps top-level keys: {list(page_props.keys())}")
+    for key, val in page_props.items():
+        if isinstance(val, list):
+            print(f"\n--- pageProps[{key!r}]: list with {len(val)} items ---")
+            if val:
+                print(json.dumps(val[0], indent=2, default=str)[:2500])
+        elif isinstance(val, dict):
+            # some APIs nest the real game list one level deeper, e.g. {'games': [...]}
+            nested_lists = [k for k, v in val.items() if isinstance(v, list)]
+            if nested_lists:
+                print(f"\n--- pageProps[{key!r}] is a dict with list-valued sub-keys: {nested_lists} ---")
+                for nk in nested_lists:
+                    nested = val[nk]
+                    print(f"  pageProps[{key!r}][{nk!r}]: list with {len(nested)} items")
+                    if nested:
+                        print(f"  first item: {json.dumps(nested[0], indent=2, default=str)[:2000]}")
 
 
 def probe_reddit_soccer_rss():
