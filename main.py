@@ -21,7 +21,12 @@ from sports.mlb.tracker.accuracy_breakdown import build_accuracy_breakdown
 from sports.mlb.tracker.log_predictions import log_todays_predictions
 from sports.mlb.tracker.log_results import PREDICTIONS_LOG_PATH, RESULTS_LOG_PATH, fetch_and_log_results
 from sports.mlb.tracker.scoring import score_predictions
-from sports.mlb.tracker.totals_threshold import FORWARD_TRACKING_START_DATE, forward_hit_rates
+from sports.mlb.tracker.totals_threshold import (
+    FORWARD_TRACKING_START_DATE,
+    PICK_THRESHOLD,
+    backtest_thresholds,
+    forward_hit_rates,
+)
 from sports.mlb.tracker.track_record import build_track_record
 
 ET = ZoneInfo("America/New_York")  # MLB slates are organized by US Eastern date
@@ -169,6 +174,28 @@ def main():
         print(f"[warn] Overall accuracy build failed: {e}", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
         report_data["overall_accuracy"] = []
+
+    # Totals pick-rule accuracy, all logged games to date: how many games
+    # ever cleared PICK_THRESHOLD (i.e. would have gotten a totals pick
+    # logged under the current rule) and how that subset has done, vs.
+    # every game in overall_accuracy above. Paper/analysis only, same
+    # no-trading guarantee as everything else in tracker/ - see
+    # totals_threshold.py's module docstring for why PICK_THRESHOLD was
+    # chosen. NOTE this re-uses the same full history the backtest used
+    # to pick PICK_THRESHOLD in the first place, so it's expected to look
+    # decent - it is not the out-of-sample check. The Totals Threshold
+    # Tracking section further down (forward_hit_rates, scoped to dates
+    # on/after FORWARD_TRACKING_START_DATE) is the genuine forward test.
+    try:
+        report_data["totals_pick_threshold"] = PICK_THRESHOLD
+        report_data["totals_pick_alltime"] = backtest_thresholds(
+            predictions_rows, results_rows, thresholds=(PICK_THRESHOLD,),
+        )[0]
+    except Exception as e:
+        print(f"[warn] Totals pick-rule all-time accuracy build failed: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        report_data["totals_pick_threshold"] = PICK_THRESHOLD
+        report_data["totals_pick_alltime"] = None
 
     # "What predicts accuracy" analysis: win-pick accuracy broken out by
     # confidence tier, source-agreement count, and flagged/notable status -
